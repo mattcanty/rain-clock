@@ -5,7 +5,7 @@ float hoursRadius;
 float clockDiameter;
 
 void setup() {
-  size(640, 360);
+  size(window.innerWidth, window.innerHeight);
   stroke(255);
   
   int radius = min(width, height) / 2;
@@ -19,10 +19,10 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(255);
   
   // Draw the clock background
-  fill(80);
+  fill(255);
   noStroke();
   ellipse(cx, cy, clockDiameter, clockDiameter);
   
@@ -33,7 +33,7 @@ void draw() {
   float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - HALF_PI;
   
   // Draw the hands of the clock
-  stroke(255);
+  stroke(0);
   strokeWeight(1);
   line(cx, cy, cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
   strokeWeight(2);
