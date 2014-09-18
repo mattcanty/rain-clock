@@ -18,46 +18,55 @@ void setup() {
   cy = height / 2;
 }
 
-void draw() {
-  background(255);
-  
-  // Draw the clock background
-  //fill(255);
-  //noStroke();
-  //ellipse(cx, cy, clockDiameter, clockDiameter);
-  
+
+
+void drawRainPrediction(minute) {
   // Draw the rain prediction
   stroke(150);
   fill(150);
-  for (int a = 0; a < 360; a+=6) {
-    beginShape();
-    
-    // Top left
-    float angle = radians(a);
-    float x = cx + cos(angle) * secondsRadius;
-    float y = cy + sin(angle) * secondsRadius;
-    vertex(x, y);
-    
-    // Top right
-    float angle = radians(a + 6);
-    float x = cx + cos(angle) * secondsRadius;
-    float y = cy + sin(angle) * secondsRadius;
-    vertex(x, y);
-    
-    // Bottom left
-    float angle = radians(a + 6);
-    float x = cx + cos(angle) * secondsRadius / 2;
-    float y = cy + sin(angle) * secondsRadius / 2;
-    vertex(x, y);
-    
-    // Bottom right
-    float angle = radians(a);
-    float x = cx + cos(angle) * secondsRadius / 2;
-    float y = cy + sin(angle) * secondsRadius / 2;
-    vertex(x, y);
-    
-    endShape();
-  }
+  
+  beginShape();
+  
+  a = (minute - 1) * 6;
+  
+  // Top left
+  float angle = radians(a) - HALF_PI;
+  float x = cx + cos(angle) * secondsRadius;
+  float y = cy + sin(angle) * secondsRadius;
+  vertex(x, y);
+  
+  // Top right
+  float angle = radians(a + 6) - HALF_PI;
+  float x = cx + cos(angle) * secondsRadius;
+  float y = cy + sin(angle) * secondsRadius;
+  vertex(x, y);
+  
+  // Bottom left
+  float angle = radians(a + 6) - HALF_PI;
+  float x = cx + cos(angle) * secondsRadius / 2;
+  float y = cy + sin(angle) * secondsRadius / 2;
+  vertex(x, y);
+  
+  // Bottom right
+  float angle = radians(a) - HALF_PI;
+  float x = cx + cos(angle) * secondsRadius / 2;
+  float y = cy + sin(angle) * secondsRadius / 2;
+  vertex(x, y);
+  
+  endShape();
+}
+
+void draw() {
+  background(255);
+  
+  drawRainPrediction(1);
+  drawRainPrediction(2);
+  drawRainPrediction(3);
+  drawRainPrediction(5);
+  drawRainPrediction(15);
+  drawRainPrediction(30);
+  drawRainPrediction(45);
+  drawRainPrediction(60);
   
   // Angles for sin() and cos() start at 3 o'clock;
   // subtract HALF_PI to make them start at the top
