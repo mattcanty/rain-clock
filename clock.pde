@@ -10,20 +10,20 @@ float clockDiameter;
 void setup() {
   size(window.innerWidth, window.innerHeight);
   stroke(255);
-  
+
   int radius = min(width, height) / 2;
   secondsRadius = radius * 0.72;
   minutesRadius = radius * 0.60;
   hoursRadius = radius * 0.50;
   clockDiameter = radius * 2;
-  
+
   cx = width / 2;
   cy = height / 2;
 }
 
 void drawHands(){
   float s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
-  float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - HALF_PI; 
+  float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - HALF_PI;
   float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - HALF_PI;
 
   stroke(0);
@@ -50,52 +50,55 @@ void drawMinuteTicks(){
 void drawRainPrediction(minute, probabilityOfRain) {
   stroke(255 - probabilityOfRain);
   fill(255 - probabilityOfRain);
-  
+
   beginShape();
-  
+
   a = (minute - 1) * 6;
-  
+
   // Top left
   float angle = radians(a) - HALF_PI;
   float x = cx + cos(angle) * secondsRadius;
   float y = cy + sin(angle) * secondsRadius;
   vertex(x, y);
-  
+
   // Top right
   float angle = radians(a + 6) - HALF_PI;
   float x = cx + cos(angle) * secondsRadius;
   float y = cy + sin(angle) * secondsRadius;
   vertex(x, y);
-  
+
   // Bottom left
   float angle = radians(a + 6) - HALF_PI;
   float x = cx + cos(angle) * secondsRadius / 2;
   float y = cy + sin(angle) * secondsRadius / 2;
   vertex(x, y);
-  
+
   // Bottom right
   float angle = radians(a) - HALF_PI;
   float x = cx + cos(angle) * secondsRadius / 2;
   float y = cy + sin(angle) * secondsRadius / 2;
   vertex(x, y);
-  
+
   endShape();
 }
 
 void drawMinutePredictions() {
   for(var i = 0; i < 60; i++){
     var minuteForecast = forecast.minutely.data[i];
-    
-    drawRainPrediction(i+1, minuteForecast.precipProbability);
+
+    var date = new Date(minuteForecast.time * 1000);
+
+    drawRainPrediction(date.getMinutes() + 1, minuteForecast.precipProbability * 100);
   }
 }
 
 void draw() {
   background(255);
-  
+
   if(forecast){
     drawMinutePredictions();
   }
+
   drawHands();
   drawMinuteTicks();
 }
