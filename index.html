@@ -1,12 +1,12 @@
 <script src=jquery.min.js></script>
 <script type=text/javascript>
-    var weather;
+  var forecast;
     $.ajax({
     type: 'GET',
-    url: 'weather-data.json',
+    url: 'forecast-data.json',
     dataType: 'json',
     success: function(data) {
-      weather = data; 
+      forecast = data; 
     }
   });
 </script>

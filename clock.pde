@@ -84,16 +84,16 @@ void drawRainPrediction(minute, probabilityOfRain) {
 
 void drawMinutePredictions() {
   for(var i = 0; i < 60; i++){
-    var forecast = weather.minutely.data[i];
+    var minuteForecast = forecast.minutely.data[i];
     
-    drawRainPrediction(i+1, forecast.precipProbability);
+    drawRainPrediction(i+1, minuteForecast.precipProbability);
   }
 }
 
 void draw() {
   background(255);
   
-  if(weather){
+  if(forecast){
     drawMinutePredictions();
   }
   drawHands();
