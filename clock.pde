@@ -61,30 +61,25 @@ void drawRainPrediction(minute, intensity, probability) {
   a = (minute - 1) * 6;
 
   // Top left
-  float angle = radians(a) - HALF_PI;
-  float x = cx + cos(angle) * secondsRadius;
-  float y = cy + sin(angle) * secondsRadius;
-  vertex(x, y);
+  drawRainVertex(a, 1);
 
   // Top right
-  float angle = radians(a + 6) - HALF_PI;
-  float x = cx + cos(angle) * secondsRadius;
-  float y = cy + sin(angle) * secondsRadius;
-  vertex(x, y);
+  drawRainVertex(a + 6, 1);
 
   // Bottom left
-  float angle = radians(a + 6) - HALF_PI;
-  float x = cx + cos(angle) * (secondsRadius * probability);
-  float y = cy + sin(angle) * (secondsRadius * probability);
-  vertex(x, y);
+  drawRainVertex(a + 6, probability);
 
   // Bottom right
-  float angle = radians(a) - HALF_PI;
-  float x = cx + cos(angle) * (secondsRadius * probability);
-  float y = cy + sin(angle) * (secondsRadius * probability);
-  vertex(x, y);
+  drawRainVertex(a, probability);
 
   endShape();
+}
+
+void drawRainVertex(a, b) {
+  float angle = radians(a) - HALF_PI;
+  float x = cx + cos(angle) * (secondsRadius * b);
+  float y = cy + sin(angle) * (secondsRadius * b);
+  vertex(x, y);
 }
 
 void drawMinutePredictions() {
