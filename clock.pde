@@ -48,7 +48,7 @@ void drawMinuteTicks(){
 }
 
 void drawRainPrediction(minute, intensity, probability) {
-  var filterRedGreen = 0; //255 - (probability * 100);
+  var filterRedGreen = 255 - (intensity * 4000);
 
   // R, G, B
   stroke(filterRedGreen, filterRedGreen, 255);
