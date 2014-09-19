@@ -48,13 +48,15 @@ void drawMinuteTicks(){
 }
 
 void drawRainPrediction(minute, intensity, probability) {
-  var filterRedGreen = 255 - (probability * 100);
+  var filterRedGreen = 0; //255 - (probability * 100);
 
   // R, G, B
   stroke(filterRedGreen, filterRedGreen, 255);
   fill(filterRedGreen, filterRedGreen, 255);
 
   beginShape();
+  
+  probability = 1 - probability;
 
   a = (minute - 1) * 6;
 
@@ -72,14 +74,14 @@ void drawRainPrediction(minute, intensity, probability) {
 
   // Bottom left
   float angle = radians(a + 6) - HALF_PI;
-  float x = cx + cos(angle) * secondsRadius / 2;
-  float y = cy + sin(angle) * secondsRadius / 2;
+  float x = cx + cos(angle) * (secondsRadius * probability);
+  float y = cy + sin(angle) * (secondsRadius * probability);
   vertex(x, y);
 
   // Bottom right
   float angle = radians(a) - HALF_PI;
-  float x = cx + cos(angle) * secondsRadius / 2;
-  float y = cy + sin(angle) * secondsRadius / 2;
+  float x = cx + cos(angle) * (secondsRadius * probability);
+  float y = cy + sin(angle) * (secondsRadius * probability);
   vertex(x, y);
 
   endShape();
