@@ -47,9 +47,12 @@ void drawMinuteTicks(){
   endShape();
 }
 
-void drawRainPrediction(minute, probabilityOfRain) {
-  stroke(255 - probabilityOfRain);
-  fill(255 - probabilityOfRain);
+void drawRainPrediction(minute, intensity, probability) {
+  var filterRedGreen = 255 - (probability * 100);
+
+  // R, G, B
+  stroke(filterRedGreen, filterRedGreen, 255);
+  fill(filterRedGreen, filterRedGreen, 255);
 
   beginShape();
 
@@ -88,7 +91,11 @@ void drawMinutePredictions() {
 
     var date = new Date(minuteForecast.time * 1000);
 
-    drawRainPrediction(date.getMinutes() + 1, minuteForecast.precipProbability * 100);
+    var minute = date.getMinutes() + 1;
+    var intensity = minuteForecast.precipIntensity;
+    var probability = minuteForecast.precipProbability;
+    
+    drawRainPrediction(minute, intensity, probability);
   }
 }
 
