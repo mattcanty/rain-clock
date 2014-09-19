@@ -1,2 +1,14 @@
-<script src="processing.js"></script> 
-<canvas data-processing-sources="clock.pde"></canvas>
+<script src=jquery.min.js></script>
+<script type=text/javascript>
+    var weather;
+    $.ajax({
+    type: 'GET',
+    url: 'weather-data.json',
+    dataType: 'json',
+    success: function(data) {
+      weather = data; 
+    }
+  });
+</script>
+<script src=processing.js></script>
+<canvas data-processing-sources=clock.pde></canvas>

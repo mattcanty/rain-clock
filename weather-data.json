@@ -34,17 +34,17 @@
       {
         "time": 1411056120,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 10
       },
       {
         "time": 1411056180,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 20
       },
       {
         "time": 1411056240,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 30
       },
       {
         "time": 1411056300,
@@ -54,17 +54,17 @@
       {
         "time": 1411056360,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 70
       },
       {
         "time": 1411056420,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 100
       },
       {
         "time": 1411056480,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 40
       },
       {
         "time": 1411056540,
@@ -74,7 +74,7 @@
       {
         "time": 1411056600,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 30
       },
       {
         "time": 1411056660,
@@ -114,17 +114,17 @@
       {
         "time": 1411057080,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 30
       },
       {
         "time": 1411057140,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 30
       },
       {
         "time": 1411057200,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 30
       },
       {
         "time": 1411057260,
@@ -149,37 +149,37 @@
       {
         "time": 1411057500,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 19
       },
       {
         "time": 1411057560,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 18
       },
       {
         "time": 1411057620,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 17
       },
       {
         "time": 1411057680,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 16
       },
       {
         "time": 1411057740,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 15
       },
       {
         "time": 1411057800,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 14
       },
       {
         "time": 1411057860,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 13
       },
       {
         "time": 1411057920,
@@ -269,67 +269,67 @@
       {
         "time": 1411058940,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 1
       },
       {
         "time": 1411059000,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 2
       },
       {
         "time": 1411059060,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 20
       },
       {
         "time": 1411059120,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 30
       },
       {
         "time": 1411059180,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 75
       },
       {
         "time": 1411059240,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 75
       },
       {
         "time": 1411059300,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 80
       },
       {
         "time": 1411059360,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 85
       },
       {
         "time": 1411059420,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 88
       },
       {
         "time": 1411059480,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 90
       },
       {
         "time": 1411059540,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 90
       },
       {
         "time": 1411059600,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 95
       },
       {
         "time": 1411059660,
         "precipIntensity": 0,
-        "precipProbability": 0
+        "precipProbability": 100
       }
     ]
   },
