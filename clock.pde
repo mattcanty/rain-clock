@@ -14,7 +14,6 @@ void setup() {
 }
 
 void setSize(w, h){
-  console.log('setting size. w:' + w + ' h:' + h);
   size(w, h);
   
   int radius = min(width, height) / 2;
