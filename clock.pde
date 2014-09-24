@@ -36,7 +36,7 @@ void drawHands(){
   strokeWeight(1);
   line(cx, cy, cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
   strokeWeight(2);
-  line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) *s minutesRadius);
+  line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) * minutesRadius);
   strokeWeight(4);
   line(cx, cy, cx + cos(h) * hoursRadius, cy + sin(h) * hoursRadius);
 }
