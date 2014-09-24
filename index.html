@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html ng-app=weather-clock>
 <head>
+  <script src=config.js></script>
   <script src=/bower_components/jquery/dist/jquery.js></script>
   <script type=text/javascript>
     var forecast;
     
     $.ajax({
       type: 'GET',
-      url: 'https://api.forecast.io/forecast/{YOUR_FORECAST_API_KEY}/51.4572,-0.1092',
+      url: 'https://api.forecast.io/forecast/' + forecast_api_key + '/51.4572,-0.1092',
       dataType: "jsonp",
       success: function(data) {
         forecast = data; 
