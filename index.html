@@ -9,6 +9,10 @@
       forecast = data; 
     }
   });
+  $(window).resize(function(){
+    var clock = Processing.getInstanceById('weather-clock');
+    clock.setSize(window.innerWidth, window.innerHeight);
+  });
 </script>
 <script src=processing.js></script>
-<canvas data-processing-sources=clock.pde></canvas>
+<canvas id=weather-clock data-processing-sources=clock.pde></canvas>

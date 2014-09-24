@@ -8,9 +8,15 @@ float hoursRadius;
 float clockDiameter;
 
 void setup() {
-  size(window.innerWidth, window.innerHeight);
-  stroke(255);
+  setSize(window.innerWidth, window.innerHeight);
 
+  stroke(255);
+}
+
+void setSize(w, h){
+  console.log('setting size. w:' + w + ' h:' + h);
+  size(w, h);
+  
   int radius = min(width, height) / 2;
   secondsRadius = radius * 0.72;
   minutesRadius = radius * 0.60;
@@ -30,7 +36,7 @@ void drawHands(){
   strokeWeight(1);
   line(cx, cy, cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
   strokeWeight(2);
-  line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) * minutesRadius);
+  line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) *s minutesRadius);
   strokeWeight(4);
   line(cx, cy, cx + cos(h) * hoursRadius, cy + sin(h) * hoursRadius);
 }
