@@ -1,21 +1,33 @@
-<script src=/bower_components/jquery/dist/jquery.js></script>
-<script type=text/javascript>
-  var forecast;
+<!DOCTYPE html>
+<html ng-app=weather-clock>
+<head>
+  <script src=/bower_components/jquery/dist/jquery.js></script>
+  <script type=text/javascript>
+    var forecast;
+    
+    $.ajax({
+      type: 'GET',
+      url: 'https://api.forecast.io/forecast/{YOUR_FORECAST_API_KEY}/51.4572,-0.1092',
+      dataType: "jsonp",
+      success: function(data) {
+        forecast = data; 
+      }
+    });
+    
+    $(window).resize(function(){
+      var clock = Processing.getInstanceById('weather-clock');
+      clock.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</head>
+<body ng-controller=Clock>
+  {{serviceMessage}}
+  <canvas id=weather-clock data-processing-sources=clock.pde></canvas>
   
-  $.ajax({
-    type: 'GET',
-    url: 'https://api.forecast.io/forecast/{YOUR_FORECAST_API_KEY}/51.4572,-0.1092',
-    dataType: "jsonp",
-    success: function(data) {
-      forecast = data; 
-    }
-  });
-  
-  $(window).resize(function(){
-    var clock = Processing.getInstanceById('weather-clock');
-    clock.setSize(window.innerWidth, window.innerHeight);
-  });
-</script>
-<script src=/bower_components/angular/angular.js></script>
-<script src=/bower_components/Processing.js/processing.js></script>
-<canvas id=weather-clock data-processing-sources=clock.pde></canvas>
+  <script src=/bower_components/angular/angular.js></script>
+  <script src=/bower_components/Processing.js/processing.js></script>
+  <script src=angular/app.js></script>
+  <script src="angular/services.js"></script>
+  <script src="angular/clock.js"></script>
+</body>
+</html>
