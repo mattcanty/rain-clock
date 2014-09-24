@@ -1,0 +1,33 @@
+{
+  "name": "weather-clock",
+  "version": "0.0.1",
+  "homepage": "https://github.com/matthewcanty/weather-clock",
+  "authors": [
+    "Matthew Canty <matthewcanty@gmail.com>"
+  ],
+  "description": "Displays rain forecast on a clock face",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "weather",
+    "forecast",
+    "clock",
+    "minutely",
+    "forecast.io"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Processing.js": "~1.4.8",
+    "angular": "~1.2.25",
+    "jquery": "~2.1.1"
+  }
+}
