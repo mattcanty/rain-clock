@@ -2,9 +2,17 @@
 <html ng-app=weather-clock>
 <head>
   <title>Weather Clock</title>
+  
+  <!--Angular-->
+  <script src=bower_components/angular/angular.js></script>
+  <script src=angular/app.js></script>
+  <script src=angular/services.js></script>
+  <script src=angular/clock.js></script>
+  
 </head>
 <body ng-controller=Clock>
-  
+  <h1>{{summary}}</h1>
+  <br/>
   <canvas id=weather-clock data-processing-sources=clock.pde></canvas>
   
   <!--Configuration-->
@@ -14,12 +22,6 @@
   
   <script src=bower_components/jquery/dist/jquery.js></script>
   <script src=bower_components/Processing.js/processing.js></script>
-  <script src=bower_components/angular/angular.js></script>
-  
-  <!--Angular-->
-  <script src=angular/app.js></script>
-  <script src=angular/services.js></script>
-  <script src=angular/clock.js></script>
   
   <!--Misc. Scripts-->
   <script src=js/resize.js></script>
