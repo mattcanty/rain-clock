@@ -60,13 +60,19 @@ void drawMinuteTicks(){
 }
 
 void drawRainPrediction(minute, intensity, probability) {
-  var filterRedGreen = 255 - (intensity * 4000);
-
+  var filterRedGreen = 255 - (probability * 255);
+  
   // R, G, B
   stroke(filterRedGreen, filterRedGreen, 255);
   fill(filterRedGreen, filterRedGreen, 255);
 
   beginShape();
+  
+  var normalisedIntensity = 1 - (intensity * 30);
+  var maxDisplayableIntensity = 0.2;
+  var intensityDisplayed = normalisedIntensity < maxDisplayableIntensity 
+  ? maxDisplayableIntensity : normalisedIntensity;
+
   
   probability = 1 - probability;
 
@@ -79,10 +85,10 @@ void drawRainPrediction(minute, intensity, probability) {
   drawRainVertex(a + 6, 1);
 
   // Bottom left
-  drawRainVertex(a + 6, probability);
+  drawRainVertex(a + 6, intensityDisplayed);
 
   // Bottom right
-  drawRainVertex(a, probability);
+  drawRainVertex(a, intensityDisplayed);
 
   endShape();
 }
