@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html ng-app=weather-clock>
 <head>
-  <script src=config.js></script>
-  <script src=bower_components/jquery/dist/jquery.js></script>
-  <script src=js/resize.js></script>
+  <title>Weather Clock</title>
 </head>
 <body ng-controller=Clock>
-  {{serviceMessage}}
+  
   <canvas id=weather-clock data-processing-sources=clock.pde></canvas>
   
-  <script src=bower_components/angular/angular.js></script>
+  <!--Configuration-->
+  <script src=config.js></script>
+  
+  <!--External Libraries-->
+  
+  <script src=bower_components/jquery/dist/jquery.js></script>
   <script src=bower_components/Processing.js/processing.js></script>
+  <script src=bower_components/angular/angular.js></script>
+  
+  <!--Angular-->
   <script src=angular/app.js></script>
   <script src=angular/services.js></script>
   <script src=angular/clock.js></script>
+  
+  <!--Misc. Scripts-->
+  <script src=js/resize.js></script>
 </body>
 </html>
