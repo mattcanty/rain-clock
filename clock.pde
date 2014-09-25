@@ -41,15 +41,22 @@ void drawHands(){
 }
 
 void drawMinuteTicks(){
-  strokeWeight(2);
-  beginShape(POINTS);
   for (int a = 0; a < 360; a+=6) {
+    beginShape(POINTS);
+    if(a % 90 == 0){
+      strokeWeight(4);
+    } else if(a % 30 == 0) {
+      strokeWeight(2);
+    } else {
+      strokeWeight(1);
+    }
+  
     float angle = radians(a);
     float x = cx + cos(angle) * secondsRadius;
     float y = cy + sin(angle) * secondsRadius;
     vertex(x, y);
+    endShape();
   }
-  endShape();
 }
 
 void drawRainPrediction(minute, intensity, probability) {
