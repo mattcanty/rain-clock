@@ -1,6 +1,6 @@
 var services = angular.module('services', []);
  
-services.factory('forecast', function($http, $q) {
+services.factory('forecastApi', function($http, $q) {
     return({
         getForecast: getForecast,
     });
