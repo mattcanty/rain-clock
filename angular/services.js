@@ -2,7 +2,7 @@ var services = angular.module('services', []);
 
 services.factory('forecastApi', function($http, $q) {
 	return({
-		getForecast: getForecast,
+		getForecast: getForecast
 	});
 	
 	function getForecast(lat, long) {
@@ -13,7 +13,7 @@ services.factory('forecastApi', function($http, $q) {
 			method: "jsonp",
 			url: url,
 			params: {
-			callback: 'JSON_CALLBACK'
+				callback: 'JSON_CALLBACK'
 			}
 		});
 		

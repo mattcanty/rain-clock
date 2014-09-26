@@ -17,7 +17,7 @@ function Clock($scope, forecastApi){
       .then(function(data){
         forecast = data;
         $scope.summary = data.currently.summary;
-    });
+      });
   }
   
   function showError(error) {
