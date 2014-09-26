@@ -1,6 +1,6 @@
 var forecast;
 
-function Clock($scope, forecastApi){
+function Clock($scope, apis){
 
   $scope.summary = "Requesting Forecast...";
 
@@ -13,7 +13,7 @@ function Clock($scope, forecastApi){
   }
 
   function getForecastData(position){
-    forecastApi.getForecast(position.coords.latitude,position.coords.longitude)
+    apis.getForecast(position.coords.latitude,position.coords.longitude)
       .then(function(data){
         forecast = data;
         $scope.summary = data.currently.summary;
