@@ -12,6 +12,7 @@
   <link href=styles.css rel=stylesheet>
   
   <!--Angular-->
+  <script src=https://maps.google.com/maps/api/js?sensor=false></script>
   <script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js></script>
   <script src=angular/app.js></script>
   <script src=angular/services.js></script>
@@ -24,6 +25,10 @@
     <div class=row-fluid id=clock-row>
       <div class=col-md-6>
         <h1>{{summary}}</h1>
+        <p>
+          {{position}}<br />
+          Last updated: {{lastUpdated}}
+        </p>
       </div>
       <div class=col-md-6 id=weather-clock-container>
         <canvas data-processing-sources=clock.pde></canvas>
