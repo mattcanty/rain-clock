@@ -8,15 +8,18 @@ float hoursRadius;
 float clockDiameter;
 
 void setup() {
-  setSize(window.innerWidth, window.innerHeight);
+  setSize();
 
   stroke(255);
 }
 
-void setSize(w, h){
-  size(w, h);
+void setSize(){
   
-  int radius = min(width, height) / 2;
+  var squareSize = min($('#weather-clock-div').width(), $('#weather-clock-div').height());
+
+  size(squareSize, squareSize);
+  
+  int radius = squareSize / 2;
   secondsRadius = radius * 0.72;
   minutesRadius = radius * 0.60;
   hoursRadius = radius * 0.50;
@@ -124,3 +127,7 @@ void draw() {
   drawHands();
   drawMinuteTicks();
 }
+
+$(window).resize(function(){
+  setSize();
+});

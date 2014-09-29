@@ -19,15 +19,15 @@
 </head>
 <body ng-controller=Clock>
   
-  <div class=container>
-    <div class=row>
+  <div class=container-fluid>
+    <div class=row-fluid>
       <div class=col-md-12>
         <h1>{{summary}}</h1>
       </div>
     </div>
-    <div class=row>
-      <div class=col-md-12>
-        <canvas id=weather-clock data-processing-sources=clock.pde></canvas>
+    <div class=row-fluid>
+      <div class=col-md-12 id=weather-clock-div>
+        <canvas data-processing-sources=clock.pde></canvas>
       </div>
     </div>
   </div>
