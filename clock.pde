@@ -63,12 +63,12 @@ void drawRainPrediction(minute, intensity, probability) {
   var filterRedGreen = 255 - (probability * 255);
   
   // R, G, B
-  stroke(filterRedGreen, filterRedGreen, 255);
+  stroke(255);
   fill(filterRedGreen, filterRedGreen, 255);
 
   beginShape();
   
-  var normalisedIntensity = 1 - (intensity * 30);
+  var normalisedIntensity = 1 - (intensity * 20);
   var maxDisplayableIntensity = 0.2;
   var intensityDisplayed = normalisedIntensity < maxDisplayableIntensity 
   ? maxDisplayableIntensity : normalisedIntensity;
