@@ -9,6 +9,7 @@
   
   <!--Styles-->
   <link href=//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css rel=stylesheet>
+  <link href=styles.css rel=stylesheet>
   
   <!--Angular-->
   <script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js></script>
@@ -20,13 +21,13 @@
 <body ng-controller=Clock>
   
   <div class=container-fluid>
-    <div class=row-fluid>
+    <div class=row>
       <div class=col-md-12>
         <h1>{{summary}}</h1>
       </div>
     </div>
-    <div class=row-fluid>
-      <div class=col-md-12 id=weather-clock-div>
+    <div class=row id=clock-row>
+      <div class=col-md-12 id=weather-clock-container>
         <canvas data-processing-sources=clock.pde></canvas>
       </div>
     </div>
