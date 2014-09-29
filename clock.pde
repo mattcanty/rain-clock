@@ -15,8 +15,9 @@ void setup() {
 
 void setSize(){
   
-  var squareSize = min($('#weather-clock-div').width(), $('#weather-clock-div').height());
-
+  var container = $('#weather-clock-container');
+  var squareSize = min(container.width(), container.height());
+  
   size(squareSize, squareSize);
   
   int radius = squareSize / 2;
