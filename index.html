@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<html ng-app=weather-clock>
+<html lang=en ng-app=weather-clock>
 <head>
   <title>Weather Clock</title>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <!--Styles-->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
   
   <!--Angular-->
   <script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js></script>
@@ -11,16 +18,26 @@
   
 </head>
 <body ng-controller=Clock>
-  <h1>{{summary}}</h1>
-  <br/>
-  <canvas id=weather-clock data-processing-sources=clock.pde></canvas>
   
+  <div class=container>
+    <div class=row>
+      <div class=col-md-12>
+        <h1>{{summary}}</h1>
+      </div>
+    </div>
+    <div class=row>
+      <div class=col-md-12>
+        <canvas id=weather-clock data-processing-sources=clock.pde></canvas>
+      </div>
+    </div>
+  </div>
+
   <!--Configuration-->
   <script src=config.js></script>
   
   <!--External Libraries-->
-  
   <script src=//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src=bower_components/Processing.js/processing.js></script>
   
   <!--Misc. Scripts-->
