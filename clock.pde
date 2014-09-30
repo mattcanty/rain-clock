@@ -20,7 +20,7 @@ void setSize(){
   
   size(squareSize, squareSize);
   
-  int radius = squareSize / 2;
+  int radius = squareSize * 0.65;
   secondsRadius = radius * 0.72;
   minutesRadius = radius * 0.60;
   hoursRadius = radius * 0.50;
