@@ -3,7 +3,7 @@
 
 int MINUTE_LENGTH = 6;
 int HOUR_LENGTH = 30;
-int MAX_INTENSITY = 0.2;
+int MAX_INTENSITY = 0.8;
 
 int cx, cy;
 float secondsRadius;
@@ -93,7 +93,7 @@ void drawHourlyForecast() {
 int getMinutePastHour(epochTime) {
   var date = new Date(epochTime * 1000);
 
-  return date.getMinutes() + 1;
+  return date.getMinutes();
 }
 
 void drawRainPrediction(time, duration, intensity, probability) {
@@ -103,12 +103,11 @@ void drawRainPrediction(time, duration, intensity, probability) {
   
   beginShape();
   
-  var normalisedIntensity = 1 - (intensity * 20);
-  var intensityDisplayed = max(normalisedIntensity, MAX_INTENSITY);
+  intensity = min(intensity * 20, MAX_INTENSITY);
   
   var start = (time - 1) * duration;
 
-  drawRainSegment(start, duration, intensityDisplayed);
+  drawRainSegment(start, duration, intensity);
 
   endShape();
 }
@@ -121,8 +120,8 @@ void setRainFill(probability) {
 void drawRainSegment(start, duration, depth) {
   drawRainVertex(start, 1);
   drawRainVertex(start + duration, 1);
-  drawRainVertex(start + duration, depth);
-  drawRainVertex(start, depth);
+  drawRainVertex(start + duration, 1 - depth);
+  drawRainVertex(start, 1 - depth);
 }
 
 void drawRainVertex(a, b) {
