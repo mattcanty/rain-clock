@@ -1,6 +1,10 @@
 // Angles for sin() and cos() start at 3 o'clock;
 // subtract HALF_PI to make them start at the top
 
+int MINUTE_LENGTH = 1;
+int HOUR_LENGTH = 5;
+int MAX_INTENSITY = 0.2;
+
 int cx, cy;
 float secondsRadius;
 float minutesRadius;
@@ -31,17 +35,20 @@ void setSize(){
 }
 
 void drawHands(){
+  stroke(0);
+
   float s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
   float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - HALF_PI;
   float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - HALF_PI;
+  
+  drawHand(s, secondsRadius, 1);
+  drawHand(m, minutesRadius, 2);
+  drawHand(h, hoursRadius, 4);
+}
 
-  stroke(0);
-  strokeWeight(1);
-  line(cx, cy, cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
-  strokeWeight(2);
-  line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) * minutesRadius);
-  strokeWeight(4);
-  line(cx, cy, cx + cos(h) * hoursRadius, cy + sin(h) * hoursRadius);
+void drawHand(time, radius, weight) {
+  strokeWeight(weight);
+  line(cx, cy, cx + cos(time) * radius, cy + sin(time) * radius);
 }
 
 void drawMinuteTicks(){
@@ -63,38 +70,54 @@ void drawMinuteTicks(){
   }
 }
 
-void drawRainPrediction(minute, intensity, probability) {
-  var filterRedGreen = 255 - (probability * 255);
-  
-  // R, G, B
-  stroke(255);
-  fill(filterRedGreen, filterRedGreen, 255);
+void drawMinutelyForecast() {
+  for(var i = 0; i < 60; i++){
+    var minuteForecast = forecast.minutely.data[i];
 
+    var minute = getMinutePastHour(minuteForecast.time);
+    
+    drawRainPrediction(minute, minuteForecast.precipIntensity, minuteForecast.precipProbability);
+  }
+}
+
+void drawHourlyForecast() {
+  for(var i = 0; i < 12; i++){
+    var hourlyForecast = forecast.hourly.data[i];
+  }
+}
+
+int getMinutePastHour(epochTime) {
+  var date = new Date(epochTime * 1000);
+
+  return date.getMinutes() + 1;
+}
+
+void drawRainPrediction(time, intensity, probability) {
+  setRainFill(probability);
+  stroke(255);
+  
   beginShape();
   
   var normalisedIntensity = 1 - (intensity * 20);
-  var maxDisplayableIntensity = 0.2;
-  var intensityDisplayed = normalisedIntensity < maxDisplayableIntensity 
-  ? maxDisplayableIntensity : normalisedIntensity;
-
+  var intensityDisplayed = max(normalisedIntensity, MAX_INTENSITY);
   
-  probability = 1 - probability;
+  a = (time - 1) * 6;
 
-  a = (minute - 1) * 6;
-
-  // Top left
-  drawRainVertex(a, 1);
-
-  // Top right
-  drawRainVertex(a + 6, 1);
-
-  // Bottom left
-  drawRainVertex(a + 6, intensityDisplayed);
-
-  // Bottom right
-  drawRainVertex(a, intensityDisplayed);
+  drawRainSegment(a, intensityDisplayed);
 
   endShape();
+}
+
+void setRainFill(probability) {
+  var filterRedGreen = 1 - (255 - (probability * 255));
+  fill(filterRedGreen, filterRedGreen, 255);
+}
+
+void drawRainSegment(duration, depth) {
+  drawRainVertex(duration, 1);
+  drawRainVertex(duration + 6, 1);
+  drawRainVertex(duration + 6, depth);
+  drawRainVertex(duration, depth);
 }
 
 void drawRainVertex(a, b) {
@@ -104,25 +127,11 @@ void drawRainVertex(a, b) {
   vertex(x, y);
 }
 
-void drawMinutePredictions() {
-  for(var i = 0; i < 60; i++){
-    var minuteForecast = forecast.minutely.data[i];
-
-    var date = new Date(minuteForecast.time * 1000);
-
-    var minute = date.getMinutes() + 1;
-    var intensity = minuteForecast.precipIntensity;
-    var probability = minuteForecast.precipProbability;
-    
-    drawRainPrediction(minute, intensity, probability);
-  }
-}
-
 void draw() {
   background(255);
 
   if(forecast){
-    drawMinutePredictions();
+    drawMinutelyForecast();
   }
 
   drawHands();
