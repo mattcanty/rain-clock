@@ -1,8 +1,8 @@
 // Angles for sin() and cos() start at 3 o'clock;
 // subtract HALF_PI to make them start at the top
 
-int MINUTE_LENGTH = 1;
-int HOUR_LENGTH = 5;
+int MINUTE_LENGTH = 6;
+int HOUR_LENGTH = 30;
 int MAX_INTENSITY = 0.2;
 
 int cx, cy;
@@ -76,13 +76,17 @@ void drawMinutelyForecast() {
 
     var minute = getMinutePastHour(minuteForecast.time);
     
-    drawRainPrediction(minute, minuteForecast.precipIntensity, minuteForecast.precipProbability);
+    drawRainPrediction(minute, MINUTE_LENGTH, minuteForecast.precipIntensity, minuteForecast.precipProbability);
   }
 }
 
 void drawHourlyForecast() {
   for(var i = 0; i < 12; i++){
     var hourlyForecast = forecast.hourly.data[i];
+    
+    var minute = getMinutePastHour(hourlyForecast.time);
+    
+    drawRainPrediction(minute, HOUR_LENGTH, hourlyForecast.precipIntensity, hourlyForecast.precipProbability);
   }
 }
 
@@ -92,7 +96,8 @@ int getMinutePastHour(epochTime) {
   return date.getMinutes() + 1;
 }
 
-void drawRainPrediction(time, intensity, probability) {
+void drawRainPrediction(time, duration, intensity, probability) {
+  
   setRainFill(probability);
   stroke(255);
   
@@ -101,9 +106,9 @@ void drawRainPrediction(time, intensity, probability) {
   var normalisedIntensity = 1 - (intensity * 20);
   var intensityDisplayed = max(normalisedIntensity, MAX_INTENSITY);
   
-  a = (time - 1) * 6;
+  var start = (time - 1) * duration;
 
-  drawRainSegment(a, intensityDisplayed);
+  drawRainSegment(start, duration, intensityDisplayed);
 
   endShape();
 }
@@ -113,11 +118,11 @@ void setRainFill(probability) {
   fill(filterRedGreen, filterRedGreen, 255);
 }
 
-void drawRainSegment(duration, depth) {
-  drawRainVertex(duration, 1);
-  drawRainVertex(duration + 6, 1);
-  drawRainVertex(duration + 6, depth);
-  drawRainVertex(duration, depth);
+void drawRainSegment(start, duration, depth) {
+  drawRainVertex(start, 1);
+  drawRainVertex(start + duration, 1);
+  drawRainVertex(start + duration, depth);
+  drawRainVertex(start, depth);
 }
 
 void drawRainVertex(a, b) {
@@ -132,6 +137,7 @@ void draw() {
 
   if(forecast){
     drawMinutelyForecast();
+    //drawHourlyForecast();
   }
 
   drawHands();
