@@ -1,6 +1,11 @@
 var forecast;
+var selectedForecast;
 
 function Clock($scope, apis){
+
+  $scope.select = function (f) {
+    selectedForecast = f;
+  };
 
   function init(){
     $scope.summary = "Requesting Forecast...";
@@ -17,6 +22,11 @@ function Clock($scope, apis){
       $scope.position = "Geolocation is not supported by this browser.";
     }
   }
+  
+  function chooseForecast() {
+    selectedForecast = forecast.minutely ? 'minutely' : 'hourly';
+    $scope.minutelyAvailable = forecast.minutely;
+  }
 
   function getForecastData(position){
     
@@ -30,6 +40,8 @@ function Clock($scope, apis){
         forecast = data;
         $scope.summary = data.currently.summary;
         $scope.lastUpdated = new Date().toLocaleString();
+        
+        chooseForecast();
       });
     
     var geocoder = new google.maps.Geocoder();

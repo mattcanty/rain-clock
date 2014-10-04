@@ -22,14 +22,20 @@
 <body ng-controller=Clock>
   <div class=container-fluid>
     <div class=row-fluid>
-      <div class=col-md-6>
+      <div class=col-md-4>
         <h1>Weather Clock</h1>
         <p>
           {{position}}<br />
           Last updated: {{lastUpdated}}
         </p>
       </div>
-      <div class=row-fluid>
+      <div class=col-md-3>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default" 
+                  ng-disabled=!minutelyAvailable ng-click=select('minutely')>60m</button>
+          <button type="button" class="btn btn-default" 
+                  ng-click=select('hourly')>12hr</button>
+        </div>
       </div>
     </div>
     <div class=row-fluid id=clock-row>

@@ -86,7 +86,7 @@ void drawHourlyForecast() {
     
     var minute = getMinutePastHour(hourlyForecast.time);
     
-    drawRainPrediction(minute, HOUR_LENGTH, hourlyForecast.precipIntensity, hourlyForecast.precipProbability);
+    drawRainPrediction(minute + i, HOUR_LENGTH, hourlyForecast.precipIntensity, hourlyForecast.precipProbability);
   }
 }
 
@@ -134,9 +134,12 @@ void drawRainVertex(a, b) {
 void draw() {
   background(255);
 
-  if(forecast){
-    drawMinutelyForecast();
-    //drawHourlyForecast();
+  if(forecast && selectedForecast){
+    if(selectedForecast == 'minutely') {
+      drawMinutelyForecast();
+    } else if (selectedForecast == 'hourly') {
+      drawHourlyForecast();
+    }
   }
 
   drawHands();
