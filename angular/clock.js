@@ -8,18 +8,18 @@ function Clock($scope, apis){
   };
 
   function init(){
-    $scope.summary = "Requesting Forecast...";
-    $scope.lastUpdated = "Never";
+    $scope.summary = 'Requesting Forecast...';
+    $scope.lastUpdated = 'Never';
     
     $scope.refreshForecast();
   }
 
   $scope.refreshForecast = function(){
-    $scope.position = "Finding your position";
+    $scope.position = 'Finding your position';
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(getForecastData, showError);
     } else {
-      $scope.position = "Geolocation is not supported by this browser.";
+      $scope.position = 'Geolocation is not supported by this browser.';
     }
   }
   
@@ -33,7 +33,7 @@ function Clock($scope, apis){
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
     
-    $scope.position = "Getting the forecast";
+    $scope.position = 'Getting the forecast';
     
     apis.getForecast(latitude, longitude)
       .then(function(data){
@@ -61,20 +61,20 @@ function Clock($scope, apis){
   }
   
   function showError(error) {
-    $scope.summary = "Oops!"
+    $scope.summary = 'Oops!'
     $scope.position = error;
     switch(error.code) {
       case error.PERMISSION_DENIED:
-        $scope.position = "User denied the request for Geolocation.";
+        $scope.position = 'User denied the request for Geolocation.';
         break;
       case error.POSITION_UNAVAILABLE:
-        $scope.position = "Location information is unavailable.";
+        $scope.position = 'Location information is unavailable.';
         break;
       case error.TIMEOUT:
-        $scope.position = "The request to get user location timed out.";
+        $scope.position = 'The request to get user location timed out.';
         break;
       case error.UNKNOWN_ERROR:
-        $scope.position = "An unknown error occurred.";
+        $scope.position = 'An unknown error occurred.';
         break;
     }
   }
