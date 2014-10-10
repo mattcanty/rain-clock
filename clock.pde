@@ -113,7 +113,7 @@ void drawRainPrediction(time, duration, intensity, probability) {
 }
 
 void setRainFill(probability) {
-  var filterRedGreen = 1 - (255 - (probability * 255));
+  var filterRedGreen = 255 - (probability * 255);
   fill(filterRedGreen, filterRedGreen, 255);
 }
 
