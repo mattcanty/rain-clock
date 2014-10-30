@@ -1,0 +1,26 @@
+{
+  "name": "weather-clock",
+  "version": "0.0.1",
+  "description": "View hyper-local rain predictions on a clock",
+  "main": "app.js",
+  "dependencies": {
+    "debug": "^2.1.0",
+    "express": "^4.10.1",
+    "forecast.io": "^0.0.9",
+    "request": "^2.47.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthewcanty/weather-clock.git"
+  },
+  "author": "Matthew Canty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthewcanty/weather-clock/issues"
+  },
+  "homepage": "https://github.com/matthewcanty/weather-clock"
+}
