@@ -6,11 +6,7 @@ services.factory('apis', function($http, $q) {
 	});
 
 	function getForecast(lat, long) {
-		console.log('req: ' + url);
-
-		var request = $http({
-			url: url
-		});
+		var request = $http(document.location.origin + '/forecast/' + lat + ',' + long);
 
 		return( request.then( handleSuccess, handleError ) );
 	}
