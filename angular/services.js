@@ -6,7 +6,11 @@ services.factory('apis', function($http, $q) {
 	});
 
 	function getForecast(lat, long) {
-		var request = $http(document.location.origin + '/forecast/' + lat + ',' + long);
+		
+		var url = document.location.origin + '/forecast/' + lat + ',' + long;
+		var headers = { headers: { 'Content-type': 'application/json' } };
+		
+		var request = $http.get(url, headers);
 
 		return( request.then( handleSuccess, handleError ) );
 	}
