@@ -2,22 +2,22 @@
 <html lang=en ng-app=weather-clock>
 <head>
   <title>Weather Clock</title>
-  
+
   <meta charset=utf-8>
   <meta http-equiv=X-UA-Compatible content=IE=edge>
   <meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <!--Styles-->
   <link href=//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css rel=stylesheet>
   <link href=styles/main.css rel=stylesheet>
-  
+
   <!--Angular-->
-  <script src=https://maps.google.com/maps/api/js?sensor=false></script>
-  <script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js></script>
+  <script src=http://maps.google.com/maps/api/js?sensor=false></script>
+  <script src=http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js></script>
   <script src=angular/app.js></script>
   <script src=angular/services.js></script>
   <script src=angular/clock.js></script>
-  
+
 </head>
 <body ng-controller=Clock>
   <div class=container-fluid>
@@ -31,9 +31,9 @@
       </div>
       <div class=col-md-3>
         <div class=btn-group>
-          <button type=button class="btn btn-default" 
+          <button type=button class="btn btn-default"
                   ng-disabled=!minutelyAvailable ng-click=select('minutely')>60m</button>
-          <button type=button class="btn btn-default" 
+          <button type=button class="btn btn-default"
                   ng-click=select('hourly')>12hr</button>
         </div>
       </div>
