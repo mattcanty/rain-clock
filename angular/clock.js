@@ -11,46 +11,26 @@ function Clock($scope, apis){
     $scope.summary = 'Requesting Forecast...';
     $scope.lastUpdated = 'Never';
     
-    $scope.refreshForecast();
-  }
-
-  $scope.refreshForecast = function(){
     $scope.position = 'Finding your position';
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getForecastData, showError);
+      navigator.geolocation.getCurrentPosition(setPostition, showError);
     } else {
       $scope.position = 'Geolocation is not supported by this browser.';
     }
   }
   
-  function chooseForecast() {
-    selectedForecast = forecast.minutely ? 'minutely' : 'hourly';
-    $scope.minutelyAvailable = forecast.minutely;
-  }
-
-  function getForecastData(position){
-    
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    
-    $scope.position = 'Getting the forecast';
-    
-    apis.getForecast(latitude, longitude)
-      .then(function(data){
-        forecast = data;
-        $scope.summary = data.currently.summary;
-        $scope.lastUpdated = new Date().toLocaleString();
-        
-        chooseForecast();
-      });
+  function setPostition(position) {
+    $scope.latitude = position.coords.latitude;
+    $scope.longitude = position.coords.longitude;
     
     var geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(latitude, longitude);
+    var latlng = new google.maps.LatLng($scope.latitude, $scope.longitude);
     geocoder.geocode({'latLng': latlng}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           $scope.position = results[0].formatted_address;
           $scope.$apply();
+          $scope.refreshForecast();
         } else {
           $scope.position('Position not found');
         }
@@ -58,6 +38,22 @@ function Clock($scope, apis){
         $scope.position('Geocoder failed: ' + status);
       }
     });
+  }
+  
+  function chooseForecast() {
+    selectedForecast = forecast.minutely ? 'minutely' : 'hourly';
+    $scope.minutelyAvailable = forecast.minutely;
+  }
+
+  $scope.refreshForecast = function(){
+    apis.getForecast($scope.latitude, $scope.longitude)
+      .then(function(data){
+        forecast = data;
+        $scope.summary = forecast.currently.summary;
+        $scope.lastUpdated = new Date().toLocaleString();
+        
+        chooseForecast();
+      });
   }
   
   function showError(error) {
