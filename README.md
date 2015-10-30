@@ -5,7 +5,7 @@ I'm keen to develop this further, check out the [Trello board](https://trello.co
 ## How-to in Two
 
 1. Go to [weatherclock.matthewcanty.co.uk](http://weatherclock.matthewcanty.co.uk/ "http://weatherclock.matthewcanty.co.uk/") 
-2. Know the rain forecast
+2. Know your hyper-local rain forecast
 
 ## WTF?
 
