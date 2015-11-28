@@ -13,7 +13,3 @@
 ### Running
 1. `heroku local web`
 2. Navigate to http://localhost:5000/
-
-# Contributions
-* See Trello board for to-dos - https://trello.com/b/UUUBvkE2/weather-clock.png
-* Pull requests welcome
