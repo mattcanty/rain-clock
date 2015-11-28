@@ -3,10 +3,10 @@
 
 # Local Development
 ### Prerequisites
-1. [NodeJS](https://nodejs.org/en/)
-2. [Heroku Toolbelt](https://toolbelt.heroku.com/)
-3. [_Forecast IO_ API key](https://developer.forecast.io/)
-4. [Git](https://git-scm.com/)
+* [NodeJS](https://nodejs.org/en/)
+* [Heroku Toolbelt](https://toolbelt.heroku.com/)
+* [_Forecast IO_ API key](https://developer.forecast.io/)
+* [Git](https://git-scm.com/)
 
 ### Installing
 1. `git clone git@github.com:matthewcanty/weather-clock.git`
