@@ -1,5 +1,5 @@
 .c9
-public/bower_components
+public/components
 /node_modules
 npm-debug.log
 .DS_Store

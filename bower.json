@@ -5,7 +5,7 @@
   "authors": [
     "Matthew Canty <matthewcanty@gmail.com>"
   ],
-  "directory" : "public/bower_components",
+  "directory" : "public/components",
   "description": "Displays rain forecast on a clock face",
   "main": "index.html",
   "moduleType": [
