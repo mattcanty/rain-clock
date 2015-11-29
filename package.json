@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/matthewcanty/weather-clock/issues"
   },
-  "homepage": "https://github.com/matthewcanty/weather-clock"
+  "homepage": "http://weatherclock.matthewcanty.co.uk/",
+  "engines": {
+    "node": "5.1.0"
+  }
 }
