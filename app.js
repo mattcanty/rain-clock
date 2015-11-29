@@ -5,7 +5,7 @@ var app = express();
 
 var oneDay = 86400000;
 
-app.use(express.static(__dirname, { maxAge: oneDay }));
+app.use(express.static(__dirname + '/public', { maxAge: oneDay }));
 
 app.get('/forecast/:latlong', function(req, res){
   
