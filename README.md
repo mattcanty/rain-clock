@@ -1,5 +1,5 @@
 # Links
-* [Github Page](http://matthewcanty.github.io/weather-clock)
+* [Wiki](https://github.com/matthewcanty/weather-clock/wiki)
 * [Staging](https://analog-weather-clock-staging.herokuapp.com/)
 * [Production](http://weatherclock.matthewcanty.co.uk/)
 
