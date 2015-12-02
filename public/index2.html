@@ -20,9 +20,25 @@
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Weather Clock" />
 
+  <style>body { display: none; }</style>
+  <script>
+    window.onload = function(){
+      document.getElementsByTagName('body')[0].style.display = 'inline'
+    }
+  </script>
+
 </head>
 <body>
 
+  
+  <h1>Weather Clock</h1>
+  <div id="location">
+    {{ message }}
+  </div>
+
+  <br />
+  <br />
+  <br />
   <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
     <i class="material-icons">add</i>
   </button>

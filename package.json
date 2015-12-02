@@ -4,12 +4,15 @@
   "description": "View hyper-local rain predictions on a clock",
   "main": "app.js",
   "dependencies": {
-    "bower": "1.3.11",
+    "browserify": "12.0.1",
     "debug": "^2.1.0",
     "express": "^4.10.1",
     "forecast.io": "^0.0.9",
     "material-design-lite": "1.0.6",
-    "request": "^2.47.0"
+    "minifyify": "7.1.0",
+    "request": "^2.47.0",
+    "vue": "1.0.10",
+    "vue-resource": "0.1.17"
   },
   "devDependencies": {
     "browserify-css": "0.8.1"
@@ -17,7 +20,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bower install"
+    "postinstall": "browserify --debug -t browserify-css js/index.js -p [minifyify --no-map] -o public/js/bundle.js"
   },
   "repository": {
     "type": "git",
