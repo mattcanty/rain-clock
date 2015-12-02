@@ -12,7 +12,8 @@
     "minifyify": "7.1.0",
     "request": "^2.47.0",
     "vue": "1.0.10",
-    "vue-resource": "0.1.17"
+    "vue-resource": "0.1.17",
+    "browserify-css": "0.8.1"
   },
   "devDependencies": {
     "browserify-css": "0.8.1"
