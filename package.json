@@ -8,9 +8,12 @@
     "debug": "^2.1.0",
     "express": "^4.10.1",
     "forecast.io": "^0.0.9",
+    "material-design-lite": "1.0.6",
     "request": "^2.47.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browserify-css": "0.8.1"
+  },
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,5 +31,10 @@
   "homepage": "http://weatherclock.matthewcanty.co.uk/",
   "engines": {
     "node": "5.1.0"
+  },
+  "browserify-css": {
+    "autoInject": true,
+    "minify": true,
+    "rootDir": "."
   }
 }
