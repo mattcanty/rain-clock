@@ -18,7 +18,7 @@
   <meta property="og:site_name" content="Weather Clock" />
 
   <style>
-    body { 
+    body {
       display: none;
     }
   </style>
@@ -45,8 +45,8 @@
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
         <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <a class="mdl-navigation__link">
-            
+          <a class="mdl-navigation__link" href="">
+            A Link
           </a>
         </nav>
       </div>
@@ -65,8 +65,8 @@
           <div class="mdl-cell mdl-cell--3-col">
           </div>
           <div class="mdl-cell mdl-cell--6-col">
-            <div id="weather-clock-container">
-              <canvas width="200" height="900" data-processing-sources="./js/clock.js"></canvas>
+            <div width="900" height="900" id="weather-clock-container">
+              <canvas width="900" height="900" data-processing-sources="./js/clock.js"></canvas>
             </div>
           </div>
           <div class="mdl-cell mdl-cell--3-col">
@@ -88,27 +88,20 @@
           <div class="mdl-cell mdl-cell--3-col">
           </div>
         </div>
-        
-
-        
-
-        
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--3-col">
+          </div>
+          <div class="mdl-cell mdl-cell--6-col" id="forecast">
+            {{ locationMessage }}<br />
+            Last Refresh: {{ lastRefreshTime }}<br />
+            Powered by <a href="http://forecast.io/">Forecast</a>
+          </div>
+          <div class="mdl-cell mdl-cell--3-col">
+          </div>
+        </div>
       </div>
     </main>
   </div>
-
-  <div id="forecast">
-          <p>
-            {{ locationMessage }}
-          </p>
-          <p>
-            Last Refresh: {{ lastRefreshTime }}
-          </p>
-        </div>
-
-        <p>
-          Powered by <a href="http://forecast.io/">Forecast</a>
-        </p>
 
   <!-- Javascript -->
   <script src="./js/bundle.js"></script>

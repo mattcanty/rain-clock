@@ -21,7 +21,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "browserify --debug -t browserify-css js/index.js -p [minifyify --no-map] -o public/js/bundle.js"
+    "postinstall": "browserify -d -t browserify-css js/index.js -p [minifyify --no-map] -o public/js/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,6 @@
   "browserify-css": {
     "autoInject": true,
     "minify": true,
-    "rootDir": "."
+    "rootDir": "./styles"
   }
 }
