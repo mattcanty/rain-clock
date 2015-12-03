@@ -1,11 +1,1 @@
 @import url("node_modules/material-design-lite/material.min.css");
-
-html,body,.container-fluid,#clock-row
-{
-  height: 100%;
-}
-
-#weather-clock-container
-{
-    height: 70%;
-}
