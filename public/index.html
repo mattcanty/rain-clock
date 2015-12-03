@@ -26,10 +26,11 @@
   <script>
     window.onload = function(){
       document.getElementsByTagName('body')[0].style.display = 'inline'
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('resize'))
     }
 
     var forecast
+    var squareSize
   </script>
 
 </head>
@@ -64,10 +65,8 @@
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--3-col">
           </div>
-          <div class="mdl-cell mdl-cell--6-col">
-            <div width="900" height="900" id="weather-clock-container">
-              <canvas width="900" height="900" data-processing-sources="./js/clock.js"></canvas>
-            </div>
+          <div class="mdl-cell mdl-cell--6-col" id="canvas-parent">
+            <canvas data-processing-sources="./js/clock.js"></canvas>
           </div>
           <div class="mdl-cell mdl-cell--3-col">
           </div>

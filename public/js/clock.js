@@ -18,13 +18,12 @@ void setup() {
 }
 
 void setSize(){
-  
-  var container = document.getElementById('weather-clock-container');
+    var canvasParent = document.getElementsByTagName('canvas')[0].parentNode;
 
-  var squareSize = min(container.offsetWidth, container.offsetHeight);
-  
+  squareSize = canvasParent.offsetWidth; // min(canvasParent.offsetWidth, canvasParent.offsetHeight);
+
   size(squareSize, squareSize);
-  
+
   int radius = squareSize * 0.65;
   secondsRadius = radius * 0.72;
   minutesRadius = radius * 0.60;
@@ -41,7 +40,7 @@ void drawHands(){
   float s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
   float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - HALF_PI;
   float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - HALF_PI;
-  
+
   drawHand(s, secondsRadius, 1);
   drawHand(m, minutesRadius, 2);
   drawHand(h, hoursRadius, 4);
@@ -62,7 +61,7 @@ void drawMinuteTicks(){
     } else {
       strokeWeight(1);
     }
-  
+
     float angle = radians(a);
     float x = cx + cos(angle) * secondsRadius;
     float y = cy + sin(angle) * secondsRadius;
@@ -76,7 +75,7 @@ void drawMinutelyForecast() {
     var minuteForecast = forecast.minutely.data[i];
 
     var minute = getMinutePastHour(minuteForecast.time);
-    
+
     drawRainPrediction(minute, MINUTE_LENGTH, minuteForecast.precipIntensity, minuteForecast.precipProbability);
   }
 }
@@ -84,9 +83,9 @@ void drawMinutelyForecast() {
 void drawHourlyForecast() {
   for(var i = 0; i < 12; i++){
     var hourlyForecast = forecast.hourly.data[i];
-    
+
     var minute = getMinutePastHour(hourlyForecast.time);
-    
+
     drawRainPrediction(minute + i, HOUR_LENGTH, hourlyForecast.precipIntensity, hourlyForecast.precipProbability);
   }
 }
@@ -98,14 +97,14 @@ int getMinutePastHour(epochTime) {
 }
 
 void drawRainPrediction(time, duration, intensity, probability) {
-  
+
   setRainFill(probability);
   stroke(255);
-  
+
   beginShape();
-  
+
   intensity = min(intensity * 20, MAX_INTENSITY);
-  
+
   var start = (time - 1) * duration;
 
   drawRainSegment(start, duration, intensity);
