@@ -31,6 +31,7 @@
 
     var forecast
     var squareSize
+    var timeRange = 'minutely'
   </script>
 
 </head>
@@ -74,13 +75,13 @@
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--3-col">
           </div>
-          <div class="mdl-cell mdl-cell--6-col">
+          <div class="mdl-cell mdl-cell--6-col" id="time-range">
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="minutely" v-on:click="setTimeRange('minutely')" checked>
               <span class="mdl-radio__label">60 Minute</span>
             </label>
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="hourly" v-on:click="setTimeRange('hourly')">
               <span class="mdl-radio__label">12 Hour</span>
             </label>
           </div>

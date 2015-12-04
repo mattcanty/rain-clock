@@ -134,17 +134,13 @@ void drawRainVertex(a, b) {
 void draw() {
   background(255);
 
-  if(forecast) {
-    drawMinutelyForecast();
-  }
-
-  /*if(forecast && selectedForecast){
-    if(selectedForecast == 'minutely') {
+  if(forecast && timeRange){
+    if(timeRange == 'minutely') {
       drawMinutelyForecast();
-    } else if (selectedForecast == 'hourly') {
+    } else if (timeRange == 'hourly') {
       drawHourlyForecast();
     }
-  }*/
+  }
 
   drawHands();
   drawMinuteTicks();

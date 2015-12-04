@@ -18,7 +18,7 @@ function updateLastRefreshTime(){
 
 function geocodePosition(latitude, longitude) {
   var requestUri = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude;
-  
+
   Vue.http.get(requestUri, function(response, status, request){
     data.locationMessage = response.results[0].formatted_address
   })
@@ -43,8 +43,18 @@ function updatePosition(currentPosition) {
   geocodePosition(data.latitude, data.longitude)
 }
 
-var vm = new Vue({
+var vm1 = new Vue({
   el: '#forecast',
   data: data,
   created: navigator.geolocation.getCurrentPosition(updatePosition, console.error)
+})
+
+var vm2 = new Vue({
+  el: '#time-range',
+  methods: {
+    setTimeRange(timeRangeSelection){
+      console.debug(timeRangeSelection)
+      timeRange = timeRangeSelection
+    }
+  }
 })
