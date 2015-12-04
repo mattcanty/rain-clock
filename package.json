@@ -13,7 +13,8 @@
     "request": "^2.47.0",
     "vue": "1.0.10",
     "vue-resource": "0.1.17",
-    "browserify-css": "0.8.1"
+    "browserify-css": "0.8.1",
+    "processing-js": "1.4.13"
   },
   "devDependencies": {
     "browserify-css": "0.8.1"
