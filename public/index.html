@@ -66,6 +66,16 @@
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--3-col">
           </div>
+          <div class="mdl-cell mdl-cell--6-col" id="forecast">
+            <h5>{{ locationMessage }}</h5>
+            <p>Last Refresh: {{ lastRefreshTime }}</p>
+          </div>
+          <div class="mdl-cell mdl-cell--3-col">
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--3-col">
+          </div>
           <div class="mdl-cell mdl-cell--6-col" id="canvas-parent">
             <canvas data-processing-sources="./js/clock.js"></canvas>
           </div>
@@ -88,19 +98,23 @@
           <div class="mdl-cell mdl-cell--3-col">
           </div>
         </div>
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-          <div class="mdl-cell mdl-cell--6-col" id="forecast">
-            {{ locationMessage }}<br />
-            Last Refresh: {{ lastRefreshTime }}<br />
-            Powered by <a href="http://forecast.io/">Forecast</a>
-          </div>
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-        </div>
       </div>
     </main>
+    <footer class="mdl-mini-footer">
+      <div class="mdl-mini-footer__left-section">
+        <div class="mdl-logo">
+          Powered by
+        </div>
+        <ul class="mdl-mini-footer__link-list">
+          <li><a href="http://forecast.io/">Forecast</a></li>
+        </ul>
+      </div>
+      <!--<div class="mdl-mini-footer__right-section">
+        <button class="mdl-mini-footer__social-btn"></button>
+        <button class="mdl-mini-footer__social-btn"></button>
+        <button class="mdl-mini-footer__social-btn"></button>
+      </div>-->
+    </footer>
   </div>
 
   <!-- Javascript -->
