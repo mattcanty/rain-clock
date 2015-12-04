@@ -1,67 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function cleanUpNextTick(){draining=!1,currentQueue.length?queue=currentQueue.concat(queue):queueIndex=-1,queue.length&&drainQueue()}function drainQueue(){if(!draining){var e=setTimeout(cleanUpNextTick);draining=!0;for(var n=queue.length;n;){for(currentQueue=queue,queue=[];++queueIndex<n;)currentQueue&&currentQueue[queueIndex].run();queueIndex=-1,n=queue.length}currentQueue=null,draining=!1,clearTimeout(e)}}function Item(e,n){this.fun=e,this.array=n}function noop(){}var process=module.exports={},queue=[],draining=!1,currentQueue,queueIndex=-1;process.nextTick=function(e){var n=new Array(arguments.length-1);if(arguments.length>1)for(var r=1;r<arguments.length;r++)n[r-1]=arguments[r];queue.push(new Item(e,n)),1!==queue.length||draining||setTimeout(drainQueue,0)},Item.prototype.run=function(){this.fun.apply(null,this.array)},process.title="browser",process.browser=!0,process.env={},process.argv=[],process.version="",process.versions={},process.on=noop,process.addListener=noop,process.once=noop,process.off=noop,process.removeListener=noop,process.removeAllListeners=noop,process.emit=noop,process.binding=function(e){throw new Error("process.binding is not supported")},process.cwd=function(){return"/"},process.chdir=function(e){throw new Error("process.chdir is not supported")},process.umask=function(){return 0};
 },{}],2:[function(require,module,exports){
-var Vue = require('vue');
-Vue.use(require('vue-resource'));
-
-var data = {
-  locationMessage: 'Locating you...',
-  lastRefreshTime: 'Never',
-  latitude: undefined,
-  longitude: undefined
-}
-
-function updateLocationMessage(locationMessage){
-  data.locationMessage = locationMessage
-}
-
-function updateLastRefreshTime(){
-  data.lastRefreshTime = new Date().toLocaleString()
-}
-
-function geocodePosition(latitude, longitude) {
-  var requestUri = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude;
-
-  Vue.http.get(requestUri, function(response, status, request){
-    data.locationMessage = response.results[0].formatted_address
-  })
-}
-
-function getForecast(latitude, longitude) {
-  var requestUri = '/forecast/' + latitude + ',' + longitude;
-
-  Vue.http.get(requestUri, function(response, status, request){
-    forecast = response
-    updateLastRefreshTime()
-  })
-}
-
-function updatePosition(currentPosition) {
-  data.latitude = currentPosition.coords.latitude
-  data.longitude = currentPosition.coords.longitude
-
-  data.locationMessage = 'found you at ' + data.latitude + ' ' + data.longitude
-
-  getForecast(data.latitude, data.longitude)
-  geocodePosition(data.latitude, data.longitude)
-}
-
-var vm1 = new Vue({
-  el: '#forecast',
-  data: data,
-  created: navigator.geolocation.getCurrentPosition(updatePosition, console.error)
-})
-
-var vm2 = new Vue({
-  el: '#time-range',
-  methods: {
-    setTimeRange(timeRangeSelection){
-      console.debug(timeRangeSelection)
-      timeRange = timeRangeSelection
-    }
-  }
-})
-
+function updateLocationMessage(e){data.locationMessage=e}function updateLastRefreshTime(){data.lastRefreshTime=(new Date).toLocaleString()}function geocodePosition(e,t){var a="https://maps.googleapis.com/maps/api/geocode/json?latlng="+e+","+t;Vue.http.get(a,function(e,t,a){data.locationMessage=e.results[0].formatted_address})}function getForecast(e,t){var a="/forecast/"+e+","+t;Vue.http.get(a,function(e,t,a){forecast=e,updateLastRefreshTime()})}function updatePosition(e){data.latitude=e.coords.latitude,data.longitude=e.coords.longitude,data.locationMessage="found you at "+data.latitude+" "+data.longitude,getForecast(data.latitude,data.longitude),geocodePosition(data.latitude,data.longitude)}var Vue=require("vue");Vue.use(require("vue-resource"));var data={locationMessage:"Locating you...",lastRefreshTime:"Never",latitude:void 0,longitude:void 0,raw:void 0},vm1=new Vue({el:"#forecast",data:data,created:navigator.geolocation.getCurrentPosition(updatePosition,console.error)}),vm2=new Vue({el:"#time-range",methods:{setTimeRange:function(e){timeRange=e}}});
 },{"vue":15,"vue-resource":8}],3:[function(require,module,exports){
 require("./../styles/roboto-font.css"),require("./../styles/app.css"),require("./../styles/material-icons.css"),require("./../node_modules/material-design-lite/material.min.js"),require("processing-js"),require("./app.js");
 },{"./../node_modules/material-design-lite/material.min.js":5,"./../styles/app.css":16,"./../styles/material-icons.css":17,"./../styles/roboto-font.css":18,"./app.js":2,"processing-js":6}],4:[function(require,module,exports){

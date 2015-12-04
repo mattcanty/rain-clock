@@ -5,7 +5,8 @@ var data = {
   locationMessage: 'Locating you...',
   lastRefreshTime: 'Never',
   latitude: undefined,
-  longitude: undefined
+  longitude: undefined,
+  raw: undefined
 }
 
 function updateLocationMessage(locationMessage){
@@ -52,8 +53,7 @@ var vm1 = new Vue({
 var vm2 = new Vue({
   el: '#time-range',
   methods: {
-    setTimeRange(timeRangeSelection){
-      console.debug(timeRangeSelection)
+    setTimeRange: function(timeRangeSelection){
       timeRange = timeRangeSelection
     }
   }
