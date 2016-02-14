@@ -4,20 +4,21 @@
   "description": "View hyper-local rain predictions on a clock",
   "main": "app.js",
   "dependencies": {
-    "browserify": "12.0.1",
     "debug": "^2.1.0",
     "express": "^4.10.1",
     "forecast.io": "^0.0.9",
     "material-design-lite": "1.0.6",
-    "minifyify": "7.1.0",
     "request": "^2.47.0",
     "vue": "1.0.10",
     "vue-resource": "0.1.17",
-    "browserify-css": "0.8.1",
-    "processing-js": "1.4.13"
+    "processing-js": "1.4.13",
+    "newrelic": "1.25.1"
   },
   "devDependencies": {
-    "browserify-css": "0.8.1"
+    "browserify": "12.0.1",
+    "minifyify": "7.1.0",
+    "browserify-css": "0.8.1",
+    "watchify": "3.7.0"
   },
   "scripts": {
     "start": "node app.js",
