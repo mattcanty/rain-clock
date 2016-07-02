@@ -1,6 +1,8 @@
 // Angles for sin() and cos() start at 3 o'clock;
 // subtract HALF_PI to make them start at the top
 
+background(255);
+
 int MINUTE_LENGTH = 6;
 int HOUR_LENGTH = 30;
 int MAX_INTENSITY = 0.8;
@@ -21,7 +23,7 @@ void setSize(){
   var canvasParent = document.getElementsByTagName('canvas')[0].parentNode;
 
   squareSize = min(canvasParent.offsetWidth, canvasParent.offsetHeight);
-  
+
   size(squareSize, squareSize);
 
   int radius = squareSize * 0.65;
@@ -55,7 +57,7 @@ void drawMinuteTicks(){
   for (int a = 0; a < 360; a+=6) {
     beginShape(POINTS);
     if(a % 90 == 0){
-      strokeWeight(8);
+      strokeWeight(7);
     } else if(a % 30 == 0) {
       strokeWeight(4);
     } else {
@@ -133,7 +135,7 @@ void drawRainVertex(a, b) {
 
 void draw() {
   background(255);
-
+  
   if(forecast && timeRange){
     if(timeRange == 'minutely') {
       drawMinutelyForecast();
