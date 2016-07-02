@@ -21,9 +21,7 @@ void setSize(){
   var canvasParent = document.getElementsByTagName('canvas')[0].parentNode;
 
   squareSize = min(canvasParent.offsetWidth, canvasParent.offsetHeight);
-
-  console.log('width: ' + canvasParent.offsetWidth + ' height: ' + canvasParent.offsetHeight)
-
+  
   size(squareSize, squareSize);
 
   int radius = squareSize * 0.65;
