@@ -1,4 +1,4 @@
-var url = require('url');
+  var url = require('url');
 var express = require('express');
 var Forecast = require('forecast.io');
 var app = express();
@@ -24,8 +24,8 @@ app.get('/forecast/:latlong', function(req, res){
   forecast.get(coords[0], coords[1], function (err, forecastRes, data) {
     if (err) throw err;
 
-    res.end(JSON.stringify(data));
+    res.end(JSON.stringify({minutely:data.minutely,hourly:data.hourly}));
   });
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, console.log('running'));
