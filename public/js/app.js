@@ -30,7 +30,6 @@ function onPositionUpdated(currentPosition) {
       data.locationMessage = forecast.streetAddress;
 
       updateLastRefreshTime()
-
     },
     (response) => console.debug);
 }
@@ -38,7 +37,8 @@ function onPositionUpdated(currentPosition) {
 var vm1 = new Vue({
   el: '#forecast',
   data: data,
-  created: navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error)
+  created: navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error),
+  ready: document.getElementById('main').style.visibility = 'visible'
 })
 
 var vm2 = new Vue({

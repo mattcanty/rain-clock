@@ -18,16 +18,13 @@
   <meta property="og:site_name" content="Weather Clock" />
 
   <style>
-    html>body {
+    body {
       font-family: 'Helvetica', 'Arial', sans-serif !important;
       text-align: center;
      }
-
-    #page-wrap {
-      text-align: left;
-      width: 800px;
-      margin: 0 auto;
-    }
+     #main{
+      visibility: hidden;
+     }
   </style>
 
   <script>
@@ -43,7 +40,8 @@
 
 </head>
 <body>
-  <main>
+  <h1>Weather Clock</h1>
+  <div id="main">
     <div id="forecast">
       <h3>{{ locationMessage }}</h5>
       <p>Last Refresh: {{ lastRefreshTime }}</p>
@@ -61,7 +59,8 @@
     <div id="canvas-parent">
       <canvas data-processing-sources="./js/clock.js"></canvas>
     </div>
-  </main>
+  </div>
+    
 
   <!-- Javascript -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.16/processing.min.js"></script>
