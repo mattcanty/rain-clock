@@ -1,4 +1,3 @@
-require('newrelic');
 var url = require('url');
 var express = require('express');
 var Forecast = require('forecast.io');
