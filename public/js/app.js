@@ -1,5 +1,5 @@
 var data = {
-  locationMessage: 'Locating you...',
+  locationMessage: 'Finding you.',
   lastRefreshTime: 'Never',
   latitude: undefined,
   longitude: undefined,
@@ -14,39 +14,31 @@ function updateLastRefreshTime(){
   data.lastRefreshTime = new Date().toLocaleString()
 }
 
-function geocodePosition(latitude, longitude) {
-  var requestUri = '/address/' + latitude + ',' + longitude;
-
-  Vue.http.get(requestUri).then(
-    (response) => data.locationMessage = response.text(),
-    (response) => console.debug);
-}
-
-function getForecast(latitude, longitude) {
-  var requestUri = '/forecast/' + latitude + ',' + longitude;
-
-  Vue.http.get(requestUri).then(
-    (response) => {
-      forecast = response.json();
-      updateLastRefreshTime()
-    },
-    (response) => console.debug);
-}
-
-function updatePosition(currentPosition) {
+function onPositionUpdated(currentPosition) {
   data.latitude = currentPosition.coords.latitude
   data.longitude = currentPosition.coords.longitude
 
-  data.locationMessage = 'Found you at ' + data.latitude + ' ' + data.longitude
+  data.locationMessage = 'Getting forecast.'
 
-  getForecast(data.latitude, data.longitude)
-  geocodePosition(data.latitude, data.longitude)
+  var requestUri = '/forecast/' + data.latitude + ',' + data.longitude;
+
+  Vue.http.get(requestUri).then(
+    (response) => {
+      
+      forecast = response.json();
+
+      data.locationMessage = forecast.streetAddress;
+
+      updateLastRefreshTime()
+
+    },
+    (response) => console.debug);
 }
 
 var vm1 = new Vue({
   el: '#forecast',
   data: data,
-  created: navigator.geolocation.getCurrentPosition(updatePosition, console.error)
+  created: navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error)
 })
 
 var vm2 = new Vue({
