@@ -18,8 +18,15 @@
   <meta property="og:site_name" content="Weather Clock" />
 
   <style>
-    body {
-      display: none;
+    html>body {
+      font-family: 'Helvetica', 'Arial', sans-serif !important;
+      text-align: center;
+     }
+
+    #page-wrap {
+      text-align: left;
+      width: 800px;
+      margin: 0 auto;
     }
   </style>
 
@@ -36,71 +43,25 @@
 
 </head>
 <body>
-
-  <!-- Always shows a header, even in smaller screens. -->
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <!-- Title -->
-        <span class="mdl-layout-title">Weather Clock</span>
-        <!-- Add spacer, to align navigation to the right -->
-        <div class="mdl-layout-spacer"></div>
-        <!-- Navigation. We hide it in small screens. -->
-        <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <a class="mdl-navigation__link" href="https://www.google.co.uk/#q=google+sheep+view">
-            A Link
-          </a>
-        </nav>
-      </div>
-    </header>
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">Links</span>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="https://github.com/matthewcanty">Matt Canty</a>
-        <a class="mdl-navigation__link" href="https://github.com/matthewcanty/weather-clock/issues">Contribute</a>
-        <a class="mdl-navigation__link" href="https://developer.forecast.io/">Forecast.IO</a>
-      </nav>
+  <main>
+    <div id="forecast">
+      <h5>{{ locationMessage }}</h5>
+      <p>Last Refresh: {{ lastRefreshTime }}</p>
     </div>
-    <main class="mdl-layout__content">
-      <div class="page-content">
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-          <div class="mdl-cell mdl-cell--6-col" id="forecast">
-            <h5>{{ locationMessage }}</h5>
-            <p>Last Refresh: {{ lastRefreshTime }}</p>
-          </div>
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-        </div>
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-          <div class="mdl-cell mdl-cell--6-col" id="canvas-parent">
-            <canvas data-processing-sources="./js/clock.js"></canvas>
-          </div>
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-        </div>
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-          <div class="mdl-cell mdl-cell--6-col" id="time-range">
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="minutely" v-on:click="setTimeRange('minutely')" checked>
-              <span class="mdl-radio__label">60 Minute</span>
-            </label>
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="hourly" v-on:click="setTimeRange('hourly')">
-              <span class="mdl-radio__label">12 Hour</span>
-            </label>
-          </div>
-          <div class="mdl-cell mdl-cell--3-col">
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
+    <div>
+      <label for="option-1">
+        <input type="radio" id="option-1" name="options" value="minutely" v-on:click="setTimeRange('minutely')" checked>
+        <span>60 Minute</span>
+      </label>
+      <label for="option-2">
+        <input type="radio" id="option-2" name="options" value="hourly" v-on:click="setTimeRange('hourly')">
+        <span>12 Hour</span>
+      </label>
+    </div>
+    <div id="canvas-parent">
+      <canvas data-processing-sources="./js/clock.js"></canvas>
+    </div>
+  </main>
 
   <!-- Javascript -->
   <script src="./js/bundle.js"></script>
