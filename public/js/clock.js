@@ -18,9 +18,11 @@ void setup() {
 }
 
 void setSize(){
-    var canvasParent = document.getElementsByTagName('canvas')[0].parentNode;
+  var canvasParent = document.getElementsByTagName('canvas')[0].parentNode;
 
-  squareSize = canvasParent.offsetWidth; // min(canvasParent.offsetWidth, canvasParent.offsetHeight);
+  squareSize = min(canvasParent.offsetWidth, canvasParent.offsetHeight);
+
+  console.log('width: ' + canvasParent.offsetWidth + ' height: ' + canvasParent.offsetHeight)
 
   size(squareSize, squareSize);
 
@@ -55,11 +57,11 @@ void drawMinuteTicks(){
   for (int a = 0; a < 360; a+=6) {
     beginShape(POINTS);
     if(a % 90 == 0){
-      strokeWeight(4);
+      strokeWeight(8);
     } else if(a % 30 == 0) {
-      strokeWeight(2);
+      strokeWeight(4);
     } else {
-      strokeWeight(1);
+      strokeWeight(2);
     }
 
     float angle = radians(a);
