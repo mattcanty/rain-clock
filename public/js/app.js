@@ -1,6 +1,5 @@
 var data = {
   locationMessage: 'Finding you.',
-  lastRefreshTime: 'Never',
   latitude: undefined,
   longitude: undefined,
   raw: undefined
@@ -8,10 +7,6 @@ var data = {
 
 function updateLocationMessage(locationMessage){
   data.locationMessage = locationMessage
-}
-
-function updateLastRefreshTime(){
-  data.lastRefreshTime = new Date().toLocaleString()
 }
 
 function onPositionUpdated(currentPosition) {
@@ -28,8 +23,6 @@ function onPositionUpdated(currentPosition) {
       forecast = response.json();
 
       data.locationMessage = forecast.streetAddress;
-
-      updateLastRefreshTime()
     },
     (response) => console.debug);
 }
