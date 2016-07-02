@@ -1,6 +1,3 @@
-var Vue = require('vue');
-Vue.use(require('vue-resource'));
-
 var data = {
   locationMessage: 'Locating you...',
   lastRefreshTime: 'Never',
@@ -18,27 +15,29 @@ function updateLastRefreshTime(){
 }
 
 function geocodePosition(latitude, longitude) {
-  var requestUri = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude;
+  var requestUri = '/address/' + latitude + ',' + longitude;
 
-  Vue.http.get(requestUri, function(response, status, request){
-    data.locationMessage = response.results[0].formatted_address
-  })
+  Vue.http.get(requestUri).then(
+    (response) => data.locationMessage = response.text(),
+    (response) => console.debug);
 }
 
 function getForecast(latitude, longitude) {
   var requestUri = '/forecast/' + latitude + ',' + longitude;
 
-  Vue.http.get(requestUri, function(response, status, request){
-    forecast = response
-    updateLastRefreshTime()
-  })
+  Vue.http.get(requestUri).then(
+    (response) => {
+      forecast = response.json();
+      updateLastRefreshTime()
+    },
+    (response) => console.debug);
 }
 
 function updatePosition(currentPosition) {
   data.latitude = currentPosition.coords.latitude
   data.longitude = currentPosition.coords.longitude
 
-  data.locationMessage = 'found you at ' + data.latitude + ' ' + data.longitude
+  data.locationMessage = 'Found you at ' + data.latitude + ' ' + data.longitude
 
   getForecast(data.latitude, data.longitude)
   geocodePosition(data.latitude, data.longitude)
