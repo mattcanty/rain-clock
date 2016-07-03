@@ -6,7 +6,7 @@
   <!-- Meta -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="keywords" content="Weather clock matthew canty rain forecast forecastio forecast.io weatherclock matthewcanty mattcanty">
+  <meta name="keywords" content="Weather clock matthew canty rain forecast forecastio forecast.io weatherclock matthewcanty mattcanty bassbytesbikes">
   <meta name="description" content="Weather displayed on a clock face">
   <meta name="subject" content="A weather clock">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +27,7 @@
       text-align: center;
       display: inline;
     }
-    #main {
+    #street-address {
       visibility: hidden;
     }
     #clock {
@@ -50,15 +50,18 @@
   </script>
 
 </head>
-<body>
-  <h1>Weather Clock</h1>
-  <div id="main">
-    <div id="forecast">
+<body id="forecast">
+  <div>
+    <h1>Weather Clock</h1>
+    <div id="street-address">
       <h3>{{ locationMessage }}</h5>
     </div>
-    <div id="clock">
-      <canvas data-processing-sources="./js/clock.js" onclick="switchTimeRange()"></canvas>
-    </div>
+  </div>
+  <div id="clock">
+    <canvas data-processing-sources="./js/clock.js" onclick="switchTimeRange()"></canvas>
+  <div>
+  <div>
+    <a href="https://github.com/matthewcanty/weather-clock" title="GitHub -   weather-clock">Info - GitHub</a>
   </div>
 
   <!-- Javascript -->

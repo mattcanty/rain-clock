@@ -31,7 +31,7 @@ var vm1 = new Vue({
   el: '#forecast',
   data: data,
   created: navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error),
-  ready: document.getElementById('main').style.visibility = 'visible'
+  ready: document.getElementById('street-address').style.visibility = 'visible'
 })
 
 var vm2 = new Vue({
