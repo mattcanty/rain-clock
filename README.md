@@ -1,4 +1,5 @@
 [![Dependency Status](https://dependencyci.com/github/matthewcanty/weather-clock/badge)](https://dependencyci.com/github/matthewcanty/weather-clock)
+![Heroku](http://heroku-badge.herokuapp.com/?app=analog-weather-clock-2&style=flat)
 
 # Links
 * [Wiki](https://github.com/matthewcanty/weather-clock/wiki)
