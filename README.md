@@ -10,8 +10,10 @@
 * [_Google_ API key](https://developers.google.com/maps/documentation/javascript/get-api-key)
 
 ### GO GO GO!
-1. `git clone git@github.com:matthewcanty/weather-clock.git`
-2. `npm install`
-3. `echo "FORECAST_API_KEY=YOUR_FORECAST_IO_API_KEY" > .env`
-4. `echo "GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY" > .env`
-5. `node app.js`
+```
+git clone git@github.com:matthewcanty/weather-clock.git
+npm install
+echo "FORECAST_API_KEY=YOUR_FORECAST_IO_API_KEY" > .env
+echo "GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY" > .env
+node app.js
+```
