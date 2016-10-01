@@ -123,11 +123,11 @@ void drawRainVertex(a, b) {
 void draw() {
   background(255);
 
-  if(!localStorage.forecast) return;
+  if(localStorage.forecast){
+    var minutelyData = JSON.parse(localStorage.forecast).data
 
-  var minutelyData = JSON.parse(localStorage.forecast).data
-
-  drawMinutelyForecast(minutelyData);
+    drawMinutelyForecast(minutelyData);
+  }
   
   drawHands();
   drawMinuteTicks();
