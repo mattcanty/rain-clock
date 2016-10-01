@@ -1,11 +1,8 @@
-// Angles for sin() and cos() start at 3 o'clock;
-// subtract HALF_PI to make them start at the top
-
 background(255);
 
 int MINUTE_LENGTH = 6;
 int HOUR_LENGTH = 30;
-int MAX_INTENSITY = 0.8;
+int MAX_INTENSITY = 0.9;
 
 int cx, cy;
 float secondsRadius;
@@ -22,7 +19,7 @@ void setup() {
 void setSize(){
   var canvasParent = document.getElementsByTagName('canvas')[0].parentNode;
 
-  squareSize = min(canvasParent.offsetWidth, canvasParent.offsetHeight);
+  var squareSize = min(canvasParent.offsetWidth, canvasParent.offsetHeight);
 
   size(squareSize, squareSize);
 
@@ -72,30 +69,9 @@ void drawMinuteTicks(){
   }
 }
 
-void drawMinutelyForecast() {
-  for(var i = 0; i < 60; i++){
-    var minuteForecast = forecast.minutely.data[i];
-
-    var minute = getMinutePastHour(minuteForecast.time);
-
-    drawRainPrediction(minute, MINUTE_LENGTH, minuteForecast.precipIntensity, minuteForecast.precipProbability);
-  }
-}
-
-void drawHourlyForecast() {
-  for(var i = 0; i < 12; i++){
-    var hourlyForecast = forecast.hourly.data[i];
-
-    var minute = getMinutePastHour(hourlyForecast.time);
-
-    drawRainPrediction(minute + i, HOUR_LENGTH, hourlyForecast.precipIntensity, hourlyForecast.precipProbability);
-  }
-}
-
-int getMinutePastHour(epochTime) {
-  var date = new Date(epochTime * 1000);
-
-  return date.getMinutes();
+void setRainFill(probability) {
+  var filterRedGreen = 255 - (probability * 255);
+  fill(filterRedGreen, filterRedGreen, 255);
 }
 
 void drawRainPrediction(time, duration, intensity, probability) {
@@ -105,7 +81,7 @@ void drawRainPrediction(time, duration, intensity, probability) {
 
   beginShape();
 
-  intensity = min(intensity * 20, MAX_INTENSITY);
+  intensity = min(intensity * 15, MAX_INTENSITY);
 
   var start = (time - 1) * duration;
 
@@ -114,9 +90,20 @@ void drawRainPrediction(time, duration, intensity, probability) {
   endShape();
 }
 
-void setRainFill(probability) {
-  var filterRedGreen = 255 - (probability * 255);
-  fill(filterRedGreen, filterRedGreen, 255);
+int getMinutePastHour(epochTime) {
+  var date = new Date(epochTime * 1000);
+
+  return date.getMinutes();
+}
+
+void drawMinutelyForecast(minutelyData) {
+  for(var i = 0; i < 60; i++){
+    var minuteForecast = minutelyData[i];
+
+    var minute = getMinutePastHour(minuteForecast.time);
+
+    drawRainPrediction(minute, MINUTE_LENGTH, minuteForecast.precipIntensity, minuteForecast.precipProbability);
+  }
 }
 
 void drawRainSegment(start, duration, depth) {
@@ -135,15 +122,13 @@ void drawRainVertex(a, b) {
 
 void draw() {
   background(255);
-  
-  if(forecast && timeRange){
-    if(timeRange == 'minutely') {
-      drawMinutelyForecast();
-    } else if (timeRange == 'hourly') {
-      drawHourlyForecast();
-    }
-  }
 
+  if(!localStorage.forecast) return;
+
+  var minutelyData = JSON.parse(localStorage.forecast).data
+
+  drawMinutelyForecast(minutelyData);
+  
   drawHands();
   drawMinuteTicks();
 }

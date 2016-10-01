@@ -1,4 +1,5 @@
 var data = {
+  weatherSummary: 'Hang on a sec.',
   locationMessage: 'Finding you.',
   latitude: undefined,
   longitude: undefined,
@@ -13,16 +14,17 @@ function onPositionUpdated(currentPosition) {
   data.latitude = currentPosition.coords.latitude
   data.longitude = currentPosition.coords.longitude
 
-  data.locationMessage = 'Getting forecast.'
+  data.locationMessage = "Location accurate to " + currentPosition.coords.accuracy + " metres.";
 
   var requestUri = '/forecast/' + data.latitude + ',' + data.longitude;
 
   Vue.http.get(requestUri).then(
     (response) => {
-      
-      forecast = response.json();
+      var weatherData = response.json();
 
-      data.locationMessage = forecast.streetAddress;
+      data.weatherSummary = weatherData.summary;
+
+      localStorage.setItem("forecast", JSON.stringify(weatherData));
     },
     (response) => console.debug);
 }
@@ -30,15 +32,5 @@ function onPositionUpdated(currentPosition) {
 var vm1 = new Vue({
   el: '#forecast',
   data: data,
-  created: navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error),
-  ready: document.getElementById('street-address').style.visibility = 'visible'
-})
-
-var vm2 = new Vue({
-  el: '#time-range',
-  methods: {
-    setTimeRange: function(timeRangeSelection){
-      timeRange = timeRangeSelection
-    }
-  }
+  created: navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error)
 })

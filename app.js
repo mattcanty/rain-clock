@@ -1,6 +1,5 @@
 const url = require('url');
 const express = require('express');
-const Forecast = require('forecast.io');
 const https = require('https');
 const async = require('async');
 const app = express();
@@ -15,26 +14,10 @@ app.get('/forecast/:latlong', function(req, res){
 
   var coords = path.split('/')[2].split(',');
 
-  var options = {
-    APIKey: process.env.FORECAST_API_KEY,
-    timeout: 1000,
-    exclude: 'daily,flags,alerts'
-  };
-
-  var forecast = new Forecast(options);
-
-  var requestUrl= `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords[0]},${coords[1]}&location_type=ROOFTOP&result_type=street_address&key=${process.env.GOOGLE_API_KEY}`
+  var requestUrl= `https://api.darksky.net/forecast/${process.env.FORECAST_API_KEY}/${coords[0]},${coords[1]}?exclude=currently,hourly,daily,alerts,flags`
 
   async.parallel({
-    one: function(callback) {
-      forecast.get(coords[0], coords[1], function (error, forecastRes, data) {
-        callback(error, {
-          minutely: data.minutely,
-          hourly: data.hourly
-        })
-      })
-    },
-    two: function(callback) {
+    one: function(callback){
       https.get(requestUrl, (response) => {
         var str = '';
 
@@ -43,20 +26,20 @@ app.get('/forecast/:latlong', function(req, res){
         });
 
         response.on('end', function () {
-          callback(null, JSON.parse(str).results[0].formatted_address);
+          callback(null, JSON.parse(str));
         });
       }).on('error', (error) => {
-        callback(error);
+        console.error(error);
+        throw error;
       })
     }
   }, function (error, results){
-    if (error) throw error;
+    if (error){
+      console.error(error);
+      throw error;
+    }
 
-    res.end(JSON.stringify({
-      minutely: results.one.minutely,
-      hourly: results.one.hourly,
-      streetAddress: results.two
-    }));
+    res.end(JSON.stringify(results.one.minutely));
   });
 });
 
