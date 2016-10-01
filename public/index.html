@@ -27,11 +27,28 @@
       text-align: center;
       display: inline;
     }
-    #street-address {
-      visibility: hidden;
-    }
     #clock {
       height: 600px;
+    }
+    [v-cloak] .v-cloak--block {
+      display: block;
+    }
+    [v-cloak] .v-cloak--inline {
+      display: inline;
+    }
+    [v-cloak] .v-cloak--inlineBlock {
+      display: inline-block;
+    }
+    [v-cloak] .v-cloak--hidden {
+      display: none;
+    }
+    [v-cloak] .v-cloak--invisible {
+      visibility: hidden;
+    }
+    .v-cloak--block,
+    .v-cloak--inline,
+    .v-cloak--inlineBlock {
+      display: none;
     }
   </style>
 
@@ -39,35 +56,34 @@
     window.onload = function(){
       window.dispatchEvent(new Event('resize'))
     }
-
-    var forecast
-    var squareSize
-    var timeRange = 'minutely'
-
-    function switchTimeRange(){
-      timeRange = timeRange === 'minutely' ? 'hourly' : 'minutely';
-    }
   </script>
-
 </head>
-<body id="forecast">
+<body>
   <div>
-    <h1>Weather Clock</h1>
-    <div id="street-address">
-      <h3>{{ locationMessage }}</h5>
+    <h1>Weather Clock</h1>    
+  </div>
+
+  <div id="forecast">
+    <div v-cloak>
+      <h4>
+        <span class="v-cloak--inline">Loading...</span>
+        <span class="v-cloak--hidden">{{ weatherSummary }}</span>
+      </h4>
+    </div>
+    <div id="clock">
+      <canvas data-processing-sources="./js/clock.js" onclick="switchTimeRange()"></canvas>
+    <div>
+    <div>      
+      <p>
+        <a href="https://github.com/matthewcanty/weather-clock" title="GitHub - weather-clock" target="_blank">Created by Matt Canty</a>
+        -
+        <a href="https://darksky.net/poweredby/" title="Powered by Dark Sky" target="_blank">Powered by Dark Sky</a>        
+      </p>
     </div>
   </div>
-  <div id="clock">
-    <canvas data-processing-sources="./js/clock.js" onclick="switchTimeRange()"></canvas>
-  <div>
-  <div>
-    <a href="https://github.com/matthewcanty/weather-clock" title="GitHub -   weather-clock">Info - GitHub</a>
-  </div>
-
-  <!-- Javascript -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.16/processing.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.js"></script>
   <script src="./js/app.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
     "debug": "^2.1.0",
     "express": "^4.10.1",
     "request": "^2.47.0",
-    "forecast.io": "^0.0.9",
+    "darksky": "^0.1.2",
     "async":"2.0.0-rc.6"
   },
   "scripts": {
