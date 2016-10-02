@@ -17,62 +17,20 @@
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Weather Clock" />
 
-  <style>
-    html > body {
-      width:  100%;
-      height: 100%;
-      margin: 0px;
-      font-family: Tahoma, Geneva, sans-serif;
-      font-size:0.9em;
-      text-align: center;
-      display: inline;
-    }
-    #clock {
-      height: 600px;
-    }
-    [v-cloak] .v-cloak--block {
-      display: block;
-    }
-    [v-cloak] .v-cloak--inline {
-      display: inline;
-    }
-    [v-cloak] .v-cloak--inlineBlock {
-      display: inline-block;
-    }
-    [v-cloak] .v-cloak--hidden {
-      display: none;
-    }
-    [v-cloak] .v-cloak--invisible {
-      visibility: hidden;
-    }
-    .v-cloak--block,
-    .v-cloak--inline,
-    .v-cloak--inlineBlock {
-      display: none;
-    }
-  </style>
-
-  <script>
-    window.onload = function(){
-      window.dispatchEvent(new Event('resize'))
-    }
-  </script>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-  <div>
-    <h1>Weather Clock</h1>    
-  </div>
-
+<body onload="setInterval(clock, 1000)">
   <div id="forecast">
+    <h1>Weather Clock</h1>
     <div v-cloak>
       <h4>
-        <span class="v-cloak--inline">Loading...</span>
+        <span class="v-cloak--inline">Hang on a sec.</span>
         <span class="v-cloak--hidden">{{ weatherSummary }}</span>
       </h4>
     </div>
-    <div id="clock">
-      <canvas data-processing-sources="./js/clock.js" onclick="switchTimeRange()"></canvas>
     <div>
+      <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
     <div>      
       <p>
         <a href="https://github.com/matthewcanty/weather-clock" title="GitHub - weather-clock" target="_blank">Created by Matt Canty</a>
@@ -81,9 +39,9 @@
       </p>
     </div>
   </div>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.16/processing.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.js"></script>
-  <script src="./js/app.js"></script>
+  <script src="js/clock.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
