@@ -1,6 +1,5 @@
 const url = require('url');
 const express = require('express');
-const https = require('https');
 const async = require('async');
 const twitter = require('twitter');
 const request = require('request');
