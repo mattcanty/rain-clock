@@ -1,47 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="weather-clock">
+<html lang=en ng-app=weather-clock>
 <head>
   <title>Weather Clock</title>
 
   <!-- Meta -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="keywords" content="Weather clock matthew canty rain forecast forecastio forecast.io weatherclock matthewcanty mattcanty bassbytesbikes">
-  <meta name="description" content="Weather displayed on a clock face">
-  <meta name="subject" content="A weather clock">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset=UTF-8>
+  <meta name=viewport content=width=device-width,initial-scale=1.0>
+  <meta name=keywords content="Weather clock matthew canty rain forecast forecastio forecast.io weatherclock matthewcanty mattcanty bassbytesbikes">
+  <meta name=description content="Weather displayed on a clock face">
+  <meta name=subject content="A weather clock">
+  <meta http-equiv=X-UA-Compatible content=IE=edge>
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Weather Clock" />
-  <meta property="og:description" content="Weather displayed on a clock face." />
-  <meta property="og:locale" content="en_GB" />
-  <meta property="og:site_name" content="Weather Clock" />
+  <meta property=og:title content="Weather Clock" />
+  <meta property=og:description content="Weather displayed on a clock face." />
+  <meta property=og:locale content=en_GB />
+  <meta property=og:site_name content="Weather Clock" />
 
-  <link rel="stylesheet" type="text/css" href="./style.css">
+  <link rel=stylesheet type=text/css href=./style.css>
 </head>
-<body onload="setInterval(clock, 1000)">
-  <div id="forecast">
+<body onload=setInterval(clock,1000)>
+  <div id=forecast>
     <h1>Weather Clock</h1>
     <div v-cloak>
       <h4>
-        <span class="v-cloak--inline">Hang on a sec.</span>
-        <span class="v-cloak--hidden">{{ weatherSummary }}</span>
+        <span class=v-cloak--inline>Hang on a sec.</span>
+        <span class=v-cloak--hidden>{{ weatherSummary }}</span>
       </h4>
     </div>
     <div>
-      <canvas id="canvas" width="500" height="500"></canvas>
+      <canvas id=canvas width=500 height=500></canvas>
     </div>
     <footer>
       <p>
-        <a href="https://github.com/matthewcanty/weather-clock" title="GitHub - weather-clock" target="_blank">Created by Matt Canty</a>
+        <a href=https://github.com/matthewcanty/weather-clock title=GitHub - weather-clock target=_blank>Created by Matt Canty</a>
         -
-        <a href="https://darksky.net/poweredby/" title="Powered by Dark Sky" target="_blank">Powered by Dark Sky</a>
+        <a href=https://darksky.net/poweredby/ title="Powered by Dark Sky" target=_blank>Powered by Dark Sky</a>
       </p>
     </footer>
   </div>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.min.js"></script>
-  <script src="./js/clock.js"></script>
-  <script src="./js/app.js"></script>
+  <script src=//cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js></script>
+  <script src=//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.min.js></script>
+  <script src=./js/clock.js></script>
+  <script src=./js/app.js></script>
 </body>
 </html>
