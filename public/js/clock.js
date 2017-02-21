@@ -1,129 +1,129 @@
-function drawPrediction(ctx){
-  for (i=0;i<60;i++){
-    var minute = new Date(data[i].time * 1000).getMinutes()
-    var intensity = data[i].precipIntensity
-    var probability = data[i].precipProbability
-    var x = radius - (intensity * 250)
-    var filterRedGreen=99-(probability*99)
-    var pad = filterRedGreen < 10 ? '0' : ''
-    var hex = "#" + pad + filterRedGreen + pad + filterRedGreen + "FF"
+function drawPrediction(ctx, data){
+  data.forEach(function(item){
+    var minute = new Date(item.time * 1000).getMinutes();
+    var intensity = item.precipIntensity;
+    var probability = item.precipProbability;
+    var x = radius - (intensity * 250);
+    var filterRedGreen=99-(probability*99);
+    var pad = filterRedGreen < 10 ? "0" : "";
+    var hex = "#" + pad + filterRedGreen + pad + filterRedGreen + "FF";
 
-    ctx.save()
-    ctx.rotate(minute * Math.PI/30)
-    ctx.strokeStyle = "white"
-    ctx.fillStyle = hex
-    ctx.beginPath()
-    ctx.moveTo(x, 0)
-    ctx.lineTo(radius,0)
-    ctx.lineTo(radius * Math.cos(2 * Math.PI / 60), radius * Math.sin(2 * Math.PI / 60))
-    ctx.lineTo(x * Math.cos(2 * Math.PI / 60), x * Math.sin(2 * Math.PI / 60))
-    ctx.closePath()
-    ctx.stroke()
-    ctx.fill()
-    ctx.restore()
-  }
+    ctx.save();
+    ctx.rotate(minute * Math.PI/30);
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = hex;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(radius,0);
+    ctx.lineTo(radius * Math.cos(2 * Math.PI / 60), radius * Math.sin(2 * Math.PI / 60));
+    ctx.lineTo(x * Math.cos(2 * Math.PI / 60), x * Math.sin(2 * Math.PI / 60));
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+    ctx.restore();
+  });
 }
 
 function clock(){
-  var now = new Date()
-  var canvas = document.getElementById("canvas")
-  var ctx = canvas.getContext('2d')
-  var canvasParent = canvas.parentNode
-  var size = Math.min(canvasParent.offsetWidth, canvasParent.offsetHeight)
-  var radius = size * 0.48
-  var secondsRadius = radius * 0.95
-  var minutesRadius = radius * 0.99
-  var hoursRadius = radius * 0.95
-  var clockDiameter = radius * 2
+  var now = new Date();
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  var canvasParent = canvas.parentNode;
+  var size = Math.min(canvasParent.offsetWidth, canvasParent.offsetHeight);
+  var radius = size * 0.48;
+  var secondsRadius = radius * 0.95;
+  var minutesRadius = radius * 0.99;
+  var hoursRadius = radius * 0.95;
+  var clockDiameter = radius * 2;
 
-  ctx.save()
-  ctx.clearRect(0,0,size,size)
-  ctx.translate(radius, radius)
-  ctx.rotate(-Math.PI/2)
-  ctx.strokeStyle = "black"
-  ctx.fillStyle = "white"
-  ctx.lineWidth = size / 240
-  ctx.lineCap = "round"
+  ctx.save();
+  ctx.clearRect(0,0,size,size);
+  ctx.translate(radius, radius);
+  ctx.rotate(-Math.PI/2);
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "white";
+  ctx.lineWidth = size / 240;
+  ctx.lineCap = "round";
 
   // Write prediction
-  var data = JSON.parse(localStorage.forecast).data
+  var data = JSON.parse(localStorage.forecast).data;
 
   if(data){
-    drawPrediction(ctx, data)
+    drawPrediction(ctx, data);
   }
 
   // Hour marks
-  ctx.save()
-  ctx.strokeStyle = "black"
-  ctx.fillStyle = "white"
-  ctx.lineWidth = size / 120
-  ctx.lineCap = "round"
+  ctx.save();
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "white";
+  ctx.lineWidth = size / 120;
+  ctx.lineCap = "round";
 
-  for (var i=0;i<12;i++){
-    ctx.beginPath()
-    ctx.rotate(Math.PI/6)
-    ctx.moveTo(hoursRadius,0)
-    ctx.lineTo(radius,0)
-    ctx.stroke()
+  for (var i = 0; i < 12; i += 1){
+    ctx.beginPath();
+    ctx.rotate(Math.PI/6);
+    ctx.moveTo(hoursRadius,0);
+    ctx.lineTo(radius,0);
+    ctx.stroke();
   }
 
-  ctx.restore()
+  ctx.restore();
 
   // Minute marks
-  ctx.save()
-  ctx.lineWidth = size / 240
-  for (i=0;i<60;i++){
+  ctx.save();
+  ctx.lineWidth = size / 240;
+  for (i = 0; i < 60; i += 1){
     if (i%5!=0) {
-      ctx.beginPath()
-      ctx.moveTo(minutesRadius,0)
-      ctx.lineTo(radius,0)
-      ctx.stroke()
+      ctx.beginPath();
+      ctx.moveTo(minutesRadius,0);
+      ctx.lineTo(radius,0);
+      ctx.stroke();
     }
 
-    ctx.rotate(Math.PI/30)
+    ctx.rotate(Math.PI/30);
   }
-  ctx.restore()
-  var sec = now.getSeconds()
-  var min = now.getMinutes()
-  var hr  = now.getHours()
-  hr = hr >= 12 ? hr-12 : hr
+  ctx.restore();
+  var sec = now.getSeconds();
+  var min = now.getMinutes();
+  var hr  = now.getHours();
+  hr = hr >= 12 ? hr-12 : hr;
 
-  ctx.fillStyle = "black"
+  ctx.fillStyle = "black";
 
   // write Hours
-  ctx.save()
-  ctx.rotate(hr*(Math.PI/6) + (Math.PI/360)*min + (Math.PI/21600)*sec)
-  ctx.lineWidth = size / 120
-  ctx.beginPath()
-  ctx.moveTo(size * -0.05,0)
-  ctx.lineTo(size * 0.24,0)
-  ctx.stroke()
-  ctx.restore()
+  ctx.save();
+  ctx.rotate(hr*(Math.PI/6) + (Math.PI/360)*min + (Math.PI/21600)*sec);
+  ctx.lineWidth = size / 120;
+  ctx.beginPath();
+  ctx.moveTo(size * -0.05,0);
+  ctx.lineTo(size * 0.24,0);
+  ctx.stroke();
+  ctx.restore();
 
   // write Minutes
-  ctx.save()
-  ctx.rotate((Math.PI/30)*min + (Math.PI/1800)*sec)
-  ctx.lineWidth = size / 240
-  ctx.beginPath()
-  ctx.moveTo(size * -0.05,0)
-  ctx.lineTo(size * 0.4,0)
-  ctx.stroke()
-  ctx.restore()
+  ctx.save();
+  ctx.rotate((Math.PI/30)*min + (Math.PI/1800)*sec);
+  ctx.lineWidth = size / 240;
+  ctx.beginPath();
+  ctx.moveTo(size * -0.05,0);
+  ctx.lineTo(size * 0.4,0);
+  ctx.stroke();
+  ctx.restore();
 
   // Write seconds
-  ctx.save()
-  ctx.rotate(sec * Math.PI/30)
-  ctx.strokeStyle = "#D40000"
-  ctx.fillStyle = "#D40000"
-  ctx.lineWidth = size / 240
-  ctx.beginPath()
-  ctx.moveTo(size * -0.05,0)
-  ctx.lineTo(size * 0.4,0)
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.arc(0,0,size * 0.01,0,Math.PI*2,true)
-  ctx.fill()
-  ctx.restore()
+  ctx.save();
+  ctx.rotate(sec * Math.PI/30);
+  ctx.strokeStyle = "#D40000";
+  ctx.fillStyle = "#D40000";
+  ctx.lineWidth = size / 240;
+  ctx.beginPath();
+  ctx.moveTo(size * -0.05,0);
+  ctx.lineTo(size * 0.4,0);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0,0,size * 0.01,0,Math.PI*2,true);
+  ctx.fill();
+  ctx.restore();
 
-  ctx.restore()
+  ctx.restore();
 }
