@@ -10,10 +10,10 @@ var oneDay = 86400000;
 app.use(express.static(__dirname + '/public', { maxAge: oneDay }));
 
 var client = new twitter({
-  consumer_key: 'j719S6KgYyiYqrkpM1wMB2Yd4',
-  consumer_secret: 'aPAZJf5unQLGvSKvDOoWMNVgoQixlBJ3kXog8WDdSAW7seVBki',
-  access_token_key: '828746310161424385-n9va4x4CtSy9gYkTcqnXqX6soV2TSUN',
-  access_token_secret: 'huhppunWIMraaEQvk98jRXaTaEhxxhCQaK9nDdZhuXs5c'
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 app.get('/forecast/:latlong', function(req, res){
