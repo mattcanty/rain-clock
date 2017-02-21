@@ -47,6 +47,12 @@ app.get('/forecast/:latlong', function(req, res){
       throw error;
     }
 
+    if(!results.one.minutely){
+      res.end(JSON.stringify(results.one.hourly));
+
+      return;
+    }
+
     res.end(JSON.stringify(results.one.minutely));
 
     client.post('statuses/update', {status:results.one.minutely.summary,display_coordinates:true,lat:coords[0],long:coords[1]})
