@@ -3,6 +3,7 @@ const express = require('express');
 const https = require('https');
 const async = require('async');
 const twitter = require('twitter');
+const request = require('request');
 const app = express();
 
 var oneDay = 86400000;
@@ -26,19 +27,13 @@ app.get('/forecast/:latlong', function(req, res){
 
   async.parallel({
     one: function(callback){
-      https.get(requestUrl, (response) => {
-        var str = '';
+      request(requestUrl, function (error, response, body) {
+        if (error) {
+          console.error(error);
+          throw error;
+        }
 
-        response.on('data', function (chunk) {
-          str += chunk;
-        });
-
-        response.on('end', function () {
-          callback(null, JSON.parse(str));
-        });
-      }).on('error', (error) => {
-        console.error(error);
-        throw error;
+        callback(null, JSON.parse(body));
       })
     }
   }, function (error, results){

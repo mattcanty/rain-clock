@@ -8,7 +8,7 @@
     "darksky": "^0.1.2",
     "debug": "^2.1.0",
     "express": "^4.10.1",
-    "request": "^2.47.0",
+    "request": "2.79.0",
     "twitter": "1.7.0"
   },
   "scripts": {
