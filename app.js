@@ -24,8 +24,10 @@ app.get('/forecast/:latlong', function(req, res){
   var path = url.parse(req.url).pathname;
 
   var coords = path.split('/')[2].split(',');
+  var lat = coords[0];
+  var long = coords[1];
 
-  var requestUrl= `https://api.darksky.net/forecast/${process.env.FORECAST_API_KEY}/${coords[0]},${coords[1]}?exclude=currently,daily,alerts,flags`
+  var requestUrl= `https://api.darksky.net/forecast/${process.env.FORECAST_API_KEY}/${lat},${long}?exclude=currently,daily,alerts,flags`
 
   async.parallel({
     one: function(callback){
@@ -45,7 +47,14 @@ app.get('/forecast/:latlong', function(req, res){
 
     res.end(JSON.stringify(results.one.minutely));
 
-    // client.post('statuses/update', {status:results.one.minutely.summary,display_coordinates:true,lat:coords[0],long:coords[1]})
+    var twitterStatusUpdate =  {
+      status:results.one.minutely.summary,
+      display_coordinates:true,
+      lat:lat,
+      long:long
+    };
+
+    client.post('statuses/update', twitterStatusUpdate)
   });
 });
 
