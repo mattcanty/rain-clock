@@ -1,9 +1,6 @@
 var data = {
   weatherSummary: 'Hang on a sec.',
-  locationMessage: 'Finding you.',
-  latitude: undefined,
-  longitude: undefined,
-  raw: undefined
+  locationMessage: 'Finding you.'
 }
 
 function updateLocationMessage(locationMessage){
