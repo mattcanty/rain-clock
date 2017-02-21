@@ -11,19 +11,19 @@ function onPositionUpdated(currentPosition) {
   data.latitude = currentPosition.coords.latitude
   data.longitude = currentPosition.coords.longitude
 
-  data.locationMessage = "Location accurate to " + currentPosition.coords.accuracy + " metres.";
+  data.locationMessage = "Location accurate to " + currentPosition.coords.accuracy + " metres."
 
-  var requestUri = '/forecast/' + data.latitude + ',' + data.longitude;
+  var requestUri = '/forecast/' + data.latitude + ',' + data.longitude
 
   Vue.http.get(requestUri).then(
-    (response) => {
-      var weatherData = response.json();
+    response => {
+      var weatherData = response.json()
 
-      data.weatherSummary = weatherData.summary;
+      data.weatherSummary = weatherData.summary
 
-      localStorage.setItem("forecast", JSON.stringify(weatherData));
+      localStorage.setItem("forecast", JSON.stringify(weatherData))
     },
-    (response) => console.debug);
+    error => console.debug)
 }
 
 var vm1 = new Vue({
