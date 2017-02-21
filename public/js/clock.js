@@ -1,3 +1,29 @@
+function drawPrediction(ctx){
+  for (i=0;i<60;i++){
+    var minute = new Date(data[i].time * 1000).getMinutes();
+    var intensity = data[i].precipIntensity;
+    var probability = data[i].precipProbability
+    var x = radius - (intensity * 250);
+    var filterRedGreen=99-(probability*99)
+    var pad = filterRedGreen < 10 ? '0' : '';
+    var hex = "#" + pad + filterRedGreen + pad + filterRedGreen + "FF";
+
+    ctx.save();
+    ctx.rotate(minute * Math.PI/30);
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = hex;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(radius,0);
+    ctx.lineTo(radius * Math.cos(2 * Math.PI / 60), radius * Math.sin(2 * Math.PI / 60));
+    ctx.lineTo(x * Math.cos(2 * Math.PI / 60), x * Math.sin(2 * Math.PI / 60));
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
 function clock(){
   var now = new Date();
   var canvas = document.getElementById("canvas");
@@ -22,30 +48,10 @@ function clock(){
   // Write prediction
   var data = JSON.parse(localStorage.forecast).data
 
-  for (i=0;i<60;i++){
-    var minute = new Date(data[i].time * 1000).getMinutes();
-    var intensity = data[i].precipIntensity;
-    var probability = data[i].precipProbability
-    var x = radius - (intensity * 250);
-    var filterRedGreen=99-(probability*99)
-    var pad = filterRedGreen < 10 ? '0' : '';
-    var hex = "#" + pad + filterRedGreen + pad + filterRedGreen + "FF";
-
-    ctx.save();
-    ctx.rotate(minute * Math.PI/30);
-    ctx.strokeStyle = "white";
-    ctx.fillStyle = hex;
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(radius,0);
-    ctx.lineTo(radius * Math.cos(2 * Math.PI / 60), radius * Math.sin(2 * Math.PI / 60));
-    ctx.lineTo(x * Math.cos(2 * Math.PI / 60), x * Math.sin(2 * Math.PI / 60));
-    ctx.closePath();
-    ctx.stroke();
-    ctx.fill();
-    ctx.restore();
+  if(data){
+    drawPrediction(ctx, data);    
   }
-  
+
   // Hour marks
   ctx.save();
   ctx.strokeStyle = "black";
@@ -75,7 +81,7 @@ function clock(){
   ctx.rotate(Math.PI/30);
   }
   ctx.restore();
-  
+
   var sec = now.getSeconds();
   var min = now.getMinutes();
   var hr  = now.getHours();
@@ -102,7 +108,7 @@ function clock(){
   ctx.lineTo(size * 0.4,0);
   ctx.stroke();
   ctx.restore();
-  
+
   // Write seconds
   ctx.save();
   ctx.rotate(sec * Math.PI/30);
@@ -117,6 +123,6 @@ function clock(){
   ctx.arc(0,0,size * 0.01,0,Math.PI*2,true);
   ctx.fill();
   ctx.restore();
-  
+
   ctx.restore();
 }
