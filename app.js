@@ -8,9 +8,7 @@ const app = express()
 
 dotenv.load()
 
-var oneDay = 86400000
-
-app.use(express.static(__dirname + '/public', { maxAge: oneDay }))
+app.use(express.static(__dirname + '/public'))
 
 var client = new twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
