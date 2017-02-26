@@ -1,30 +1,30 @@
-function drawPrediction(ctx, data){
-  data.forEach(function(item){
-    var minute = new Date(item.time * 1000).getMinutes();
-    var intensity = item.precipIntensity;
-    var probability = item.precipProbability;
-    var x = radius - (intensity * 250);
-    var filterRedGreen=99-(probability*99);
-    var pad = filterRedGreen < 10 ? "0" : "";
-    var hex = "#" + pad + filterRedGreen + pad + filterRedGreen + "FF";
-
-    ctx.save();
-    ctx.rotate(minute * Math.PI/30);
-    ctx.strokeStyle = "white";
-    ctx.fillStyle = hex;
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(radius,0);
-    ctx.lineTo(radius * Math.cos(2 * Math.PI / 60), radius * Math.sin(2 * Math.PI / 60));
-    ctx.lineTo(x * Math.cos(2 * Math.PI / 60), x * Math.sin(2 * Math.PI / 60));
-    ctx.closePath();
-    ctx.stroke();
-    ctx.fill();
-    ctx.restore();
-  });
-}
-
 function clock(){
+  function drawPrediction(ctx, data){
+    data.forEach(function(item){
+      var minute = new Date(item.time * 1000).getMinutes();
+      var intensity = item.precipIntensity;
+      var probability = item.precipProbability;
+      var x = radius - (intensity * 250);
+      var filterRedGreen=99-(probability*99);
+      var pad = filterRedGreen < 10 ? "0" : "";
+      var hex = "#" + pad + filterRedGreen + pad + filterRedGreen + "FF";
+
+      ctx.save();
+      ctx.rotate(minute * Math.PI/30);
+      ctx.strokeStyle = "white";
+      ctx.fillStyle = hex;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(radius,0);
+      ctx.lineTo(radius * Math.cos(2 * Math.PI / 60), radius * Math.sin(2 * Math.PI / 60));
+      ctx.lineTo(x * Math.cos(2 * Math.PI / 60), x * Math.sin(2 * Math.PI / 60));
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
+      ctx.restore();
+    });
+  }
+
   var now = new Date();
   var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
