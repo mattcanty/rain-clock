@@ -38,12 +38,18 @@ app.get('/forecast/:latlong', function(req, res){
   }, function (error, results){
     if (error) throw error
 
-    if(!results.one.minutely){
-      res.end(JSON.stringify({summary: results.one.hourly.summary}))
-      return
+    if(results.one.minutely){
+      var responseObject = {
+        summary: results.one.minutely.summary,
+        data: results.one.minutely.data.slice(0,60)
+      }
+    } else {
+      var responseObject = {
+        summary: results.one.hourly.summary
+      }
     }
 
-    res.end(JSON.stringify(results.one.minutely))
+    res.end(JSON.stringify(responseObject))
 
     var twitterStatusUpdate =  {
       status:results.one.minutely.summary,

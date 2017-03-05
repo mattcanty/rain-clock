@@ -4,15 +4,14 @@ function clock(){
       var minute = new Date(item.time * 1000).getMinutes();
       var intensity = item.precipIntensity;
       var probability = item.precipProbability;
-      var x = radius - (intensity * 250);
-      var filterRedGreen=99-(probability*99);
-      var pad = filterRedGreen < 10 ? "0" : "";
-      var hex = "#" + pad + filterRedGreen + pad + filterRedGreen + "FF";
+      var x = radius - (intensity * 500);
+
+      var color = "rgba(0, 0, 255, " + probability + ")";
 
       ctx.save();
       ctx.rotate(minute * Math.PI/30);
       ctx.strokeStyle = "white";
-      ctx.fillStyle = hex;
+      ctx.fillStyle = color;
       ctx.beginPath();
       ctx.moveTo(x, 0);
       ctx.lineTo(radius,0);
@@ -21,6 +20,7 @@ function clock(){
       ctx.closePath();
       ctx.stroke();
       ctx.fill();
+      ctx.globalCompositeOperation = 'destination-atop';
       ctx.restore();
     });
   }
@@ -35,6 +35,7 @@ function clock(){
   var minutesRadius = radius * 0.99;
   var hoursRadius = radius * 0.95;
   var clockDiameter = radius * 2;
+
 
   ctx.save();
   ctx.clearRect(0,0,size,size);
