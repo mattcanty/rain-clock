@@ -14,6 +14,7 @@ function onPositionUpdated(currentPosition) {
   data.locationMessage = "Location accurate to " + currentPosition.coords.accuracy + " metres."
 
   var requestUri = '/forecast/' + data.latitude + ',' + data.longitude
+  var uploadUri = '/upload'
 
   Vue.http.get(requestUri).then(
     response => {
@@ -22,6 +23,19 @@ function onPositionUpdated(currentPosition) {
       data.weatherSummary = weatherData.summary
 
       localStorage.setItem("forecast", JSON.stringify(weatherData))
+
+      var canvas = document.getElementById("canvas");
+      var dataUrl = canvas.toDataURL();
+      var dataUrlCropped = dataUrl.replace('data:image/png;base64,', '');
+
+      Vue.http.post('/upload', dataUrlCropped)
+        .then(function(response){
+          console.log(response);
+        }, function (response) {
+          console.log(response);
+      });
+
+      Vue.http.post(uploadUri, dataURL);
     },
     error => console.debug)
 }
