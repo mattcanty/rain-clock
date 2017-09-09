@@ -1,9 +1,10 @@
 {
-  "name": "weather-clock",
+  "name": "rain-clock",
   "version": "0.0.1",
   "description": "View hyper-local rain predictions on a clock",
   "main": "app.js",
   "dependencies": {
+    "compression": "^1.7.0",
     "darksky": "^0.1.2",
     "debug": "^2.1.0",
     "dotenv": "^4.0.0",
@@ -13,14 +14,21 @@
     "twitter": "1.7.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "local": "node app.js",
+    "update-stack": "aws cloudformation update-stack --stack-name rainclock --template-body file://aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM",
+    "make-dist": "mkdir -p dist/aws/lambda",
+    "zip-lambda": "npm run make-dist && cd ~/workspace/aws/lambda/forecast && zip -r ../../../dist/aws/lambda/forecast.zip *",
+    "clean-lambda": "rm -rf dist/aws/lambda",
+    "build-lambda": "npm run clean-lambda && npm run zip-lambda",
+    "sync-public": "aws s3 cp public s3://rainclock-rainclockpublicbucket-16zshove7uwcq/ --recursive && npm run invalidate-cache",
+    "sync-lambda": "aws s3 cp dist/aws/lambda/forecast.zip s3://rainclock-management-rainclocklambdabucket-978qdlqdm11f/",
+    "invalidate-cache": "aws cloudfront create-invalidation --distribution-id E3A6JN1T2QV89C --paths /index.html /app.js /style.css"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/matthewcanty/weather-clock.git"
+    "url": "https://github.com/mattcanty/rain-clock.git"
   },
-  "author": "Matthew Canty",
+  "author": "Matt Canty",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/matthewcanty/weather-clock/issues"
@@ -28,10 +36,5 @@
   "homepage": "http://weatherclock.matthewcanty.co.uk/",
   "engines": {
     "node": "5.1.0"
-  },
-  "browserify-css": {
-    "autoInject": true,
-    "minify": true,
-    "rootDir": "./styles"
   }
 }

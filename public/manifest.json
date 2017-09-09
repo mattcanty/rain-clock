@@ -1,0 +1,8 @@
+{
+  "short_name": "RainClock",
+  "name": "Rain Clock",
+  "display": "standalone",
+  "icons": [
+  ],
+  "start_url": "index.html"
+}

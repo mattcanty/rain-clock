@@ -1,3 +1,57 @@
+/*global localStorage*/
+/*global Vue*/
+/*global navigator*/
+
+var data = {
+  weatherSummary: 'Hang on a sec.',
+  locationMessage: 'Finding you.'
+}
+
+function updateLocationMessage(locationMessage){
+  data.locationMessage = locationMessage
+}
+
+function onPositionUpdated(currentPosition) {
+  data.latitude = currentPosition.coords.latitude
+  data.longitude = currentPosition.coords.longitude
+
+  data.locationMessage = "Location accurate to " + currentPosition.coords.accuracy + " metres."
+
+  var requestUri = 'https://domsd7l1pe.execute-api.eu-west-2.amazonaws.com/Prod/forecast?latitude=' + data.latitude + '&longitude=' + data.longitude
+  // var uploadUri = '/upload'
+
+  Vue.http.get(requestUri).then(
+    response => {
+      var weatherData = response.json()
+
+      data.weatherSummary = weatherData.summary
+
+      localStorage.setItem("forecast", JSON.stringify(weatherData))
+
+      /*
+      var canvas = document.getElementById("canvas");
+      var dataUrl = canvas.toDataURL();
+      var dataUrlCropped = dataUrl.replace('data:image/png;base64,', '');
+
+      Vue.http.post('/upload', dataUrlCropped)
+        .then(function(response){
+          console.log(response);
+        }, function (response) {
+          console.log(response);
+      });
+
+      Vue.http.post(uploadUri, dataURL);
+      */
+    },
+    error => console.debug)
+}
+
+var vm1 = new Vue({
+  el: '#forecast',
+  data: data,
+  created: navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error)
+})
+
 function clock(){
   function drawPrediction(ctx, data){
     data.forEach(function(item){
@@ -46,11 +100,8 @@ function clock(){
   ctx.lineWidth = size / 240;
   ctx.lineCap = "round";
 
-  // Write prediction
-  var data = JSON.parse(localStorage.forecast).data;
-
-  if(data){
-    drawPrediction(ctx, data);
+  if(localStorage.forecast){
+    drawPrediction(ctx, JSON.parse(localStorage.forecast).data);
   }
 
   // Hour marks

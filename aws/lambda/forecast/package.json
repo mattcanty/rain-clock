@@ -1,0 +1,22 @@
+{
+  "name": "forecast",
+  "version": "1.0.0",
+  "description": "AWS Lambda function to get the rain forecast data from DarkSky API",
+  "main": "index.js",
+  "dependencies": {
+    "dark-sky": "^1.1.2",
+    "dotenv": "^4.0.0"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "chai": "^4.1.1",
+    "lambda-tester": "^3.0.2",
+    "mocha": "^3.5.0",
+    "mockery": "^2.1.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Matt Canty",
+  "license": "ISC"
+}
