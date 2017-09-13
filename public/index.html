@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="manifest" href="./manifest.json">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
-    <meta name=keywords content="Weather clock matthew canty rain forecast forecastio forecast.io weatherclock matthewcanty mattcanty bassbytesbikes">
-    <meta name=description content="Weather displayed on a clock face">
+    <meta name="description" content="Rain forecast for the next hour on a clock face.">
+    <meta name=keywords content="Rain weather clock matthew canty rain forecast forecastio forecast.io weatherclock matthewcanty mattcanty bassbytesbikes">
+    <meta name=description content="Rain forecast displayed on a clock face">
     <meta name=subject content="Rain Clock">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
     <title>Rain Clock</title>
 
     <!-- Add to homescreen for Chrome on Android -->
@@ -26,54 +28,175 @@
 
     <link rel="shortcut icon" href="./favicon.png">
 
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-    <link rel="canonical" href="http://www.example.com/">
-    -->
+    <script type="text/javascript">
+      /*global navigator*/
+      var rainData = [];
 
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.blue-deep_purple.min.css">
-    <link rel=stylesheet type=text/css href=./style.css>
+      function ajax_get(url, callback) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            try {
+              var data = JSON.parse(xmlhttp.responseText);
+            } catch(err) {
+              console.log(err.message + " in " + xmlhttp.responseText);
+              return;
+            }
+            callback(data);
+          }
+        };
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+      }
+
+      function onPositionUpdated(currentPosition) {
+        console.log('got position')
+        var requestUri = 'https://domsd7l1pe.execute-api.eu-west-2.amazonaws.com/Prod/forecast?latitude=' + currentPosition.coords.latitude + '&longitude=' + currentPosition.coords.longitude
+
+        ajax_get(requestUri, function (result) {
+          console.log('got data')
+          document.getElementById('summary').textContent = result.summary
+          rainData = result.data
+        })
+      }
+
+      function clock(){
+        var now = new Date();
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var canvasParent = canvas.parentNode;
+        var size = Math.min(canvasParent.offsetWidth, canvasParent.offsetHeight);
+        var radius = size * 0.48;
+        var secondsRadius = radius * 0.95;
+        var minutesRadius = radius * 0.99;
+        var hoursRadius = radius * 0.95;
+        var clockDiameter = radius * 2;
+
+        ctx.save();
+        ctx.clearRect(0,0,size,size);
+        ctx.translate(radius, radius);
+        ctx.rotate(-Math.PI/2);
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "white";
+        ctx.lineWidth = size / 240;
+        ctx.lineCap = "round";
+
+        // Hour marks
+        ctx.save();
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "white";
+        ctx.lineWidth = size / 120;
+        ctx.lineCap = "round";
+
+        rainData.forEach(function(item){
+          var minute = new Date(item.time * 1000).getMinutes();
+          var intensity = item.precipIntensity;
+          var probability = item.precipProbability;
+          var x = radius - (intensity * 500);
+
+          var color = "rgba(0, 0, 255, " + probability + ")";
+
+          ctx.save();
+          ctx.rotate(minute * Math.PI/30);
+          ctx.strokeStyle = "white";
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(radius,0);
+          ctx.lineTo(radius * Math.cos(2 * Math.PI / 60), radius * Math.sin(2 * Math.PI / 60));
+          ctx.lineTo(x * Math.cos(2 * Math.PI / 60), x * Math.sin(2 * Math.PI / 60));
+          ctx.closePath();
+          ctx.stroke();
+          ctx.fill();
+          ctx.globalCompositeOperation = 'destination-atop';
+          ctx.restore();
+        });
+
+        for (var i = 0; i < 12; i += 1){
+          ctx.beginPath();
+          ctx.rotate(Math.PI/6);
+          ctx.moveTo(hoursRadius,0);
+          ctx.lineTo(radius,0);
+          ctx.stroke();
+        }
+
+        ctx.restore();
+
+        // Minute marks
+        ctx.save();
+        ctx.lineWidth = size / 240;
+        for (i = 0; i < 60; i += 1){
+          if (i%5!=0) {
+            ctx.beginPath();
+            ctx.moveTo(minutesRadius,0);
+            ctx.lineTo(radius,0);
+            ctx.stroke();
+          }
+
+          ctx.rotate(Math.PI/30);
+        }
+        ctx.restore();
+        var sec = now.getSeconds();
+        var min = now.getMinutes();
+        var hr  = now.getHours();
+        hr = hr >= 12 ? hr-12 : hr;
+
+        ctx.fillStyle = "black";
+
+        // write Hours
+        ctx.save();
+        ctx.rotate(hr*(Math.PI/6) + (Math.PI/360)*min + (Math.PI/21600)*sec);
+        ctx.lineWidth = size / 120;
+        ctx.beginPath();
+        ctx.moveTo(size * -0.05,0);
+        ctx.lineTo(size * 0.24,0);
+        ctx.stroke();
+        ctx.restore();
+
+        // write Minutes
+        ctx.save();
+        ctx.rotate((Math.PI/30)*min + (Math.PI/1800)*sec);
+        ctx.lineWidth = size / 240;
+        ctx.beginPath();
+        ctx.moveTo(size * -0.05,0);
+        ctx.lineTo(size * 0.4,0);
+        ctx.stroke();
+        ctx.restore();
+
+        // Write seconds
+        ctx.save();
+        ctx.rotate(sec * Math.PI/30);
+        ctx.strokeStyle = "#D40000";
+        ctx.fillStyle = "#D40000";
+        ctx.lineWidth = size / 240;
+        ctx.beginPath();
+        ctx.moveTo(size * -0.05,0);
+        ctx.lineTo(size * 0.4,0);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(0,0,size * 0.01,0,Math.PI*2,true);
+        ctx.fill();
+        ctx.restore();
+
+        ctx.restore();
+      }
+
+      navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error)
+      setInterval(clock,1000)
+    </script>
   </head>
-  <body onload=setInterval(clock,1000)>
-    <div id=forecast class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
-      <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Rain Clock</span>
-        </div>
-      </header>
-      <div class="demo-ribbon"></div>
-      <main class="demo-main mdl-layout__content">
-        <div v-cloak class="demo-container mdl-grid">
-          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-            <h4>
-              <span class=v-cloak--inline>Hang on a sec.</span>
-              <span class=v-cloak--hidden>{{ weatherSummary }}</span>
-            </h4>
-            <div>
-              <canvas id=canvas width=500 height=500></canvas>
-            </div>
-          </div>
-        </div>
-        <footer class="demo-footer mdl-mini-footer">
-          <div class="mdl-mini-footer--left-section">
-            <ul class="mdl-mini-footer--link-list">
-              <li>
-                <a href=https://github.com/matthewcanty/weather-clock title="GitHub - weather-clock" target=_blank rel=noopener>Created by Matt Canty</a>
-              </li>
-              <li>
-                <a href=https://darksky.net/poweredby/ title="Powered by Dark Sky" target=_blank rel=noopener>Powered by Dark Sky</a>
-              </li>
-            </ul>
-          </div>
-        </footer>
-      </main>
-    </div>
-    <script src=//cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js></script>
-    <script src=//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.min.js></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
-    <script src=./app.js></script>
+  <body style="font-family:Arial, Helvetica, sans-serif">
+    <header>
+      <h1>Rain Clock</h1>
+    </header>
+    <main>
+      <h4 id=summary>Hang on a sec.</h4>
+      <canvas id=canvas width=500 height=500></canvas>
+    </main>
+    <footer>
+      <a href=https://github.com/mattcanty/rain-clock title="GitHub - weather-clock" target=_blank rel=noopener>Created by Matt Canty</a>
+      <a href=https://darksky.net/poweredby/ title="Powered by Dark Sky" target=_blank rel=noopener>Powered by Dark Sky</a>
+    </footer>
   </body>
 </html>
