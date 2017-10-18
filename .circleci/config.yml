@@ -5,4 +5,8 @@ jobs:
       - image: circleci/node:6.10
     steps:
       - checkout
-      - run: echo 'hello world'
+  deployment:
+    prod:
+      branch: master
+      commands:
+        - aws s3 sync public s3://rainclock-rainclockpublicbucket-16zshove7uwcq/ --delete
