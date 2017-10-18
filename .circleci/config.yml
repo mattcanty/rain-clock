@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/node:6.10
     steps:
-      - run: sudo apt-get -y -qq install awscli
+      - run: pip install awscli
       - run: aws --version
       - run: aws configure set default.s3.signature_version s3v4
       - checkout
