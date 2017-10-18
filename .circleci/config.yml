@@ -5,6 +5,7 @@ jobs:
       - image: circleci/node:6.10
     steps:
       - run: sudo apt-get -y -qq install awscli
+      - run: aws --version
       - run: aws configure set default.s3.signature_version s3v4
       - checkout
       - run: aws cloudformation deploy --stack-name rainclock --template-file aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM
