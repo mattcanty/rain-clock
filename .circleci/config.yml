@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:5.1.0
+      - image: circleci/node:6.10
     steps:
       - checkout
       - run: echo 'hello world'
