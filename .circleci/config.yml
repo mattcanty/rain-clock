@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: circleci/node:6.10
     steps:
-      - checkout
       - run: sudo apt-get -y -qq install awscli
+      - run: aws configure set default.s3.signature_version s3v4
+      - checkout
       - run: aws s3 sync public s3://rainclock-rainclockpublicbucket-16zshove7uwcq/ --delete
