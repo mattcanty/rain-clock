@@ -4,6 +4,8 @@ jobs:
     docker:
       - image: node:6
     steps:
+      - apt-get update
+      - apt-get install zip -qy
       - checkout
       - run: sh build.sh
       - persist_to_workspace:
@@ -14,6 +16,7 @@ jobs:
     docker:
       - image: cnadiminti/aws-sam-local
     steps:
+      - apk add ca-certificates
       - checkout
       - attach_workspace:
           at: .
