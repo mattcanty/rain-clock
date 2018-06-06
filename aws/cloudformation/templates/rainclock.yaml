@@ -133,7 +133,7 @@ Resources:
       Role: !GetAtt LambdaExecutionRole.Arn
       Environment:
         Variables:
-          DARK_SKY: !Ref DarkSkyApiKey
+          DARKSKY_APIKEY: !Ref DarkSkyApiKey
       CodeUri: ../../lambda/forecast/.build/forecast.zip
       Runtime: nodejs6.10
       Timeout: 24
