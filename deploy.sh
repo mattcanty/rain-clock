@@ -1,6 +1,7 @@
 #!/bin/sh
 
 PKG_BUCKET=rainclock-management-rainclocklambdabucket-978qdlqdm11f
+PUB_BUCKET=rainclock-rainclockpublicbucket-16zshove7uwcq
 STACK_NAME=rainclock
 
 (cd aws/cloudformation/templates;
@@ -13,3 +14,5 @@ STACK_NAME=rainclock
         --capabilities CAPABILITY_IAM \
         --region eu-west-2
 )
+
+aws s3 sync public s3://$PUB_BUCKET/ --delete
