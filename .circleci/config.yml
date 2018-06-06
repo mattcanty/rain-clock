@@ -6,6 +6,10 @@ jobs:
     steps:
       - checkout
       - run: sh build.sh
+      - persist_to_workspace:
+          root: aws/lambda/forecast/.build
+          paths:
+            - forecast.zip
     #steps:
     #  - run: pip install awscli
     #  - run: aws --version
