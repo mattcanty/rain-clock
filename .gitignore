@@ -1,8 +1,8 @@
 .c9
 .vscode
 .DS_Store
-/node_modules
+node_modules
 npm-debug.log
-/*.env
 /uploads
 /dist
+.env
