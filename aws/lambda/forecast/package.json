@@ -5,8 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "dark-sky": "^1.1.2",
-    "dotenv": "^4.0.0",
-    "lambda-packager": "^0.2.1"
+    "dotenv": "^4.0.0"
   },
   "devDependencies": {
     "assert": "^1.4.1",

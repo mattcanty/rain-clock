@@ -5,7 +5,6 @@ Description: >
 Parameters:
   DarkSkyApiKey:
     Type: String
-    Required: true
 Resources:
   ApiGateway:
     Type: AWS::ApiGateway::RestApi
@@ -135,11 +134,9 @@ Resources:
       Environment:
         Variables:
           DARK_SKY: !Ref DarkSkyApiKey
-      CodeUri: src/aksd
+      CodeUri: ../../lambda/forecast/.build/forecast.zip
       Runtime: nodejs6.10
       Timeout: 24
-      TracingConfig:
-        Mode: Active
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:

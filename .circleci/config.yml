@@ -15,8 +15,9 @@ jobs:
       - image: cnadiminti/aws-sam-local
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run: sh deploy.sh
-    #  - run: aws cloudformation deploy --stack-name rainclock --template-file aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM
     #  - run: aws s3 sync public s3://rainclock-rainclockpublicbucket-16zshove7uwcq/ --delete
 workflows:
   version: 2
