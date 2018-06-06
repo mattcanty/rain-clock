@@ -9,9 +9,9 @@ jobs:
       - checkout
       - run: sh build.sh
       - persist_to_workspace:
-          root: aws/lambda/forecast/.build
+          root: .
           paths:
-            - forecast.zip
+            - aws/lambda/forecast/.build/forecast.zip
   deploy:
     docker:
       - image: cnadiminti/aws-sam-local
