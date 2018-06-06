@@ -16,7 +16,7 @@ jobs:
     docker:
       - image: cnadiminti/aws-sam-local
     steps:
-      - run: apk add ca-certificates
+      - run: apk --update add ca-certificates
       - checkout
       - attach_workspace:
           at: .
