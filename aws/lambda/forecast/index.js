@@ -4,7 +4,7 @@ console.log('Loading event');
 require('dotenv').config();
 
 const DarkSky = require('dark-sky');
-const darksky = new DarkSky(process.env.DARK_SKY);
+const darksky = new DarkSky(process.env.DARKSKY_APIKEY);
 
 exports.handler = function(event, context, callback) {
   darksky

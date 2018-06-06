@@ -15,6 +15,7 @@
     "mockery": "^2.1.0"
   },
   "scripts": {
+    "build": "npm install && npm test",
     "test": "mocha"
   },
   "author": "Matt Canty",

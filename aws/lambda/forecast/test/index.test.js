@@ -13,7 +13,7 @@ describe('forecast handler', function() {
     mockery.enable();
   })
 
-  it('London coordinates returns forecast', function() {
+  it('returns a forecast for London', function() {
     return LambdaTester(forecastHandler)
       .event({
         queryStringParameters: {
