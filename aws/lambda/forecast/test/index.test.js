@@ -1,7 +1,7 @@
 const LambdaTester = require('lambda-tester');
 const mockery = require('mockery');
 const forecastHandler = require('../index').handler;
-const expect = require( 'chai' ).expect;
+const expect = require('chai').expect;
 
 describe('forecast handler', function() {
 

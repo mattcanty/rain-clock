@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "dark-sky": "^1.1.2",
-    "dotenv": "^4.0.0"
+    "dotenv": "^4.0.0",
+    "lambda-packager": "^0.2.1"
   },
   "devDependencies": {
     "assert": "^1.4.1",
@@ -15,8 +16,9 @@
     "mockery": "^2.1.0"
   },
   "scripts": {
-    "build": "npm install && npm test",
-    "test": "mocha"
+    "build": "npm install --no-progress && npm test && npm prune --production && npm run package",
+    "test": "mocha",
+    "package": "mkdir -p .build && zip -r .build/forecast.zip node_modules/ index.js"
   },
   "author": "Matt Canty",
   "license": "ISC"
