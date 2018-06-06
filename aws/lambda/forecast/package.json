@@ -16,7 +16,7 @@
     "mockery": "^2.1.0"
   },
   "scripts": {
-    "build": "npm install --no-progress && npm test && npm prune --production && npm run package",
+    "build": "npm set progress=false && npm install && npm test && npm prune --production && npm run package",
     "test": "mocha",
     "package": "mkdir -p .build && zip -r .build/forecast.zip node_modules/ index.js"
   },

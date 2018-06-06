@@ -10,6 +10,12 @@ jobs:
           root: aws/lambda/forecast/.build
           paths:
             - forecast.zip
+  deploy:
+    docker:
+      - image: cnadiminti/aws-sam-local
+    steps:
+      - checkout
+      - sh deploy
     #steps:
     #  - run: pip install awscli
     #  - run: aws --version
@@ -22,3 +28,4 @@ workflows:
   build_and_deploy:
     jobs:
       - build
+      - deploy

@@ -1,3 +1,5 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Description: >
   Rain Clock
 Parameters:
@@ -126,16 +128,14 @@ Resources:
     Properties:
       CloudWatchRoleArn: !GetAtt CloudWatchRole.Arn
   Lambda:
-    Type: AWS::Lambda::Function
+    Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
       Role: !GetAtt LambdaExecutionRole.Arn
       Environment:
         Variables:
           DARK_SKY: !Ref DarkSkyApiKey
-      Code:
-        S3Bucket: rainclock-management-rainclocklambdabucket-978qdlqdm11f
-        S3Key: forecast.zip
+      CodeUri: src/aksd
       Runtime: nodejs6.10
       Timeout: 24
       TracingConfig:
