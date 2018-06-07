@@ -26,7 +26,7 @@ exports.handler = function(event, context, callback) {
         statusCode: 200,
         body: JSON.stringify(response),
         headers: {
-          'Access-Control-Allow-Origin':'https://rainclock.mattcanty.com'
+          'Access-Control-Allow-Origin':'https://rainclock.mattcanty.com http://localhost:8081'
         }
       });
     })
