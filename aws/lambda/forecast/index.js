@@ -15,6 +15,8 @@ exports.handler = function(event, context, callback) {
     .then((darkSkyResult) => {
       if(darkSkyResult.minutely) {
         var raindata = darkSkyResult.minutely.data.slice(0,60)
+      } else {
+        var raindata = []
       }
 
       var response = {
