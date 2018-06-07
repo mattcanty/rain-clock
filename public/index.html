@@ -186,6 +186,74 @@
 
       navigator.geolocation.getCurrentPosition(onPositionUpdated, console.error)
       setInterval(clock,1000)
+
+      function SimulateRainData() {
+        var now = Math.round(new Date().getTime()/1000)
+        console.log(now)
+        rainData = [
+          {"time":now,"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 1),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 2),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 3),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 4),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 5),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 6),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 7),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 8),"precipIntensity":0.01,"precipProbability":1},
+          {"time":now + (60 * 9),"precipIntensity":0.02,"precipProbability":1},
+          {"time":now + (60 * 10),"precipIntensity":0.03,"precipProbability":1},
+          {"time":now + (60 * 11),"precipIntensity":0.04,"precipProbability":1},
+          {"time":now + (60 * 12),"precipIntensity":0.05,"precipProbability":1},
+          {"time":now + (60 * 13),"precipIntensity":0.04,"precipProbability":1},
+          {"time":now + (60 * 14),"precipIntensity":0.04,"precipProbability":1},
+          {"time":now + (60 * 15),"precipIntensity":0.04,"precipProbability":0.6},
+          {"time":now + (60 * 16),"precipIntensity":0.03,"precipProbability":0.5},
+          {"time":now + (60 * 17),"precipIntensity":0.01,"precipProbability":0.5},
+          {"time":now + (60 * 18),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 19),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 20),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 21),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 22),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 23),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 24),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 25),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 26),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 27),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 28),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 29),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 30),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 31),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 32),"precipIntensity":0.008,"precipProbability":0.2},
+          {"time":now + (60 * 33),"precipIntensity":0.008,"precipProbability":0.2},
+          {"time":now + (60 * 34),"precipIntensity":0.008,"precipProbability":0.2},
+          {"time":now + (60 * 35),"precipIntensity":0.008,"precipProbability":0.2},
+          {"time":now + (60 * 36),"precipIntensity":0.008,"precipProbability":0.2},
+          {"time":now + (60 * 37),"precipIntensity":0.008,"precipProbability":0.2},
+          {"time":now + (60 * 38),"precipIntensity":0.008,"precipProbability":0.2},
+          {"time":now + (60 * 39),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 40),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 41),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 42),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 43),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 44),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 45),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 46),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 47),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 48),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 49),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 50),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 51),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 52),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 53),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 54),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 55),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 56),"precipIntensity":0,"precipProbability":0},
+          {"time":now + (60 * 57),"precipIntensity":0.08,"precipProbability":0.2},
+          {"time":now + (60 * 58),"precipIntensity":0.25,"precipProbability":0.3},
+          {"time":now + (60 * 59),"precipIntensity":0.27,"precipProbability":0.3}
+        ]
+    
+      }
     </script>
   </head>
   <body style="font-family:Arial, Helvetica, sans-serif">
@@ -199,6 +267,7 @@
     <footer>
       <a href=https://github.com/mattcanty/rain-clock title="GitHub - weather-clock" target=_blank rel=noopener>Created by Matt Canty</a>
       <a href=https://darksky.net/poweredby/ title="Powered by Dark Sky" target=_blank rel=noopener>Powered by Dark Sky</a>
+      <a href="javascript:SimulateRainData();">Simulate</a>
     </footer>
   </body>
 </html>
