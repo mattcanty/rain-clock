@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:8
+      - image: circleci/node:chakracore-8.10
     steps:
       - run: apt-get update
       - run: apt-get install zip -qy
