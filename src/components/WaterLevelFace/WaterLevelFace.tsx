@@ -1,7 +1,8 @@
+import * as d3 from 'd3';
 import React, { memo } from 'react';
+
 import { useD3 } from '../../utils/use-d3';
 import ClockFace from '../ClockFace/ClockFace';
-import * as d3 from 'd3';
 
 type WaterLevelFaceProps = React.HTMLAttributes<HTMLDivElement> & {};
 
@@ -17,7 +18,7 @@ export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = prop
 
         const radial = d3
             .areaRadial()
-            .curve(d3.curveBasisClosed)
+            .curve(d3.curveBasis)
             .innerRadius(() => 1)(DATA);
 
         svg.append('g')
