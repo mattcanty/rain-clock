@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="height:100%">
 
 <head>
   <link rel="manifest" href="./manifest.json">
@@ -30,6 +30,7 @@
 
   <link rel="shortcut icon" href="./favicon.png">
 
+  <script src="main.js" defer></script>
   <script type="text/javascript">
     /*global navigator*/
     var rainData = [];
@@ -257,16 +258,64 @@
 
     }
   </script>
+  <style>
+svg{
+	stroke: #000;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+}
+
+#rim {
+  fill: none;
+  stroke: #999;
+  stroke-width: .003;
+}
+
+.second-hand{
+	stroke-width:.01;
+  stroke: red;
+}
+
+.minute-hand{
+	stroke-width:.03;
+	stroke-linecap:round;
+}
+
+.hour-hand{
+	stroke-width:.012;
+	stroke-linecap:round;
+}
+
+.hands-cover{
+	stroke-width:.01;
+	fill:#fff;
+  stroke: red;
+}
+
+.second-tick{
+	stroke-width:.01;
+	fill:#000;	
+  
+	stroke-linecap:round;
+}
+
+.hour-tick{
+	stroke-width:.04;
+  
+	stroke-linecap:round;
+}
+
+  </style>
 </head>
 
-<body style="font-family:Arial, Helvetica, sans-serif">
+<body style="font-family:Arial, Helvetica, sans-serif;height:100%;margin:0;display: flex;flex-direction: column;">
   <header>
-    <h1>Rain Clock</h1>
+    <h1 style="margin: 0">Rain Clock</h1>
   </header>
-  <main>
-    <a onclick="window.location.href=this" style="cursor:pointer;">Refresh</a>
-    <h4 id=summary>Hang on a sec.</h4>
-    <canvas id=canvas width=600 height=600></canvas>
+  <main style="display: flex;flex: 1;flex-direction: column">
+      <a onclick="window.location.href=this" style="cursor:pointer;">Refresh</a>
+      <h4 id=summary>Hang on a sec.</h4>
+     
+      <div id="root" style="display: flex;flex: 1"></div> 
   </main>
   <footer>
     <a href=https://github.com/mattcanty/rain-clock title="GitHub - weather-clock" target=_blank rel=noopener>Created by
