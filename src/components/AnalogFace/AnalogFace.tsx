@@ -13,19 +13,21 @@ const HOUR_SCALE = d3.scaleLinear().range([0, 330]).domain([0, 11]);
 const MINUTE_SCALE = d3.scaleLinear().range([0, 354]).domain([0, 59]);
 const SECOND_SCALE = d3.scaleLinear().range([0, 354]).domain([0, 59]);
 
+const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2
+
 const AnalogFace: React.FunctionComponent<AnalogFaceProps> = props => {
     const radius = 1;
     const margin = props.margin;
     const width = (radius + margin) * 2;
     const height = (radius + margin) * 2;
-    const hourHandLength = (2 * radius) / 3;
-    const minuteHandLength = radius * 0.82;
-    const secondHandLength = radius * 0.76;
-    const secondHandBalance = radius * 0.3;
+    const minuteHandLength = radius * 0.76;
+    const hourHandLength = minuteHandLength / GOLDEN_RATIO;
+    const secondHandLength = radius * 0.92;
+    const secondHandBalance = radius * 0.15;
     const secondTickStart = radius;
     const secondTickLength = radius * 0.01;
     const hourTickStart = radius;
-    const hourTickLength = radius * 0.1;
+    const hourTickLength = secondTickLength * GOLDEN_RATIO;
 
     const HANDS = [
         {
