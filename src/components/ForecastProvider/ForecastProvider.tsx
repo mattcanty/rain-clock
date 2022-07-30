@@ -1,18 +1,40 @@
-import React, { createContext, useContext } from 'react';
+import React, {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useState
+} from 'react';
 
 import { useForecastQuery } from '../../forecast';
-import { Forecast } from '../../forecast/model';
+import { Forecast, ForecastData } from '../../forecast/model';
 
-const context = createContext<Forecast>({ data: [] });
+const context = createContext<Forecast>({ data: [], loading: false, onSimulate: () => void 0 });
 
-export const useForecast = () => useContext(context).data
+export const useForecast = () => useContext(context).data;
+export const useSimulation = () => useContext(context).onSimulate;
 
 type ForecastProviderProps = React.PropsWithChildren<{}>;
 
 export const ForecastProvider: React.FunctionComponent<ForecastProviderProps> = props => {
-    const { data = [], error } = useForecastQuery()
+    const [forecast, setForecast] = useState<ForecastData>([]);
+    const { isValidating, data , error } = useForecastQuery();
 
-    if (error) console.error(error)
+    useEffect(() => {
+        if(data) setForecast(data)
+    }, [data])
 
-    return <context.Provider value={{ data }}>{props.children}</context.Provider>;
+    useEffect(() => {
+        if (error) console.error(error);
+    }, [error])
+
+    const onSimulate = useCallback(() => {
+        /* setForecast(SIMULATED_DATA) */
+    }, []);
+
+    return (
+        <context.Provider value={{ data: forecast, loading: isValidating, onSimulate }}>
+            {props.children}
+        </context.Provider>
+    );
 };

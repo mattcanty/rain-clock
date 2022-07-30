@@ -4,6 +4,10 @@ export interface ForecastSlice {
     precipProbability: number;
 }
 
+export type ForecastData = ForecastSlice[];
+
 export interface Forecast {
-    data: ForecastSlice[];
+    data: ForecastData;
+    loading: boolean;
+    onSimulate: () => void;
 }

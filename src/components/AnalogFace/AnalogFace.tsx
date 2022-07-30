@@ -1,8 +1,8 @@
-import React, { memo, useCallback } from 'react';
-
 import * as d3 from 'd3';
-import { useD3 } from '../../utils/use-d3';
+import React, { memo, useCallback } from 'react';
 import useInterval from 'use-interval';
+
+import { useD3 } from '../../utils/use-d3';
 import ClockFace from '../ClockFace/ClockFace';
 
 type AnalogFaceProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -68,6 +68,8 @@ const AnalogFace: React.FunctionComponent<AnalogFaceProps> = props => {
         const svg = container
             .append('svg')
             .attr('viewBox', `0 0 ${height} ${width}`)
+            .attr('width', '100%')
+            .attr('height', 'auto')
             .attr('preserveAspectRatio', 'xMidYMid meet');
 
         const face = svg

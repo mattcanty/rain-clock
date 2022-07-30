@@ -14,7 +14,12 @@ const DATA = [
 
 export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = props => {
     const face = useD3(container => {
-        const svg = container.append('svg').attr('viewBox', `0 0 2.2 2.2`).attr('preserveAspectRatio', 'xMidYMid meet');
+        const svg = container
+            .append('svg')
+            .attr('viewBox', `0 0 2.2 2.2`)
+            .attr('width', '100%')
+            .attr('height', 'auto')
+            .attr('preserveAspectRatio', 'xMidYMid meet');
 
         const radial = d3
             .areaRadial()
