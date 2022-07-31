@@ -10,14 +10,7 @@ export const App: React.FunctionComponent = () => {
     return (
         <ForecastProvider>
             <LandingScreen>
-                <RainClock
-                    style={{
-                        position: 'relative',
-                        display: 'flex',
-                        flex: 1,
-                        justifyContent: 'center',
-                        maxHeight: 600,
-                    }}>
+                <RainClock>
                     <WaterLevelFace />
                     <AnalogFace margin={0.1} />
                 </RainClock>

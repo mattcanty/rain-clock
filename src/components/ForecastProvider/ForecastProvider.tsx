@@ -8,6 +8,7 @@ import React, {
 
 import { useForecastQuery } from '../../forecast';
 import { Forecast, ForecastData } from '../../forecast/model';
+import { getSimulatedData } from '../../utils/get-simulated-data';
 
 const context = createContext<Forecast>({ data: [], loading: false, onSimulate: () => void 0 });
 
@@ -29,7 +30,7 @@ export const ForecastProvider: React.FunctionComponent<ForecastProviderProps> = 
     }, [error])
 
     const onSimulate = useCallback(() => {
-        /* setForecast(SIMULATED_DATA) */
+        setForecast(getSimulatedData())
     }, []);
 
     return (

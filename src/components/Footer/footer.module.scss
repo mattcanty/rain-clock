@@ -1,0 +1,21 @@
+.footer {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    background-color: lightgrey;
+
+    :nth-child(n) {
+        margin-right: 4px;
+    }
+
+    :last-child {
+        justify-self: flex-end;
+    }
+
+    a:link,
+    a:visited {
+        color: lightslategrey;
+        text-decoration: none;
+        font-size: 12px;
+    }
+}

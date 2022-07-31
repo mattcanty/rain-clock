@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
 
+import styles from './clock-face.module.scss';
+
 export type ClockFaceProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const ClockFace = React.forwardRef<HTMLDivElement, ClockFaceProps>((props, ref) => {
     return (
-        <div ref={ref} style={{ position: 'absolute', inset: 0 }}>
+        <div className={styles.container} ref={ref}>
             {props.children}
         </div>
     );
