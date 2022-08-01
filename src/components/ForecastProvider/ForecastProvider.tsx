@@ -19,18 +19,18 @@ type ForecastProviderProps = React.PropsWithChildren<{}>;
 
 export const ForecastProvider: React.FunctionComponent<ForecastProviderProps> = props => {
     const [forecast, setForecast] = useState<ForecastData>([]);
-    const { isValidating, data , error } = useForecastQuery();
+    const { isValidating, data, error } = useForecastQuery();
 
     useEffect(() => {
-        if(data) setForecast(data)
-    }, [data])
+        if (data) setForecast(data);
+    }, [data]);
 
     useEffect(() => {
         if (error) console.error(error);
-    }, [error])
+    }, [error]);
 
     const onSimulate = useCallback(() => {
-        setForecast(getSimulatedData())
+        setForecast(getSimulatedData());
     }, []);
 
     return (
