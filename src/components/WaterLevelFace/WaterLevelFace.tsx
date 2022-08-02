@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import React, { memo } from 'react';
 
+import { getSimulatedData } from '../../utils/get-simulated-data';
 import { useD3 } from '../../utils/use-d3';
 import ClockFace from '../ClockFace/ClockFace';
 import { useForecast } from '../ForecastProvider/ForecastProvider';
@@ -24,14 +25,21 @@ const usePath = () => {
     const data = forecast.map(d => [time.toRadians(d.time), 1 - d.precipIntensity] as const);
     const radial = d3
         .areaRadial<readonly [number, number]>()
-        .curve(d3.curveBasis)
+        .curve(d3.curveNatural)
         .innerRadius(() => 1);
 
     return radial(data);
 };
 
+const DATA_POINTS = getSimulatedData().map<[number, number]>((_, i, { length }) => [(2 * Math.PI * i) / length, 1]);
+const INITIAL_PATH = d3
+    .areaRadial()
+    .curve(d3.curveBasis)
+    .innerRadius(1)
+    (DATA_POINTS);
+
 export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = props => {
-    const path = usePath();
+    const data = usePath();
     const face = useD3(
         container => {
             if (!container.select('path').node()) {
@@ -42,18 +50,16 @@ export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = prop
                     .attr('height', 'auto')
                     .attr('preserveAspectRatio', 'xMidYMid meet');
 
-                svg.append('g')
-                    .append('path')
-                    .attr('transform', 'translate(1.1,1.1)')
+                const path = svg.append('g').append('path');
+                path.attr('transform', 'translate(1.1,1.1)')
                     .attr('fill', 'lightsteelblue')
                     .attr('stroke', 'steelblue')
                     .attr('stroke-width', 0.01)
-                    .attr('d', path);
-            } else {
-                container.select('path').transition().duration(400).attr('d', path);
+                    .attr('d', INITIAL_PATH);
             }
+            if (data) container.select('path').transition().duration(400).attr('d', data);
         },
-        [path],
+        [data],
     );
 
     return <ClockFace ref={face} {...props} />;
