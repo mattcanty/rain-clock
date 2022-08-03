@@ -23,7 +23,7 @@ module.exports = {
         liveReload: true,
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss', '.svg'],
     },
     module: {
         rules: [
@@ -46,6 +46,10 @@ module.exports = {
                 test: /\.s(a|c)ss$/,
                 exclude: /\.module.(s(a|c)ss)$/,
                 use: ['style-loader', 'css-modules-typescript-loader', 'css-loader', 'sass-loader'],
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
             },
         ],
     },

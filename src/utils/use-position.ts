@@ -13,10 +13,15 @@ export const usePosition = () => {
     }, []);
 
     useEffect(() => {
+        console.warn(navigator.geolocation);
         const id = navigator.geolocation?.watchPosition(onChange, onError);
 
         return () => navigator.geolocation.clearWatch(id);
-    }, []);
+    }, [onChange, onError]);
 
-    return [position, error];
+    const fetch = useCallback(() => {
+        navigator.geolocation?.getCurrentPosition(onChange);
+    }, [onChange]);
+
+    return [position, { error, fetch }] as const;
 };

@@ -23,7 +23,6 @@ const useIntensityScale = () => {
     const forecast = useForecast();
 
     const max = Math.max(1, d3.max(forecast, d => d.precipIntensity) ?? 0);
-    console.warn(max);
     return useMemo(
         () =>
             d3
