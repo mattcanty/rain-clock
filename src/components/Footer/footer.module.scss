@@ -2,7 +2,7 @@
     padding: 24px;
     display: flex;
     justify-content: space-between;
-    background-color: lightgrey;
+    background-color: lightsteelblue;
 
     :nth-child(n) {
         margin-right: 4px;
@@ -14,7 +14,7 @@
 
     a:link,
     a:visited {
-        color: lightslategrey;
+        color: steelblue;
         text-decoration: none;
         font-size: 12px;
     }
