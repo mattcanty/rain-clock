@@ -54,6 +54,8 @@ const AnalogFace: React.FunctionComponent<AnalogFaceProps> = props => {
             .selectAll('line')
             .data(HANDS)
             .transition()
+            .duration(400)
+            .ease(d3.easeCubicOut)
             .attr('transform', function (d) {
                 switch (d.type) {
                     case 'hour':
