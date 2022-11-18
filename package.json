@@ -14,7 +14,7 @@
     },
     "homepage": "http://weatherclock.matthewcanty.co.uk/",
     "scripts": {
-        "build": "webpack --mode production",
+        "build": "webpack --mode development",
         "local": "webpack --watch --mode development",
         "update-stack": "aws cloudformation update-stack --stack-name rainclock --template-body file://aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM",
         "make-dist": "mkdir -p dist/aws/lambda",
