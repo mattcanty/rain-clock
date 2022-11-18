@@ -17,7 +17,7 @@ module.exports = {
         ignored: /node_modules/,
     },
     devServer: {
-        port: '9500',
+        port: '3000',
         static: ['./public'],
         hot: true,
         liveReload: true,
