@@ -1,0 +1,17 @@
+name: Deploy
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::171269869827:role/GitHubMattCantyRainClockActionsWrite
+          aws-region: eu-west-2
+      - name: Git clone the repository
+        uses: actions/checkout@v2
