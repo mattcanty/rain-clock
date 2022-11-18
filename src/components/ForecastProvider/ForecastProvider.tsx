@@ -10,12 +10,13 @@ import { useForecastQuery } from '../../forecast';
 import { Forecast, ForecastResponse } from '../../forecast/model';
 import { getSimulatedData } from '../../utils/get-simulated-data';
 
+const defaultResponse = {
+    data: [],
+    summary: ""
+} as ForecastResponse
 
 const context = createContext<Forecast>({
-    response: {
-        data: [],
-        summary: ""
-    } as ForecastResponse, loading: false, onSimulate: () => void 0
+    response: {} as ForecastResponse, loading: false, onSimulate: () => void 0
 });
 
 export const useForecast = () => useContext(context).response;
@@ -40,7 +41,7 @@ export const ForecastProvider: React.FunctionComponent<ForecastProviderProps> = 
     }, []);
 
     return (
-        <context.Provider value={{ response: response!, loading: isValidating, onSimulate }}>
+        <context.Provider value={{ response: response ?? defaultResponse, loading: isValidating, onSimulate }}>
             {props.children}
         </context.Provider>
     );
