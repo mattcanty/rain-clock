@@ -10,7 +10,13 @@ import { useForecastQuery } from '../../forecast';
 import { Forecast, ForecastResponse } from '../../forecast/model';
 import { getSimulatedData } from '../../utils/get-simulated-data';
 
-const context = createContext<Forecast>({ response: {} as ForecastResponse, loading: false, onSimulate: () => void 0 });
+
+const context = createContext<Forecast>({
+    response: {
+        data: [],
+        summary: ""
+    } as ForecastResponse, loading: false, onSimulate: () => void 0
+});
 
 export const useForecast = () => useContext(context).response;
 export const useSimulation = () => useContext(context).onSimulate;
