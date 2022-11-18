@@ -29,7 +29,10 @@ export const ForecastProvider: React.FunctionComponent<ForecastProviderProps> = 
     const { isValidating, data, error } = useForecastQuery();
 
     useEffect(() => {
-        if (data) setForecast(data);
+        if (data) {
+            console.log(data);
+            setForecast(data);
+        }
     }, [data]);
 
     useEffect(() => {
