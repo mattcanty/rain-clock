@@ -39,11 +39,9 @@ const usePath = () => {
     const toRadius = useIntensityScale();
 
     console.log(forecast);
-    const data = forecast?.data.map(d => [time.toRadians(d.time), toRadius(d.precipIntensity)] as const);
-    const radial = d3
-        .areaRadial<readonly [number, number]>()
-        .curve(d3.curveNatural)
-        .innerRadius(() => 1);
+    const data = forecast?.data.map<[number, number]>(d => [time.toRadians(d.time), toRadius(d.precipIntensity)]);
+
+    const radial = d3.areaRadial().curve(d3.curveBasis).innerRadius(1);
 
     return radial(data);
 };
