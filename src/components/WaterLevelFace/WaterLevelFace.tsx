@@ -22,7 +22,8 @@ const time = {
 const useIntensityScale = () => {
     const forecast = useForecast();
 
-    const max = Math.max(1, d3.max(forecast, d => d.precipIntensity) ?? 0);
+    const intensity = Number(d3.max(forecast.data, d => d.precipIntensity));
+    const max = Math.max(1, isNaN(intensity) ? 0 : intensity);
     return useMemo(
         () =>
             d3
@@ -37,7 +38,7 @@ const usePath = () => {
     const forecast = useForecast();
     const toRadius = useIntensityScale();
 
-    const data = forecast.map(d => [time.toRadians(d.time), toRadius(d.precipIntensity)] as const);
+    const data = forecast?.data.map(d => [time.toRadians(d.time), toRadius(d.precipIntensity)] as const);
     const radial = d3
         .areaRadial<readonly [number, number]>()
         .curve(d3.curveNatural)
@@ -48,7 +49,10 @@ const usePath = () => {
 
 const AXIS_COUNT = 10;
 
-const DATA_POINTS = getSimulatedData().map<[number, number]>((_, i, { length }) => [(2 * Math.PI * i) / length, 1]);
+const DATA_POINTS = getSimulatedData()?.data.map<[number, number]>((_, i, { length }) => [
+    (2 * Math.PI * i) / length,
+    1,
+]);
 const INITIAL_PATH = d3.areaRadial().curve(d3.curveBasis).innerRadius(1)(DATA_POINTS);
 
 export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = props => {
@@ -89,7 +93,7 @@ export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = prop
                     .attr('opacity', 0.8)
                     .attr('d', INITIAL_PATH);
             }
-            
+
             // transition on data change
             if (data) {
                 container.select('path').transition().duration(400).attr('d', data);
