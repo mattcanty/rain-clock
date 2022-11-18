@@ -7,7 +7,9 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v2
-      - run: npm run build
+      - run: |
+          npm install
+          npm run build
   deploy:
     runs-on: ubuntu-latest
     permissions:
