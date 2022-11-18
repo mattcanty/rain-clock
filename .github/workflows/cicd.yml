@@ -1,8 +1,14 @@
-name: Deploy
+name: CICD
 on:
   push:
 jobs:
   build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v2
+      - run: npm run build
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
