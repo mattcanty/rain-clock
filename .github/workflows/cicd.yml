@@ -16,7 +16,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: web
-          path: public
+          path: dist
   deploy:
     runs-on: ubuntu-latest
     permissions:
