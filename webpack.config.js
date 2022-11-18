@@ -8,7 +8,7 @@ module.exports = {
     mode: isDevelopment ? 'development' : 'production',
     entry: './index.tsx',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'public'),
         filename: 'main.js',
     },
     target: 'web',
@@ -18,7 +18,7 @@ module.exports = {
     },
     devServer: {
         port: '9500',
-        static: ['./dist'],
+        static: ['./public'],
         hot: true,
         liveReload: true,
     },
