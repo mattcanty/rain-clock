@@ -5,7 +5,7 @@ import { ForecastData } from '../model';
 
 const FORECAST_FETCHER = (position: GeolocationPosition) =>
     fetch(
-        `${process.env.WEATHER_API}?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+        `https://domsd7l1pe.execute-api.eu-west-2.amazonaws.com/Prod/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
     ).then(r => r.json());
 
 /* every minute */
