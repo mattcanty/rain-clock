@@ -9,6 +9,10 @@ jobs:
         uses: actions/checkout@v2
       - run: npm install
       - run: npm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: web
+          path: public
   deploy:
     runs-on: ubuntu-latest
     permissions:
