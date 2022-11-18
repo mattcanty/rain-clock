@@ -5,7 +5,7 @@ export const getSimulatedData = (): ForecastResponse => {
     return {
         summary: "This is a simulation.",
         data: [
-            { time: now - 100, precipIntensity: 0, precipProbability: 0 },
+            { time: now - 60 * 1000 * 1, precipIntensity: 0, precipProbability: 0 },
             { time: now + 60 * 1000 * 1, precipIntensity: 0, precipProbability: 0 },
             { time: now + 60 * 1000 * 2, precipIntensity: 0, precipProbability: 0 },
             { time: now + 60 * 1000 * 3, precipIntensity: 0, precipProbability: 0 },
