@@ -16,7 +16,7 @@ const minutes = {
 };
 
 const time = {
-    toRadians: (input: number) => minutes.toRadians(new Date(input).getMinutes()),
+    toRadians: (input: number) => minutes.toRadians(new Date(input * 1000).getMinutes()),
 };
 
 const useIntensityScale = () => {
