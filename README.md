@@ -1,3 +1,7 @@
-[![CircleCI](https://circleci.com/gh/mattcanty/rain-clock.svg?style=svg)](https://circleci.com/gh/mattcanty/rain-clock)
+# Rain Clock
+
+This is Rain Clock.
+
+Rain Clock is a clock with rain forecasted on it.
 
 [rainclock.mattcanty.com](https://rainclock.mattcanty.com/)
