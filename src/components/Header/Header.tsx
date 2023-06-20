@@ -4,7 +4,7 @@ import styles from './header.module.scss';
 
 const Header: React.FunctionComponent = () => {
     const onOpenGitHub = useCallback(() => {
-        window.open(process.env.GIT_HUB, '_blank', 'noopener,noreferrer');
+        window.open(process.env.GITHUB_REPO_URL, '_blank', 'noopener,noreferrer');
     }, []);
 
     return (
