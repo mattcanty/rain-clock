@@ -5,3 +5,7 @@ node_modules
 npm-debug.log
 .env
 .build
+
+yarn-error.log
+
+main.js

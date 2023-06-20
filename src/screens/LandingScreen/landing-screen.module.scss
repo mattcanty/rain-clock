@@ -1,0 +1,15 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    padding: 24px 0 24px 0;
+}

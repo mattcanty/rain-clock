@@ -1,40 +1,68 @@
 {
-  "name": "rain-clock",
-  "version": "0.0.1",
-  "description": "View hyper-local rain predictions on a clock",
-  "main": "app.js",
-  "dependencies": {
-    "compression": "^1.7.0",
-    "darksky": "^0.1.2",
-    "debug": "^2.1.0",
-    "dotenv": "^4.0.0",
-    "express": "^4.10.1",
-    "node-cache": "^4.1.1",
-    "request": "2.79.0",
-    "twitter": "1.7.0"
-  },
-  "scripts": {
-    "local": "node app.js",
-    "update-stack": "aws cloudformation update-stack --stack-name rainclock --template-body file://aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM",
-    "make-dist": "mkdir -p dist/aws/lambda",
-    "zip-lambda": "npm run make-dist && cd ~/workspace/aws/lambda/forecast && zip -r ../../../dist/aws/lambda/forecast.zip *",
-    "clean-lambda": "rm -rf dist/aws/lambda",
-    "build-lambda": "npm run clean-lambda && npm run zip-lambda",
-    "sync-public": "aws s3 cp public s3://rainclock-rainclockpublicbucket-16zshove7uwcq/ --recursive && npm run invalidate-cache",
-    "sync-lambda": "aws s3 cp dist/aws/lambda/forecast.zip s3://rainclock-management-rainclocklambdabucket-978qdlqdm11f/",
-    "invalidate-cache": "aws cloudfront create-invalidation --distribution-id E3A6JN1T2QV89C --paths /index.html /app.js /style.css"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mattcanty/rain-clock.git"
-  },
-  "author": "Matt Canty",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/matthewcanty/weather-clock/issues"
-  },
-  "homepage": "http://weatherclock.matthewcanty.co.uk/",
-  "engines": {
-    "node": "5.1.0"
-  }
+    "name": "rain-clock",
+    "version": "0.0.1",
+    "description": "View hyper-local rain predictions on a clock",
+    "main": "app.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mattcanty/rain-clock.git"
+    },
+    "author": "Matt Canty",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/matthewcanty/weather-clock/issues"
+    },
+    "homepage": "http://weatherclock.matthewcanty.co.uk/",
+    "scripts": {
+        "build": "webpack --mode production",
+        "local": "webpack --watch --mode development",
+        "update-stack": "aws cloudformation update-stack --stack-name rainclock --template-body file://aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM",
+        "make-dist": "mkdir -p dist/aws/lambda",
+        "zip-lambda": "npm run make-dist && cd ~/workspace/aws/lambda/forecast && zip -r ../../../dist/aws/lambda/forecast.zip *",
+        "clean-lambda": "rm -rf dist/aws/lambda",
+        "build-lambda": "npm run clean-lambda && npm run zip-lambda",
+        "sync-public": "aws s3 cp public s3://rainclock-rainclockpublicbucket-16zshove7uwcq/ --recursive && npm run invalidate-cache",
+        "sync-lambda": "aws s3 cp dist/aws/lambda/forecast.zip s3://rainclock-management-rainclocklambdabucket-978qdlqdm11f/",
+        "invalidate-cache": "aws cloudfront create-invalidation --distribution-id E3A6JN1T2QV89C --paths /index.html /app.js /style.css"
+    },
+    "dependencies": {
+        "compression": "^1.7.0",
+        "d3": "^7.6.1",
+        "darksky": "^0.1.2",
+        "debug": "^2.1.0",
+        "dotenv": "^4.0.0",
+        "express": "^4.10.1",
+        "node-cache": "^4.1.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "request": "2.79.0",
+        "styled-components": "^5.3.5",
+        "styled-system": "^5.1.5",
+        "swr": "^1.3.0",
+        "twitter": "1.7.0",
+        "unfetch": "^4.2.0",
+        "use-interval": "^1.4.0"
+    },
+    "devDependencies": {
+        "@svgr/webpack": "^6.3.1",
+        "@types/d3": "^7.4.0",
+        "@types/react": "^18.0.15",
+        "@types/react-dom": "^18.0.6",
+        "@types/styled-components": "^5.1.25",
+        "@types/styled-system": "^5.1.15",
+        "css-loader": "^6.7.1",
+        "css-modules-typescript-loader": "^4.0.1",
+        "dotenv-webpack": "^8.0.0",
+        "mini-css-extract-plugin": "^2.6.1",
+        "node-sass": "^7.0.1",
+        "prettier": "^2.7.1",
+        "sass-loader": "^13.0.2",
+        "style-loader": "^3.3.1",
+        "ts-loader": "^9.3.1",
+        "tslib": "^2.4.0",
+        "typescript": "^4.7.4",
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^4.9.3"
+    }
 }
