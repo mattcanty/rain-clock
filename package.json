@@ -10,11 +10,11 @@
     "author": "Matt Canty",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/matthewcanty/weather-clock/issues"
+        "url": "https://github.com/matthewcanty/rain-clock/issues"
     },
-    "homepage": "http://weatherclock.matthewcanty.co.uk/",
+    "homepage": "http://rainclock.matthewcanty.co.uk/",
     "scripts": {
-        "build": "webpack --mode production",
+        "build": "webpack --mode development",
         "local": "webpack --watch --mode development",
         "update-stack": "aws cloudformation update-stack --stack-name rainclock --template-body file://aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM",
         "make-dist": "mkdir -p dist/aws/lambda",
@@ -28,8 +28,8 @@
     "dependencies": {
         "@svgr/webpack": "^6.3.1",
         "@types/d3": "^7.4.0",
-        "@types/react-dom": "^18.0.6",
         "@types/react": "^18.0.15",
+        "@types/react-dom": "^18.0.6",
         "@types/styled-components": "^5.1.25",
         "@types/styled-system": "^5.1.15",
         "compression": "^1.7.0",
@@ -38,16 +38,16 @@
         "d3": "^7.6.1",
         "darksky": "^0.1.2",
         "debug": "^2.1.0",
-        "dotenv-webpack": "^8.0.0",
         "dotenv": "^4.0.0",
+        "dotenv-webpack": "^8.0.0",
         "express": "^4.10.1",
         "mini-css-extract-plugin": "^2.6.1",
         "node-cache": "^4.1.1",
-        "node-sass": "^7.0.1",
         "prettier": "^2.7.1",
-        "react-dom": "^18.2.0",
         "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "request": "2.79.0",
+        "saas": "^1.63.4",
         "sass-loader": "^13.0.2",
         "style-loader": "^3.3.1",
         "styled-components": "^5.3.5",
@@ -62,5 +62,8 @@
         "webpack": "^5.73.0",
         "webpack-cli": "^4.10.0",
         "webpack-dev-server": "^4.9.3"
+    },
+    "devDependencies": {
+        "sass": "^1.63.4"
     }
 }
