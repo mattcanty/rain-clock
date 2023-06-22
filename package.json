@@ -14,16 +14,8 @@
     },
     "homepage": "http://rainclock.matthewcanty.co.uk/",
     "scripts": {
-        "build": "webpack --mode development",
-        "local": "webpack --watch --mode development",
-        "update-stack": "aws cloudformation update-stack --stack-name rainclock --template-body file://aws/cf/templates/rainclock.yaml --capabilities CAPABILITY_IAM",
-        "make-dist": "mkdir -p dist/aws/lambda",
-        "zip-lambda": "npm run make-dist && cd ~/workspace/aws/lambda/forecast && zip -r ../../../dist/aws/lambda/forecast.zip *",
-        "clean-lambda": "rm -rf dist/aws/lambda",
-        "build-lambda": "npm run clean-lambda && npm run zip-lambda",
-        "sync-public": "aws s3 cp public s3://rainclock-rainclockpublicbucket-16zshove7uwcq/ --recursive && npm run invalidate-cache",
-        "sync-lambda": "aws s3 cp dist/aws/lambda/forecast.zip s3://rainclock-management-rainclocklambdabucket-978qdlqdm11f/",
-        "invalidate-cache": "aws cloudfront create-invalidation --distribution-id E3A6JN1T2QV89C --paths /index.html /app.js /style.css"
+        "build": "printenv && webpack --mode development",
+        "local": "webpack --watch --mode development"
     },
     "dependencies": {
         "@svgr/webpack": "^6.3.1",
