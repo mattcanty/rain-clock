@@ -40,8 +40,20 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	}
 
 	responseBody := ResponseBody{
-		Message: &weatherResponse.Currently.Summary,
+		Summary: &weatherResponse.Currently.Summary,
+		Data:    []ResponseWeatherData{},
 	}
+
+	for _, d := range weatherResponse.Minutely.Data {
+		responseBody.Data = append(responseBody.Data, ResponseWeatherData{
+			Time:                 d.Time,
+			PrecipIntensity:      d.PrecipIntensity,
+			PrecipProbability:    d.PrecipProbability,
+			PrecipIntensityError: d.PrecipIntensityError,
+			PrecipType:           d.PrecipType,
+		})
+	}
+
 	jbytes, _ := json.Marshal(responseBody)
 	jstr := string(jbytes)
 
@@ -58,5 +70,14 @@ func main() {
 }
 
 type ResponseBody struct {
-	Message *string `json:"message"`
+	Summary *string               `json:"summary"`
+	Data    []ResponseWeatherData `json:"data"`
+}
+
+type ResponseWeatherData struct {
+	Time                 int     `json:"time"`
+	PrecipIntensity      float64 `json:"precipIntensity"`
+	PrecipProbability    float64 `json:"precipProbability"`
+	PrecipIntensityError float64 `json:"precipIntensityError"`
+	PrecipType           string  `json:"precipType"`
 }
