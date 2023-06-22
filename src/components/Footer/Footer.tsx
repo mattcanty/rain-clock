@@ -7,7 +7,7 @@ const Footer: React.FunctionComponent = () => {
         <footer className={styles.footer}>
             <p>
                 Created by&nbsp;
-                <a href={process.env.GITHUB_REPO_URL} title="GitHub - Rain Clock" rel="noopener">
+                <a href="https://github.com/mattcanty" title="GitHub - Rain Clock" rel="noopener">
                     Matt Canty
                 </a>
                 with UI ❤️ from&nbsp;
