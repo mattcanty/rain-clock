@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -18,7 +19,16 @@ var apiKey = os.Getenv("PIRATE_WEATHER_API_KEY")
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	fmt.Println("This message will show up in the CLI console.")
 
-	url := fmt.Sprintf("https://api.pirateweather.net/forecast/%s/54.049591,-2.798430", apiKey)
+	latitude, err := strconv.ParseFloat(request.QueryStringParameters["latitude"], 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+	longitude, err := strconv.ParseFloat(request.QueryStringParameters["longitude"], 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	url := fmt.Sprintf("https://api.pirateweather.net/forecast/%s/%f,%f", apiKey, latitude, longitude)
 
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
