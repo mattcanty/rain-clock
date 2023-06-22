@@ -53,7 +53,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 
 	for _, d := range weatherResponse.Minutely.Data[0:60] {
 		responseBody = append(responseBody, ResponseWeatherData{
-			Time:              d.Time,
+			Time:              d.Time * 1000,
 			PrecipIntensity:   d.PrecipIntensity,
 			PrecipProbability: d.PrecipProbability,
 		})
