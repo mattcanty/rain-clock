@@ -14,7 +14,7 @@
     },
     "homepage": "http://rainclock.matthewcanty.co.uk/",
     "scripts": {
-        "build": "printenv && webpack --mode development",
+        "build": "webpack --mode development",
         "local": "webpack --watch --mode development"
     },
     "dependencies": {
