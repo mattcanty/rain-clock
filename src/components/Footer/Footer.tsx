@@ -6,11 +6,11 @@ const Footer: React.FunctionComponent = () => {
     return (
         <footer className={styles.footer}>
             <p>
-                Created by
+                Created by&nbsp;
                 <a href={process.env.GITHUB_REPO_URL} title="GitHub - Rain Clock" rel="noopener">
                     Matt Canty
                 </a>
-                with UI ❤️ from
+                with UI ❤️ from&nbsp;
                 <a href="https://github.com/Debens" title="GitHub - Andrew Debens" rel="noopener">
                     Andrew Debens
                 </a>
