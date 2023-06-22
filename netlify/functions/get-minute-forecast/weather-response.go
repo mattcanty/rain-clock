@@ -4,7 +4,7 @@ type WeatherResponse struct {
 	Latitude  float64 `json:"latitude,omitempty"`
 	Longitude float64 `json:"longitude,omitempty"`
 	Timezone  string  `json:"timezone,omitempty"`
-	Offset    int     `json:"offset,omitempty"`
+	Offset    float64 `json:"offset,omitempty"`
 	Elevation int     `json:"elevation,omitempty"`
 	Currently struct {
 		Time                 int     `json:"time,omitempty"`
