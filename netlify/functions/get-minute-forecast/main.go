@@ -50,8 +50,8 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	}
 
 	responseBody := ResponseBody{
-		Summary: &weatherResponse.Currently.Summary,
-		Data:    []ResponseWeatherData{},
+		// Summary: &weatherResponse.Currently.Summary,
+		Data: []ResponseWeatherData{},
 	}
 
 	for _, d := range weatherResponse.Minutely.Data[0:60] {
@@ -80,8 +80,8 @@ func main() {
 }
 
 type ResponseBody struct {
-	Summary *string               `json:"summary"`
-	Data    []ResponseWeatherData `json:"data"`
+	// Summary *string               `json:"summary"`
+	Data []ResponseWeatherData `json:"data"`
 }
 
 type ResponseWeatherData struct {
