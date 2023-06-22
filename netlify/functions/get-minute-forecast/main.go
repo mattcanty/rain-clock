@@ -65,8 +65,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	return &events.APIGatewayProxyResponse{
 		StatusCode: 200,
 		Headers: map[string]string{
-			"Content-Type":                "application/json",
-			"Access-Control-Allow-Origin": "*",
+			"Content-Type": "application/json",
 		},
 		Body:            jstr,
 		IsBase64Encoded: false,
