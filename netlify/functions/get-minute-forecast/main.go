@@ -12,11 +12,11 @@ import (
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	fmt.Println("This message will show up in the CLI console.")
 
-	msg := fmt.Sprintf("Hello %v %v", *person.FirstName, *person.LastName)
+	msg := fmt.Sprintf("Hello %v %v", "Matt", "Canty")
 	responseBody := ResponseBody{
 		Message: &msg,
 	}
-	jbytes, err := json.Marshal(responseBody)
+	jbytes, _ := json.Marshal(responseBody)
 	jstr := string(jbytes)
 
 	return &events.APIGatewayProxyResponse{
@@ -33,9 +33,4 @@ func main() {
 
 type ResponseBody struct {
 	Message *string `json:"message"`
-}
-
-type Person struct {
-	FirstName *string `json:"FirstName"`
-	LastName  *string `json:"LastName"`
 }
