@@ -4,17 +4,43 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
+var apiKey = os.Getenv("PIRATE_WEATHER_API_KEY")
+
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	fmt.Println("This message will show up in the CLI console.")
 
-	msg := fmt.Sprintf("Hello %v %v", "Matt", "Canty")
+	url := fmt.Sprintf("https://api.pirateweather.net/forecast/%s/54.049591,-2.798430", apiKey)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	bodyText, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var weatherResponse WeatherResponse
+	if err := json.Unmarshal(bodyText, &weatherResponse); err != nil {
+		log.Fatal(err)
+	}
+
 	responseBody := ResponseBody{
-		Message: &msg,
+		Message: &weatherResponse.Currently.Summary,
 	}
 	jbytes, _ := json.Marshal(responseBody)
 	jstr := string(jbytes)
