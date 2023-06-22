@@ -32,10 +32,10 @@ func main() {
 }
 
 type ResponseBody struct {
-    Message *string json:"message"
+	Message *string `json:"message"`
 }
 
 type Person struct {
-    FirstName *string json:"firstName"
-    LastName  *string json:"lastName"
+	FirstName *string `json:"FirstName"`
+	LastName  *string `json:"LastName"`
 }
