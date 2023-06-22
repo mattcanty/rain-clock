@@ -5,7 +5,7 @@ import { ForecastData } from '../model';
 
 const FORECAST_FETCHER = (position: GeolocationPosition) =>
     fetch(
-        `https://rainclock.mattcanty.com/api/get-minute-forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+        `${process.env.WEATHER_API_URL}?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
     ).then(r => r.json());
 
 /* every minute */
