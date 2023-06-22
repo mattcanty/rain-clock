@@ -26,7 +26,7 @@ type WeatherResponse struct {
 		WindBearing          float64 `json:"windBearing,omitempty"`
 		CloudCover           float64 `json:"cloudCover,omitempty"`
 		UvIndex              float64 `json:"uvIndex,omitempty"`
-		Visibility           int     `json:"visibility,omitempty"`
+		Visibility           float64 `json:"visibility,omitempty"`
 		Ozone                float64 `json:"ozone,omitempty"`
 	} `json:"currently,omitempty"`
 	Minutely struct {
