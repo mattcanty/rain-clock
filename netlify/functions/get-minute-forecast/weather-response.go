@@ -12,9 +12,9 @@ type WeatherResponse struct {
 		Icon                 string  `json:"icon,omitempty"`
 		NearestStormDistance int     `json:"nearestStormDistance,omitempty"`
 		NearestStormBearing  int     `json:"nearestStormBearing,omitempty"`
-		PrecipIntensity      int     `json:"precipIntensity,omitempty"`
-		PrecipProbability    int     `json:"precipProbability,omitempty"`
-		PrecipIntensityError int     `json:"precipIntensityError,omitempty"`
+		PrecipIntensity      float64 `json:"precipIntensity,omitempty"`
+		PrecipProbability    float64 `json:"precipProbability,omitempty"`
+		PrecipIntensityError float64 `json:"precipIntensityError,omitempty"`
 		PrecipType           string  `json:"precipType,omitempty"`
 		Temperature          float64 `json:"temperature,omitempty"`
 		ApparentTemperature  float64 `json:"apparentTemperature,omitempty"`
