@@ -27,7 +27,7 @@ const useIntensityScale = () => {
         () =>
             d3
                 .scaleLinear()
-                .range([0.1, 0])
+                .range([0.5, 0])
                 .domain([0, Math.max(1, max)]),
         [max],
     );
