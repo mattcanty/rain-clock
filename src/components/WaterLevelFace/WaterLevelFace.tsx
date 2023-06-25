@@ -22,13 +22,15 @@ const time = {
 const useIntensityScale = () => {
     const forecast = useForecast();
 
-    const max = Math.max(1, d3.max(forecast, d => d.precipIntensity) ?? 0);
+    const maxExpectedPrecipIntensity = 0.4
+
+    const max = Math.max(maxExpectedPrecipIntensity, d3.max(forecast, d => d.precipIntensity) ?? 0);
     return useMemo(
         () =>
             d3
                 .scaleLinear()
                 .range([1, 0])
-                .domain([0, Math.max(1, max)]),
+                .domain([0, Math.max(maxExpectedPrecipIntensity, max)]),
         [max],
     );
 };
