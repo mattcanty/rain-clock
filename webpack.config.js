@@ -17,10 +17,11 @@ module.exports = {
         ignored: /node_modules/,
     },
     devServer: {
-        port: '9500',
+        port: '8080',
         static: ['./public'],
         hot: true,
         liveReload: true,
+        inline: true
     },
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss', '.svg'],

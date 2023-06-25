@@ -27,7 +27,7 @@ const useIntensityScale = () => {
         () =>
             d3
                 .scaleLinear()
-                .range([1, 0])
+                .range([0.1, 0])
                 .domain([0, Math.max(1, max)]),
         [max],
     );
@@ -89,7 +89,7 @@ export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = prop
                     .attr('opacity', 0.8)
                     .attr('d', INITIAL_PATH);
             }
-            
+
             // transition on data change
             if (data) {
                 container.select('path').transition().duration(400).attr('d', data);
