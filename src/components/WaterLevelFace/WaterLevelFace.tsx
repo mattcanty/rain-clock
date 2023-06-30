@@ -42,7 +42,7 @@ const usePath = () => {
     const data = forecast.map(d => [time.toRadians(d.time), toRadius(d.precipIntensity)] as const);
     const radial = d3
         .areaRadial<readonly [number, number]>()
-        .curve(d3.curveNatural)
+        .curve(d3.curveLinear)
         .innerRadius(() => 1);
 
     return radial(data);
