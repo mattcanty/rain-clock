@@ -22,7 +22,7 @@ const time = {
 const useIntensityScale = () => {
     const forecast = useForecast();
 
-    const maxExpectedPrecipIntensity = 0.4
+    const maxExpectedPrecipIntensity = 0.04
 
     const max = Math.max(maxExpectedPrecipIntensity, d3.max(forecast, d => d.precipIntensity) ?? 0);
     return useMemo(
