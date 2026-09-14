@@ -31,7 +31,10 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
-                options: { projectReferences: true },
+                // otherwise ts-loader type-checks every file tsconfig's "include" matches (test
+                // files among them), not just what's actually bundled - pulling in test-only
+                // devDependencies (@types/jest etc.) as a hard requirement for the app build
+                options: { projectReferences: true, onlyCompileBundledFiles: true },
             },
             {
                 test: /\.module\.s(a|c)ss$/,
