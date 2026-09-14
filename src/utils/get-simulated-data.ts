@@ -1,7 +1,7 @@
 import { ForecastData } from '../forecast/model';
 
 export const getSimulatedData = (): ForecastData => {
-    var now = Math.round(new Date().getTime() / 1000);
+    var now = new Date().getTime();
     return [
         { time: now, precipIntensity: 0, precipProbability: 0 },
         { time: now + 60 * 1000 * 1, precipIntensity: 0, precipProbability: 0 },

@@ -20,8 +20,7 @@ module.exports = {
         port: '8080',
         static: ['./public'],
         hot: true,
-        liveReload: true,
-        inline: true
+        liveReload: true
     },
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss', '.svg'],
@@ -39,14 +38,19 @@ module.exports = {
                 use: [
                     'style-loader',
                     'css-modules-typescript-loader',
-                    { loader: 'css-loader', options: { modules: true } },
-                    'sass-loader',
+                    { loader: 'css-loader', options: { modules: { namedExport: false } } },
+                    { loader: 'sass-loader', options: { api: 'modern-compiler' } },
                 ],
             },
             {
                 test: /\.s(a|c)ss$/,
                 exclude: /\.module.(s(a|c)ss)$/,
-                use: ['style-loader', 'css-modules-typescript-loader', 'css-loader', 'sass-loader'],
+                use: [
+                    'style-loader',
+                    'css-modules-typescript-loader',
+                    'css-loader',
+                    { loader: 'sass-loader', options: { api: 'modern-compiler' } },
+                ],
             },
             {
                 test: /\.svg$/,

@@ -1,5 +1,6 @@
 .container {
-    flex: 1;
     position: relative;
-    padding: 24px;
+    width: min(calc(100vw - 48px), 70vh, 640px);
+    aspect-ratio: 1;
+    margin: 0 auto;
 }
