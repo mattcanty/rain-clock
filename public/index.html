@@ -43,61 +43,82 @@
 
             #rim {
                 fill: none;
-                stroke: #999;
-                stroke-width: 0.003;
+                stroke: #c1c7cd;
+                stroke-width: 0.004;
+            }
+
+            .tick {
+                stroke-linecap: round;
+            }
+
+            .tick.minor {
+                stroke: #c1c7cd;
+                stroke-width: 0.006;
+            }
+
+            .tick.major {
+                stroke: #161616;
+                stroke-width: 0.014;
             }
 
             .second-hand {
-                stroke-width: 0.01;
-                stroke: red;
+                stroke-width: 0.008;
+                stroke: #0f62fe;
+                stroke-linecap: round;
             }
 
             .minute-hand {
-                stroke: #000;
-                stroke-width: 0.012;
+                stroke: #161616;
+                stroke-width: 0.014;
                 stroke-linecap: round;
             }
 
             .hour-hand {
-                stroke: #000;
-                stroke-width: 0.03;
+                stroke: #161616;
+                stroke-width: 0.024;
                 stroke-linecap: round;
             }
 
             .hands-cover {
-                stroke-width: 0.01;
+                stroke-width: 0.012;
                 fill: #fff;
-                stroke: red;
-            }
-
-            .second-tick {
-                stroke: #000;
-                stroke-width: 0.01;
-                fill: #000;
-
-                stroke-linecap: round;
-            }
-
-            .hour-tick {
-                stroke: #000;
-                stroke-width: 0.04;
-
-                stroke-linecap: round;
+                stroke: #0f62fe;
             }
 
             .axis {
-                stroke-width: 0.004;
-                stroke: lightgrey;
-
                 fill: none;
             }
 
+            .axis.light {
+                stroke: #a6c8ff;
+                stroke-width: 0.004;
+                stroke-dasharray: 0.006 0.014;
+            }
+
+            .axis.moderate {
+                stroke: #4589ff;
+                stroke-width: 0.005;
+                stroke-dasharray: 0.018 0.012;
+            }
+
+            .axis.heavy {
+                stroke: #0043ce;
+                stroke-width: 0.006;
+            }
+
+            .axis text {
+                font-size: 0.032;
+                font-weight: 600;
+                fill: #525252;
+            }
+
             body {
-                font-family: Arial, Helvetica, sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
                 height: 100%;
                 margin: 0;
                 display: flex;
                 flex-direction: column;
+                -webkit-tap-highlight-color: transparent;
             }
         </style>
     </head>

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-14T00:00:00Z",
+  "title": "Design System: Rain Clock",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#161616", "tonalRamp": ["#161616", "#262626", "#393939", "#525252", "#6f6f6f", "#8d8d8d", "#c6c6c6", "#f4f4f4"] },
+      "surface": { "role": "neutral", "displayName": "Surface White", "canonical": "#ffffff", "tonalRamp": ["#161616", "#393939", "#6f6f6f", "#a8a8a8", "#c6c6c6", "#e0e0e0", "#f4f4f4", "#ffffff"] },
+      "neutral-border": { "role": "neutral", "displayName": "Hairline Border", "canonical": "#e0e0e0", "tonalRamp": ["#121619", "#343a3f", "#697077", "#a2a9b0", "#c1c7cd", "#dde1e6", "#f2f4f8", "#ffffff"] },
+      "neutral-quiet": { "role": "neutral", "displayName": "Quiet Gray", "canonical": "#c1c7cd", "tonalRamp": ["#121619", "#343a3f", "#697077", "#a2a9b0", "#c1c7cd", "#dde1e6", "#f2f4f8", "#ffffff"] },
+      "label-muted": { "role": "neutral", "displayName": "Muted Label", "canonical": "#525252", "tonalRamp": ["#161616", "#262626", "#393939", "#525252", "#6f6f6f", "#8d8d8d", "#c6c6c6", "#f4f4f4"] },
+      "accent-instrument": { "role": "primary", "displayName": "Instrument Blue", "canonical": "#0f62fe", "tonalRamp": ["#001141", "#001d6c", "#002d9c", "#0043ce", "#0f62fe", "#4589ff", "#a6c8ff", "#edf5ff"] },
+      "rain-fill": { "role": "secondary", "displayName": "Rain Fill", "canonical": "#b0c4de", "tonalRamp": ["#1b2a3d", "#2c4562", "#3d6087", "#4682b4", "#6fa0c4", "#98bed4", "#c1dce4", "#eaf3f8"] },
+      "rain-edge": { "role": "secondary", "displayName": "Rain Edge", "canonical": "#4682b4", "tonalRamp": ["#1b2a3d", "#2c4562", "#3d6087", "#4682b4", "#6fa0c4", "#98bed4", "#c1dce4", "#eaf3f8"] },
+      "rain-light": { "role": "tertiary", "displayName": "Rain Light", "canonical": "#a6c8ff", "tonalRamp": ["#001141", "#001d6c", "#002d9c", "#0043ce", "#0f62fe", "#4589ff", "#a6c8ff", "#edf5ff"] },
+      "rain-moderate": { "role": "tertiary", "displayName": "Rain Moderate", "canonical": "#4589ff", "tonalRamp": ["#001141", "#001d6c", "#002d9c", "#0043ce", "#0f62fe", "#4589ff", "#a6c8ff", "#edf5ff"] },
+      "rain-heavy": { "role": "tertiary", "displayName": "Rain Heavy", "canonical": "#0043ce", "tonalRamp": ["#001141", "#001d6c", "#002d9c", "#0043ce", "#0f62fe", "#4589ff", "#a6c8ff", "#edf5ff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Dial Display", "purpose": "Light/Moderate/Heavy band labels drawn inside the clock face SVG. Never used outside the dial." },
+      "body": { "displayName": "Page Body", "purpose": "Header title, footer attribution, and link text. Browser-default sizing, no custom scale yet." }
+    },
+    "shadows": [
+      { "name": "ambient-separator", "value": "0 0 8px 2px grey", "purpose": "Separates the header bar from the page. The only shadow in the system; never used as a 'lifted card' effect." }
+    ],
+    "motion": [
+      { "name": "hand-tick", "value": "400ms cubic-bezier(0.215, 0.61, 0.355, 1)", "purpose": "Clock hand rotation once a second, and the forecast fill redrawing when new data arrives." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Header Bar",
+      "kind": "nav",
+      "refersTo": "header-bar",
+      "description": "Fixed top bar: page title and a single external GitHub icon-link, separated from the page by the one ambient shadow in the system.",
+      "html": "<header class=\"ds-header\"><h1 class=\"ds-header-title\">Rain Clock</h1><a class=\"ds-header-link\" href=\"#\" aria-label=\"GitHub\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><circle cx=\"12\" cy=\"12\" r=\"10\"/></svg></a></header>",
+      "css": ".ds-header { display: flex; justify-content: space-between; align-items: center; padding: 0 12px; background: #ffffff; box-shadow: 0 0 8px 2px grey; font-family: Arial, Helvetica, sans-serif; } .ds-header-title { font-size: 1.5em; font-weight: bold; margin: 0.2em 0; } .ds-header-link { color: #161616; display: flex; } .ds-header-link:hover { color: #0f62fe; } .ds-header-link:focus-visible { outline: 2px solid #0f62fe; outline-offset: 2px; }"
+    },
+    {
+      "name": "Footer Bar",
+      "kind": "nav",
+      "refersTo": "footer-bar",
+      "description": "Full-width attribution strip in the Rain Fill color, echoing the dial's own forecast fill.",
+      "html": "<footer class=\"ds-footer\"><p class=\"ds-footer-text\">Created by <a class=\"ds-footer-link\" href=\"#\">Matt Canty</a></p><a class=\"ds-footer-link\" href=\"#\">Powered by Pirate Weather</a></footer>",
+      "css": ".ds-footer { display: flex; justify-content: space-between; align-items: center; padding: 24px; background: #b0c4de; font-family: Arial, Helvetica, sans-serif; } .ds-footer-link { color: #4682b4; text-decoration: none; } .ds-footer-link:hover { text-decoration: underline; } .ds-footer-link:focus-visible { outline: 2px solid #161616; outline-offset: 2px; }"
+    },
+    {
+      "name": "Quick Actions Toolbar",
+      "kind": "custom",
+      "refersTo": "quick-actions-toolbar",
+      "description": "Bordered, rounded pill grouping the icon buttons (locate me / simulate rain) below the clock.",
+      "html": "<div class=\"ds-toolbar\"><button class=\"ds-toolbar-btn\" aria-label=\"Use my location\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><circle cx=\"10\" cy=\"10\" r=\"6\"/></svg></button><button class=\"ds-toolbar-btn\" aria-label=\"Simulate rain\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><rect x=\"4\" y=\"4\" width=\"12\" height=\"12\"/></svg></button></div>",
+      "css": ".ds-toolbar { display: flex; gap: 8px; padding: 8px; border: 1px solid #e0e0e0; border-radius: 8px; background: #ffffff; width: fit-content; } .ds-toolbar-btn { border: none; background: transparent; padding: 4px; color: #161616; cursor: pointer; } .ds-toolbar-btn:hover { color: #0f62fe; } .ds-toolbar-btn:focus-visible { outline: 2px solid #0f62fe; outline-offset: 2px; }"
+    },
+    {
+      "name": "Clock Dial",
+      "kind": "custom",
+      "refersTo": "clock-dial",
+      "description": "The signature component: bezel, a 60-position tick bezel (major every 5th), three dashed rain-intensity bands, the forecast fill, and hour/minute/second hands. Simplified here to a few representative ticks for the panel.",
+      "html": "<svg class=\"ds-dial\" viewBox=\"0 0 2.2 2.2\"><g transform=\"translate(1.1,1.1)\"><circle class=\"ds-dial-rim\" r=\"1\"/><circle class=\"ds-dial-band ds-dial-band-light\" r=\"0.9\"/><circle class=\"ds-dial-band ds-dial-band-moderate\" r=\"0.65\"/><circle class=\"ds-dial-band ds-dial-band-heavy\" r=\"0.35\"/><line class=\"ds-dial-tick ds-dial-tick-major\" x1=\"0\" y1=\"1\" x2=\"0\" y2=\"1.045\" transform=\"rotate(0)\"/><line class=\"ds-dial-tick ds-dial-tick-major\" x1=\"0\" y1=\"1\" x2=\"0\" y2=\"1.045\" transform=\"rotate(30)\"/><line class=\"ds-dial-tick ds-dial-tick-minor\" x1=\"0\" y1=\"1\" x2=\"0\" y2=\"1.018\" transform=\"rotate(6)\"/><line class=\"ds-dial-tick ds-dial-tick-minor\" x1=\"0\" y1=\"1\" x2=\"0\" y2=\"1.018\" transform=\"rotate(12)\"/><line class=\"ds-dial-hand ds-dial-hand-hour\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"-0.47\" transform=\"rotate(60)\"/><line class=\"ds-dial-hand ds-dial-hand-minute\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"-0.76\" transform=\"rotate(140)\"/><line class=\"ds-dial-hand ds-dial-hand-second\" x1=\"0\" y1=\"0.15\" x2=\"0\" y2=\"-0.92\" transform=\"rotate(250)\"/><circle class=\"ds-dial-cap\" r=\"0.05\"/></g></svg>",
+      "css": ".ds-dial { width: 240px; height: 240px; } .ds-dial-rim { fill: none; stroke: #c1c7cd; stroke-width: 0.004; } .ds-dial-band { fill: none; } .ds-dial-band-light { stroke: #a6c8ff; stroke-width: 0.004; stroke-dasharray: 0.006 0.014; } .ds-dial-band-moderate { stroke: #4589ff; stroke-width: 0.005; stroke-dasharray: 0.018 0.012; } .ds-dial-band-heavy { stroke: #0043ce; stroke-width: 0.006; } .ds-dial-tick { stroke-linecap: round; } .ds-dial-tick-major { stroke: #161616; stroke-width: 0.014; } .ds-dial-tick-minor { stroke: #c1c7cd; stroke-width: 0.006; } .ds-dial-hand { stroke-linecap: round; } .ds-dial-hand-hour { stroke: #161616; stroke-width: 0.024; } .ds-dial-hand-minute { stroke: #161616; stroke-width: 0.014; } .ds-dial-hand-second { stroke: #0f62fe; stroke-width: 0.008; } .ds-dial-cap { fill: #ffffff; stroke: #0f62fe; stroke-width: 0.012; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Instrument on the Wall",
+    "overview": "Rain Clock reads as a well-made analog instrument that happens to know about rain, not as software wearing a clock skin. Everything on the dial — the bezel, the ticks, the hands, the intensity rings — belongs to the visual grammar of a real watch or barometer: thin metal, deliberate weight differences between major and minor marks, and restraint everywhere color could otherwise shout. The page around the dial stays out of the way: a quiet title bar, a quiet attribution strip, nothing that asks for a second look. This system explicitly rejects the conventions of a weather app. No numeric read-outs competing with the dial, no settings screens, no card grids of forecast data, no dashboard chrome. If a change would make this look more like software and less like an instrument, it's the wrong change.",
+    "keyCharacteristics": [
+      "One signature surface (the dial) carries almost the entire visual identity; page chrome is minimal by design, not by neglect.",
+      "Two font stacks by role, not by accident: a light instrument face for anything drawn on the dial, plain system sans for page chrome.",
+      "Color is functional before it's decorative — blue only appears where it's telling you about rain.",
+      "Flat by default; the one shadow in the system is soft and ambient, never a card-style drop shadow."
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Instrument Blue (#0f62fe) marks the single live, moving element (the second hand). It does not spread to buttons, links, or backgrounds.", "section": "colors" },
+      { "name": "The Two Blues Never Mix Rule", "body": "Chrome accent blue and rain blue are different systems with different jobs — one says 'this is interactive/live,' the other says 'this is how much rain.'", "section": "colors" },
+      { "name": "The Dial-Only Display Rule", "body": "The light instrument face never leaves the SVG. Page chrome stays on the plain body stack.", "section": "typography" },
+      { "name": "The Flat-Instrument Rule", "body": "Nothing on the dial gets a drop shadow. Depth comes from line weight and layering, not elevation.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep every rain-intensity encoding doubled — color step and dash pattern — never color alone.",
+      "Do reuse Rain Fill/Rain Edge for anything else that represents 'the forecast' itself.",
+      "Do keep tick and hand stroke-width proportioned to their length.",
+      "Do give the quick-action icon buttons real default/hover/focus/active states before shipping more of them."
+    ],
+    "donts": [
+      "Don't add menus, numeric read-outs, settings screens, or dashboard-style chrome.",
+      "Don't add card grids, drop shadows, or any 'lifted' surface treatment beyond the header's ambient separator.",
+      "Don't let Instrument Blue spread beyond the second hand into buttons, links, or backgrounds.",
+      "Don't hardcode new one-off spacing values outside the spacing scale.",
+      "Don't mix the display (dial) font into page chrome, or the body font into the dial."
+    ]
+  }
+}

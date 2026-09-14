@@ -12,6 +12,7 @@ type AnalogFaceProps = React.HTMLAttributes<HTMLDivElement> & {
 const HOUR_SCALE = d3.scaleLinear().range([0, 330]).domain([0, 11]);
 const MINUTE_SCALE = d3.scaleLinear().range([0, 354]).domain([0, 59]);
 const SECOND_SCALE = d3.scaleLinear().range([0, 354]).domain([0, 59]);
+const TICK_SCALE = d3.scaleLinear().range([0, 354]).domain([0, 59]);
 
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2
 
@@ -24,10 +25,9 @@ const AnalogFace: React.FunctionComponent<AnalogFaceProps> = props => {
     const hourHandLength = minuteHandLength / GOLDEN_RATIO;
     const secondHandLength = radius * 0.92;
     const secondHandBalance = radius * 0.15;
-    const secondTickStart = radius;
-    const secondTickLength = radius * 0.01;
-    const hourTickStart = radius;
-    const hourTickLength = secondTickLength * GOLDEN_RATIO;
+    const tickStart = radius;
+    const minorTickLength = radius * 0.018;
+    const majorTickLength = radius * 0.045;
 
     const HANDS = [
         {
@@ -82,27 +82,18 @@ const AnalogFace: React.FunctionComponent<AnalogFaceProps> = props => {
             .attr('transform', 'translate(' + (radius + margin) + ',' + (radius + margin) + ')')
             .style('overflow', 'overlay');
 
-        face.selectAll('.second-tick')
+        face.append('circle').attr('id', 'rim').attr('r', radius);
+
+        face.selectAll('.tick')
             .data(d3.range(0, 60))
             .enter()
             .append('line')
-            .attr('class', 'second-tick')
+            .attr('class', d => 'tick ' + (d % 5 === 0 ? 'major' : 'minor'))
             .attr('x1', 0)
             .attr('x2', 0)
-            .attr('y1', secondTickStart)
-            .attr('y2', secondTickStart + secondTickLength)
-            .attr('transform', d => 'rotate(' + SECOND_SCALE(d) + ')');
-
-        face.selectAll('.hour-tick')
-            .data(d3.range(0, 12))
-            .enter()
-            .append('line')
-            .attr('class', 'hour-tick')
-            .attr('x1', 0)
-            .attr('x2', 0)
-            .attr('y1', hourTickStart)
-            .attr('y2', hourTickStart + hourTickLength)
-            .attr('transform', d => 'rotate(' + HOUR_SCALE(d) + ')');
+            .attr('y1', tickStart)
+            .attr('y2', d => tickStart + (d % 5 === 0 ? majorTickLength : minorTickLength))
+            .attr('transform', d => 'rotate(' + TICK_SCALE(d) + ')');
 
         const hands = face.append('g').attr('id', 'clock-hands');
 
