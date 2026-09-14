@@ -4,21 +4,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { Coordinates } from '../../utils/use-position';
 import { ForecastData } from '../model';
 
-interface MinutelyForecastResponse {
-    data: { dt: number; precipitation: number }[];
-}
-
+/* proxied through our own Netlify function rather than called directly: the weather
+   provider doesn't send CORS headers for browser requests, and this also keeps the
+   API key server-side instead of shipping it in the client bundle */
 const FORECAST_FETCHER = ([, lat, lon]: readonly [string, string, string]) =>
-    fetch(`${process.env.WEATHER_API_URL}?lat=${lat}&lon=${lon}&appid=${process.env.WEATHER_API_KEY}`)
-        .then(r => r.json())
-        .then(
-            (response: MinutelyForecastResponse): ForecastData =>
-                response.data.map(({ dt, precipitation }) => ({
-                    time: dt * 1000,
-                    precipIntensity: precipitation,
-                    precipProbability: precipitation > 0 ? 1 : 0,
-                })),
-        );
+    fetch(`/.netlify/functions/get-minute-forecast?lat=${lat}&lon=${lon}`).then((r): Promise<ForecastData> => r.json());
 
 /* every minute */
 const REFRESH_INTERVAL = 1 * 1000 * 60;

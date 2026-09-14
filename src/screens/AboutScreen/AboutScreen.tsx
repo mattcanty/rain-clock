@@ -24,7 +24,7 @@ const AboutScreen: React.FunctionComponent = () => {
                     </p>
                     <a
                         className={styles.coffee}
-                        href={process.env.BUY_ME_A_COFFEE_URL}
+                        href="https://buymeacoffee.com/mattcanty"
                         target="_blank"
                         rel="noopener"
                     >

@@ -16,10 +16,6 @@ const minutes = {
         .range([0, Math.PI * 2]),
 };
 
-const time = {
-    toRadians: (input: number) => minutes.toRadians(new Date(input).getMinutes()),
-};
-
 /* precipitation intensity bands, in OpenWeatherMap's units (mm, replacing Dark Sky's in/h) */
 const maxExpectedPrecipIntensity = 1;
 
@@ -53,32 +49,65 @@ const useIntensityScale = () => {
 /* re-checked this often so elapsed minutes drop off the ring as the clock hand passes them */
 const PAST_CHECK_INTERVAL = 15 * 1000;
 
-const usePath = () => {
+/* one wedge per forecast minute, angularly aligned to that minute's tick on the clock face */
+type Bar = {
+    key: number;
+    startAngle: number;
+    endAngle: number;
+    innerRadius: number;
+    outerRadius: number;
+    probability: number;
+    /* heavier than the "typical" heavy-rain reference — flagged with its own colour rather
+       than just a deeper shade of the usual one, so a freak spike can't be mistaken for
+       ordinary heavy rain */
+    extreme: boolean;
+};
+
+const useBars = (): Bar[] => {
     const forecast = useForecast();
     const toRadius = useIntensityScale();
     const now = useNow(PAST_CHECK_INTERVAL);
 
-    const data = forecast
+    return forecast
         .filter(d => d.time > now)
-        .map(d => [time.toRadians(d.time), toRadius(d.precipIntensity)] as const);
-    const radial = d3
-        .areaRadial<readonly [number, number]>()
-        .curve(d3.curveLinear)
-        .innerRadius(() => 1);
-
-    return radial(data);
+        .map(d => {
+            const minute = new Date(d.time).getMinutes();
+            return {
+                key: d.time,
+                startAngle: minutes.toRadians(minute),
+                endAngle: minutes.toRadians(minute + 1),
+                innerRadius: toRadius(d.precipIntensity),
+                outerRadius: 1,
+                probability: d.precipProbability,
+                extreme: d.precipIntensity > maxExpectedPrecipIntensity,
+            };
+        });
 };
+
+/* probability drives how deep/saturated each bar's colour is; extreme-heavy bars are drawn
+   from a different hue entirely so they read as unusual rather than merely "more of the same" */
+const barColor = (d: Bar) => (d.extreme ? d3.interpolateReds(0.35 + d.probability * 0.65) : d3.interpolateBlues(0.15 + d.probability * 0.7));
+const barStroke = (d: Bar) => (d.extreme ? 'firebrick' : 'steelblue');
+
+const barArc = d3
+    .arc<Bar>()
+    .innerRadius(d => d.innerRadius)
+    .outerRadius(d => d.outerRadius)
+    .startAngle(d => d.startAngle)
+    .endAngle(d => d.endAngle)
+    .padAngle(0.035)
+    .padRadius(1);
 
 const DATA_POINTS = getSimulatedData().map<[number, number]>((_, i, { length }) => [(2 * Math.PI * i) / length, 1]);
 const INITIAL_PATH = d3.areaRadial().curve(d3.curveBasis).innerRadius(1)(DATA_POINTS);
 
 export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = props => {
     const forecast = useForecast();
-    const data = usePath();
+    const bars = useBars();
     const toRadius = useIntensityScale();
     const face = useD3(
         container => {
-            if (!container.select('path').node()) {
+            if (!container.select('svg').node()) {
                 const svg = container
                     .append('svg')
                     .attr('viewBox', `0 0 2.2 2.2`)
@@ -101,20 +130,45 @@ export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = prop
                     .attr('x', 0.05)
                     .text(d => d.label);
 
-                // draw initial path, just a circle, to enable initial transition
-                const path = svg.append('g').append('path');
-                path.attr('transform', 'translate(1.1,1.1)')
+                // draw an initial full circle, flush with the rim, to enable the first transition in
+                const placeholder = svg.append('g').append('path').attr('class', 'placeholder');
+                placeholder
+                    .attr('transform', 'translate(1.1,1.1)')
                     .attr('fill', 'lightsteelblue')
                     .attr('stroke', 'steelblue')
                     .attr('stroke-width', 0.01)
                     .attr('opacity', 0.8)
                     .attr('d', INITIAL_PATH);
+
+                svg.append('g').attr('class', 'bars-group').attr('transform', 'translate(1.1,1.1)');
             }
 
             // skip until the first forecast arrives (keeps the placeholder circle); after that, an
-            // empty (all-past) forecast clears the shape instead of freezing on stale data
+            // empty (all-past) forecast clears the bars instead of freezing on stale data
             if (forecast.length > 0) {
-                container.select('path').transition().duration(400).attr('d', data ?? '');
+                container.select('.placeholder').remove();
+
+                container
+                    .select('.bars-group')
+                    .selectAll<SVGPathElement, Bar>('path.bar')
+                    .data(bars, d => d.key)
+                    .join(
+                        enter =>
+                            enter
+                                .append('path')
+                                .attr('class', 'bar')
+                                .attr('stroke-width', 0.004)
+                                .attr('fill', barColor)
+                                .attr('stroke', barStroke)
+                                .attr('d', barArc),
+                        update => update,
+                        exit => exit.remove(),
+                    )
+                    .transition()
+                    .duration(400)
+                    .attr('fill', barColor)
+                    .attr('stroke', barStroke)
+                    .attr('d', barArc);
             }
 
             // position bands to match the current intensity scale
@@ -127,7 +181,7 @@ export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = prop
                     d3.select(this).select('text').attr('y', -r - 0.014);
                 });
         },
-        [data, toRadius],
+        [bars, toRadius],
     );
 
     return <ClockFace ref={face} {...props} />;
