@@ -70,31 +70,52 @@ export const LocationBox: React.FunctionComponent = () => {
         resumeAutoRefresh();
     };
 
+    // drops the pinned override and asks the browser for its own location again; only ever
+    // rendered while there is an override to drop, so clearing it always triggers its own fetch
+    const reset = () => {
+        clearOverride();
+        requestPosition();
+        resumeAutoRefresh();
+    };
+
     return (
-        <input
-            className={styles.location}
-            value={value}
-            onFocus={() => {
-                editing.current = true;
-                // only ever retry once from a click/tap — re-requesting on every focus can pop a
-                // permission prompt each time, which steals focus right as you're trying to paste
-                if (!position && !requestedOnFocus.current) {
-                    requestedOnFocus.current = true;
-                    requestPosition();
-                }
-            }}
-            onChange={event => setValue(event.target.value)}
-            onBlur={commit}
-            onKeyDown={event => {
-                if (event.key === 'Enter') event.currentTarget.blur();
-            }}
-            placeholder={!position && locationError ? locationError : 'latitude,longitude'}
-            title={!position && locationError ? locationError : undefined}
-            inputMode="text"
-            autoComplete="off"
-            spellCheck={false}
-            aria-label="Location, as latitude,longitude"
-        />
+        <div className={styles.container}>
+            <input
+                className={styles.location}
+                value={value}
+                onFocus={() => {
+                    editing.current = true;
+                    // only ever retry once from a click/tap — re-requesting on every focus can pop a
+                    // permission prompt each time, which steals focus right as you're trying to paste
+                    if (!position && !requestedOnFocus.current) {
+                        requestedOnFocus.current = true;
+                        requestPosition();
+                    }
+                }}
+                onChange={event => setValue(event.target.value)}
+                onBlur={commit}
+                onKeyDown={event => {
+                    if (event.key === 'Enter') event.currentTarget.blur();
+                }}
+                placeholder={!position && locationError ? locationError : 'latitude,longitude'}
+                title={!position && locationError ? locationError : undefined}
+                inputMode="text"
+                autoComplete="off"
+                spellCheck={false}
+                aria-label="Location, as latitude,longitude"
+            />
+            {isOverridden && (
+                <button
+                    type="button"
+                    className={styles.reset}
+                    onClick={reset}
+                    aria-label="Reset to detected location"
+                    title="Reset to detected location"
+                >
+                    ↺
+                </button>
+            )}
+        </div>
     );
 };
 

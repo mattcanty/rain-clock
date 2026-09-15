@@ -13,6 +13,7 @@ const fakePosition = (latitude: number, longitude: number): GeolocationPosition 
 
 beforeEach(() => {
     jest.clearAllMocks();
+    localStorage.clear();
     Object.defineProperty(global.navigator, 'geolocation', {
         value: mockGeolocation,
         configurable: true,
@@ -87,5 +88,44 @@ describe('usePosition', () => {
         unmount();
 
         expect(mockGeolocation.clearWatch).toHaveBeenCalledTimes(1);
+    });
+
+    describe('persisting the override', () => {
+        it('saves a new override to localStorage', () => {
+            const { result } = renderHook(() => usePosition());
+
+            act(() => result.current[1].setCoordinates({ latitude: 54.6564, longitude: -7.688 }));
+
+            expect(JSON.parse(localStorage.getItem('rain-clock:location-override')!)).toEqual({
+                latitude: 54.6564,
+                longitude: -7.688,
+            });
+        });
+
+        it('removes the stored override on clear', () => {
+            const { result } = renderHook(() => usePosition());
+            act(() => result.current[1].setCoordinates({ latitude: 54.6564, longitude: -7.688 }));
+
+            act(() => result.current[1].clearOverride());
+
+            expect(localStorage.getItem('rain-clock:location-override')).toBeNull();
+        });
+
+        it('picks up an override already stored from a previous visit', () => {
+            localStorage.setItem('rain-clock:location-override', JSON.stringify({ latitude: 54.6564, longitude: -7.688 }));
+
+            const { result } = renderHook(() => usePosition());
+
+            expect(result.current[0]).toEqual({ latitude: 54.6564, longitude: -7.688 });
+            expect(result.current[1].isOverridden).toBe(true);
+        });
+
+        it('ignores unreadable stored data rather than crashing', () => {
+            localStorage.setItem('rain-clock:location-override', 'not json');
+
+            const { result } = renderHook(() => usePosition());
+
+            expect(result.current[0]).toBeUndefined();
+        });
     });
 });
