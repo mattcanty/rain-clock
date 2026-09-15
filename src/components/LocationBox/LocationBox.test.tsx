@@ -178,6 +178,18 @@ describe('LocationBox', () => {
     });
 
     describe('reset button', () => {
+        it('stays hidden while there is nothing to reset, kept as a bit of an easter egg', () => {
+            renderLocationBox({ isOverridden: false }, LONDON);
+
+            expect(screen.queryByRole('button', { name: 'Reset to detected location' })).not.toBeInTheDocument();
+        });
+
+        it('appears once an override is pinned', () => {
+            renderLocationBox({ isOverridden: true }, LONDON);
+
+            expect(screen.getByRole('button', { name: 'Reset to detected location' })).toBeInTheDocument();
+        });
+
         it('clears the override and re-requests the device position', () => {
             const { controls, resumeAutoRefresh } = renderLocationBox({ isOverridden: true }, LONDON);
             controls.requestPosition.mockClear();
@@ -189,15 +201,7 @@ describe('LocationBox', () => {
             expect(resumeAutoRefresh).toHaveBeenCalled();
         });
 
-        it('forces a refresh when there was no override to clear', () => {
-            const { controls } = renderLocationBox({ isOverridden: false }, LONDON);
-
-            fireEvent.click(screen.getByRole('button', { name: 'Reset to detected location' }));
-
-            expect(controls.refreshNow).toHaveBeenCalled();
-        });
-
-        it("doesn't force a refresh when clearing an override, since that already triggers one", () => {
+        it("doesn't force a refresh, since clearing an override already triggers one", () => {
             const { controls } = renderLocationBox({ isOverridden: true }, LONDON);
 
             fireEvent.click(screen.getByRole('button', { name: 'Reset to detected location' }));
