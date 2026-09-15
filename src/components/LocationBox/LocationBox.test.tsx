@@ -176,4 +176,33 @@ describe('LocationBox', () => {
 
         expect(controls.requestPosition).toHaveBeenCalledTimes(1);
     });
+
+    describe('reset button', () => {
+        it('clears the override and re-requests the device position', () => {
+            const { controls, resumeAutoRefresh } = renderLocationBox({ isOverridden: true }, LONDON);
+            controls.requestPosition.mockClear();
+
+            fireEvent.click(screen.getByRole('button', { name: 'Reset to detected location' }));
+
+            expect(controls.clearOverride).toHaveBeenCalled();
+            expect(controls.requestPosition).toHaveBeenCalledTimes(1);
+            expect(resumeAutoRefresh).toHaveBeenCalled();
+        });
+
+        it('forces a refresh when there was no override to clear', () => {
+            const { controls } = renderLocationBox({ isOverridden: false }, LONDON);
+
+            fireEvent.click(screen.getByRole('button', { name: 'Reset to detected location' }));
+
+            expect(controls.refreshNow).toHaveBeenCalled();
+        });
+
+        it("doesn't force a refresh when clearing an override, since that already triggers one", () => {
+            const { controls } = renderLocationBox({ isOverridden: true }, LONDON);
+
+            fireEvent.click(screen.getByRole('button', { name: 'Reset to detected location' }));
+
+            expect(controls.refreshNow).not.toHaveBeenCalled();
+        });
+    });
 });
