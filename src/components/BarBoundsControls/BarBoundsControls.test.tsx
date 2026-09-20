@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { BAR_BOUNDS_STORAGE_KEY } from '../WaterLevelFace/bar-bounds';
@@ -39,5 +39,16 @@ describe('BarBoundsControls', () => {
 
         expect(screen.getByRole('slider', { name: 'Upper rain bar bound' })).toHaveValue('0.82');
         expect(screen.getByRole('slider', { name: 'Lower rain bar bound' })).toHaveValue('0.71');
+    });
+
+    it('clamps and persists bounds when sliders are changed', () => {
+        useHashRoute.mockReturnValue('rain-bars');
+        render(<BarBoundsControls />);
+
+        fireEvent.change(screen.getByRole('slider', { name: 'Upper rain bar bound' }), { target: { value: '0.50' } });
+        fireEvent.change(screen.getByRole('slider', { name: 'Lower rain bar bound' }), { target: { value: '0.90' } });
+
+        expect(screen.getByRole('slider', { name: 'Lower rain bar bound' })).toHaveValue('0.49');
+        expect(localStorage.getItem(BAR_BOUNDS_STORAGE_KEY)).toBe(JSON.stringify({ upper: 0.5, lower: 0.49 }));
     });
 });
