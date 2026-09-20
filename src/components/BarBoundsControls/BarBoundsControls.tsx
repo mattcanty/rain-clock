@@ -30,7 +30,7 @@ export const BarBoundsControls: React.FunctionComponent = () => {
     if (!enabled) return null;
 
     return (
-        <fieldset className={styles.container} aria-label="Rain bar tuning">
+        <fieldset className={styles.container}>
             <legend className={styles.legend}>Rain bar bounds</legend>
             <label className={styles.row}>
                 <span>Upper</span>
@@ -40,6 +40,8 @@ export const BarBoundsControls: React.FunctionComponent = () => {
                     max="1"
                     step="0.01"
                     value={formatValue(bounds.upper)}
+                    aria-label="Upper rain bar bound"
+                    aria-valuetext={formatValue(bounds.upper)}
                     onChange={event => updateBounds(setBounds, { ...bounds, upper: Number(event.target.value) })}
                 />
                 <output>{formatValue(bounds.upper)}</output>
@@ -52,6 +54,8 @@ export const BarBoundsControls: React.FunctionComponent = () => {
                     max="0.99"
                     step="0.01"
                     value={formatValue(bounds.lower)}
+                    aria-label="Lower rain bar bound"
+                    aria-valuetext={formatValue(bounds.lower)}
                     onChange={event => updateBounds(setBounds, { ...bounds, lower: Number(event.target.value) })}
                 />
                 <output>{formatValue(bounds.lower)}</output>
