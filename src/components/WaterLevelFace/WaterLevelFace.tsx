@@ -50,6 +50,7 @@ const useBarBounds = () => {
     const [bounds, setBounds] = useState<BarBounds>(readStoredBarBounds);
 
     useEffect(() => {
+        if (typeof window === 'undefined') return;
         const onUpdate = () => setBounds(readStoredBarBounds());
         window.addEventListener(BAR_BOUNDS_CHANGED_EVENT, onUpdate);
         window.addEventListener('storage', onUpdate);
