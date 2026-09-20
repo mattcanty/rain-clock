@@ -48,7 +48,7 @@ export const writeStoredBarBounds = (bounds: BarBounds) => {
     } catch {
         // storage can be unavailable; keep the in-memory update path via the custom event
     }
-    window.dispatchEvent(new Event(BAR_BOUNDS_CHANGED_EVENT));
+    if (typeof window !== 'undefined') window.dispatchEvent(new Event(BAR_BOUNDS_CHANGED_EVENT));
 };
 
 export const isBarBoundsFeatureEnabled = (route: string) => route === BAR_BOUNDS_FLAG_ROUTE;
