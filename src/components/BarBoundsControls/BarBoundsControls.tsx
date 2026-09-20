@@ -47,7 +47,9 @@ export const BarBoundsControls: React.FunctionComponent = () => {
                     value={formatValue(bounds.upper)}
                     aria-label="Upper rain bar bound"
                     aria-valuetext={formatValue(bounds.upper)}
-                    onChange={event => updateBounds(setBounds, current => ({ ...current, upper: Number(event.target.value) }))}
+                    onChange={event =>
+                        updateBounds(setBounds, current => ({ ...current, upper: Number(event.currentTarget.value) }))
+                    }
                 />
                 <output>{formatValue(bounds.upper)}</output>
             </label>
@@ -61,7 +63,9 @@ export const BarBoundsControls: React.FunctionComponent = () => {
                     value={formatValue(bounds.lower)}
                     aria-label="Lower rain bar bound"
                     aria-valuetext={formatValue(bounds.lower)}
-                    onChange={event => updateBounds(setBounds, current => ({ ...current, lower: Number(event.target.value) }))}
+                    onChange={event =>
+                        updateBounds(setBounds, current => ({ ...current, lower: Number(event.currentTarget.value) }))
+                    }
                 />
                 <output>{formatValue(bounds.lower)}</output>
             </label>
