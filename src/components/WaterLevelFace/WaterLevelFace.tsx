@@ -1,11 +1,18 @@
 import * as d3 from 'd3';
-import React, { memo, useMemo } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 
 import { getSimulatedData } from '../../utils/get-simulated-data';
 import { useD3 } from '../../utils/use-d3';
 import { useNow } from '../../utils/use-now';
 import ClockFace from '../ClockFace/ClockFace';
 import { useForecast } from '../ForecastProvider/ForecastProvider';
+import {
+    BAR_BOUNDS_CHANGED_EVENT,
+    BarBounds,
+    DEFAULT_BAR_BOUNDS,
+    clampBarBounds,
+    readStoredBarBounds,
+} from './bar-bounds';
 
 type WaterLevelFaceProps = React.HTMLAttributes<HTMLDivElement> & {};
 
@@ -35,15 +42,37 @@ export const INTENSITY_FLOOR = 0.01;
 export const createIntensityScale = (max: number) =>
     d3
         .scaleLog()
-        .range([1, 0])
+        .range([DEFAULT_BAR_BOUNDS.upper, DEFAULT_BAR_BOUNDS.lower])
         .domain([INTENSITY_FLOOR, Math.max(max, INTENSITY_FLOOR * 10)])
         .clamp(true);
 
-const useIntensityScale = () => {
+const useBarBounds = () => {
+    const [bounds, setBounds] = useState<BarBounds>(readStoredBarBounds);
+
+    useEffect(() => {
+        const onUpdate = () => setBounds(readStoredBarBounds());
+        window.addEventListener(BAR_BOUNDS_CHANGED_EVENT, onUpdate);
+        window.addEventListener('storage', onUpdate);
+        return () => {
+            window.removeEventListener(BAR_BOUNDS_CHANGED_EVENT, onUpdate);
+            window.removeEventListener('storage', onUpdate);
+        };
+    }, []);
+
+    return clampBarBounds(bounds);
+};
+
+const useIntensityScale = (bounds: BarBounds) => {
     const forecast = useForecast();
 
     const max = Math.max(maxExpectedPrecipIntensity, d3.max(forecast, d => d.precipIntensity) ?? 0);
-    return useMemo(() => createIntensityScale(max), [max]);
+    return useMemo(
+        () =>
+            createIntensityScale(max)
+                .range([bounds.upper, bounds.lower])
+                .clamp(true),
+        [bounds.lower, bounds.upper, max],
+    );
 };
 
 /* re-checked this often so elapsed minutes drop off the ring as the clock hand passes them */
@@ -63,9 +92,9 @@ type Bar = {
     extreme: boolean;
 };
 
-const useBars = (): Bar[] => {
+const useBars = (bounds: BarBounds): Bar[] => {
     const forecast = useForecast();
-    const toRadius = useIntensityScale();
+    const toRadius = useIntensityScale(bounds);
     const now = useNow(PAST_CHECK_INTERVAL);
 
     return forecast
@@ -77,7 +106,7 @@ const useBars = (): Bar[] => {
                 startAngle: minutes.toRadians(minute),
                 endAngle: minutes.toRadians(minute + 1),
                 innerRadius: toRadius(d.precipIntensity),
-                outerRadius: 1,
+                outerRadius: bounds.upper,
                 probability: d.precipProbability,
                 extreme: d.precipIntensity > maxExpectedPrecipIntensity,
             };
@@ -102,9 +131,10 @@ const DATA_POINTS = getSimulatedData().map<[number, number]>((_, i, { length }) 
 const INITIAL_PATH = d3.areaRadial().curve(d3.curveBasis).innerRadius(1)(DATA_POINTS);
 
 export const WaterLevelFace: React.FunctionComponent<WaterLevelFaceProps> = props => {
+    const bounds = useBarBounds();
     const forecast = useForecast();
-    const bars = useBars();
-    const toRadius = useIntensityScale();
+    const bars = useBars(bounds);
+    const toRadius = useIntensityScale(bounds);
     const face = useD3(
         container => {
             if (!container.select('svg').node()) {

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 
+import BarBoundsControls from '../../components/BarBoundsControls/BarBoundsControls';
 import Header from '../../components/Header/Header';
 import LocationBox from '../../components/LocationBox/LocationBox';
 import styles from './landing-screen.module.scss';
@@ -13,6 +14,7 @@ const LandingScreen: React.FunctionComponent<LandingScreenProps> = props => {
             <div className={styles.content}>
                 {props.children}
                 <LocationBox />
+                <BarBoundsControls />
             </div>
         </div>
     );
