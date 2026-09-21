@@ -21,3 +21,12 @@
     color: #525252;
     font-size: 0.8rem;
 }
+
+.colorRow {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: center;
+    gap: 8px;
+    color: #525252;
+    font-size: 0.8rem;
+}
