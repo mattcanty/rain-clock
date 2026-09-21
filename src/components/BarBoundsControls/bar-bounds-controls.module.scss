@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    max-width: 320px;
+    margin: 0;
+    padding: 10px 14px;
+    border: 1px dashed #c6c6c6;
+    border-radius: 8px;
+}
+
+.legend {
+    padding: 0 4px;
+    color: #6f6f6f;
+    font-size: 0.75rem;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 44px 1fr 36px;
+    align-items: center;
+    gap: 8px;
+    color: #525252;
+    font-size: 0.8rem;
+}
+
+.colorRow {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: center;
+    gap: 8px;
+    color: #525252;
+    font-size: 0.8rem;
+}

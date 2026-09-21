@@ -1,25 +1,26 @@
 import { createIntensityScale, INTENSITY_FLOOR } from './WaterLevelFace';
+import { DEFAULT_BAR_BOUNDS } from './bar-bounds';
 
 describe('createIntensityScale', () => {
     it('maps "no rain" (and anything at or below the floor) to the outer rim', () => {
         const scale = createIntensityScale(1);
 
-        expect(scale(0)).toBe(1);
-        expect(scale(INTENSITY_FLOOR)).toBe(1);
+        expect(scale(0)).toBe(DEFAULT_BAR_BOUNDS.upper);
+        expect(scale(INTENSITY_FLOOR)).toBe(DEFAULT_BAR_BOUNDS.upper);
     });
 
     it('maps the heaviest reading in the current forecast to the centre', () => {
         const max = 5;
         const scale = createIntensityScale(max);
 
-        expect(scale(max)).toBeCloseTo(0);
+        expect(scale(max)).toBeCloseTo(DEFAULT_BAR_BOUNDS.lower);
     });
 
     it('never goes past the rim or the centre for out-of-range input', () => {
         const scale = createIntensityScale(1);
 
-        expect(scale(-1)).toBeLessThanOrEqual(1);
-        expect(scale(1000)).toBeGreaterThanOrEqual(0);
+        expect(scale(-1)).toBeLessThanOrEqual(DEFAULT_BAR_BOUNDS.upper);
+        expect(scale(1000)).toBeGreaterThanOrEqual(DEFAULT_BAR_BOUNDS.lower);
     });
 
     it('moves by equal amounts for equal order-of-magnitude jumps in intensity', () => {
