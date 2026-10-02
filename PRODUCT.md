@@ -10,7 +10,7 @@ web
 
 ## Users
 
-Anyone who lands on rainclock.mattcanty.com — a public, anonymous visitor with no account and no return-visit assumption. The job to be done is narrow and immediate: check whether it's about to rain, right now, without reading a forecast or navigating a weather app.
+Anyone who lands on rainclock.live — a public, anonymous visitor with no account and no return-visit assumption. The job to be done is narrow and immediate: check whether it's about to rain, right now, without reading a forecast or navigating a weather app.
 
 ## Product Purpose
 

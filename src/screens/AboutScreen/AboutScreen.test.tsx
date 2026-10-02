@@ -24,4 +24,10 @@ describe('AboutScreen', () => {
 
         expect(screen.getByRole('link', { name: /openweather/i })).toBeInTheDocument();
     });
+
+    it('shows the copyright notice', () => {
+        render(<AboutScreen />);
+
+        expect(screen.getByText(/© 2014–2026 Matt Canty\. All rights reserved\./)).toBeInTheDocument();
+    });
 });
