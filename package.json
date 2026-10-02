@@ -8,11 +8,12 @@
         "url": "https://github.com/mattcanty/rain-clock.git"
     },
     "author": "Matt Canty",
-    "license": "ISC",
+    "license": "UNLICENSED",
+    "private": true,
     "bugs": {
         "url": "https://github.com/matthewcanty/rain-clock/issues"
     },
-    "homepage": "https://rainclock.mattcanty.com/",
+    "homepage": "https://rainclock.live/",
     "scripts": {
         "build": "webpack --mode production",
         "local": "webpack serve --mode development",

@@ -38,6 +38,7 @@ const AboutScreen: React.FunctionComponent = () => {
                             </a>
                             .
                         </span>
+                        <span>© 2014–2026 Matt Canty. All rights reserved.</span>
                     </div>
                 </div>
             </div>
