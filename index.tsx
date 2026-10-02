@@ -19,3 +19,8 @@ const root = ReactDOM.createRoot(element);
  *  reference: https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode/61897567#61897567
  */
 root.render(<App />);
+
+// registering a service worker is part of what makes browsers offer to install the site as an app
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+}

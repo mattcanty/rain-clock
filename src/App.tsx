@@ -6,6 +6,7 @@ import { ForecastProvider } from './components/ForecastProvider/ForecastProvider
 import RainClock from './components/RainClock/RainClock';
 import WaterLevelFace from './components/WaterLevelFace/WaterLevelFace';
 import AboutScreen from './screens/AboutScreen/AboutScreen';
+import InstallScreen from './screens/InstallScreen/InstallScreen';
 import LandingScreen from './screens/LandingScreen/LandingScreen';
 import { light } from './theme/light';
 import { useHashRoute } from './utils/use-hash-route';
@@ -18,6 +19,8 @@ export const App: React.FunctionComponent = () => {
             <ForecastProvider>
                 {route === 'about' ? (
                     <AboutScreen />
+                ) : route === 'install' ? (
+                    <InstallScreen />
                 ) : (
                     <LandingScreen>
                         <RainClock>
