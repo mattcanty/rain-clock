@@ -1,4 +1,8 @@
 .container {
     position: absolute;
     inset: 0;
+    /* each face gets its own compositing layer: without this, Safari repaints the dirty
+       rect under a moving hand with only part of the stack and blanks out rain bars */
+    transform: translateZ(0);
+    will-change: transform;
 }
